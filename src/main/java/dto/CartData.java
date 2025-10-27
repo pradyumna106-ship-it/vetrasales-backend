@@ -3,7 +3,7 @@ package dto;
 import entity.Product;
 
 public class CartData {
-	String username;
+	String customerEmail;
 	Product prod;
 	Integer quantity;
 	
@@ -12,18 +12,18 @@ public class CartData {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CartData(String username, Product prod, Integer quantity) {
+	public CartData(String customerEmail, Product prod, Integer quantity) {
 		super();
-		this.username = username;
+		this.customerEmail = customerEmail;
 		this.prod = prod;
 		this.quantity = quantity;
 	}
 
 	public String getUsername() {
-		return username;
+		return customerEmail;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(String customerEmail) {
+		this.customerEmail = customerEmail;
 	}
 	public Product getProd() {
 		return prod;
@@ -42,7 +42,7 @@ public class CartData {
 
 	@Override
 	public String toString() {
-		return "CartData [username=" + username + ", prod=" + prod + ", quantity=" + quantity + "]";
+		return "CartData [username=" + customerEmail + ", prod=" + prod + ", quantity=" + quantity + "]";
 	}
 	
 	
