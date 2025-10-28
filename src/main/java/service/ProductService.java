@@ -2,6 +2,9 @@ package service;
 
 import java.util.List;
 
+import dto.AddReviewDTO;
+import dto.CreateProductDTO;
+import dto.UpdateProductDTO;
 import entity.Product;
 
 public interface ProductService {

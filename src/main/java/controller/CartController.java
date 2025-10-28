@@ -11,22 +11,25 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 public class CartController {
-    @Autowired private CartService cartService;
 
-    @PostMapping("/addToCart")
-    public String addToCart(@RequestBody CartData data) {
-        cartService.addToCart(data);
-        return "success";
-    }
 
-    @PostMapping("/updateCartItem")
-    public String updateCartItem(@RequestBody CartData data) {
-        cartService.updateCartItem(data);
-        return "success";
-    }
+	@Autowired private CartService service;
 
-    @GetMapping("/viewCart")
-    public List<CartItemDTO> viewCart(@RequestParam String username) {
-        return cartService.getCartItems(username);
-    }
+	@PostMapping(value = "/addToCart", consumes = "application/json", produces = "application/json")
+	public String addtocart(@RequestBody CartData data) {
+		service.addToCart(data);
+		return "success";
+	}
+
+	@GetMapping("/viewCart")
+	public List<CartItemDTO> viewCart(@RequestParam String email) {
+		return service.getCartItems(email);
+	}
+
+	@PostMapping("/updateCartItem")
+	public String updateCartItem(@RequestBody CartData data) {
+		service.updateCartItem(data);
+		return "success";
+	}
+
 }
