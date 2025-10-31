@@ -1,8 +1,8 @@
 package com.sales.savvy.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import entity.Cart;
-import entity.User;
+import com.sales.savvy.entity.Cart;
+import com.sales.savvy.entity.User;
 
 import java.util.Optional;
 

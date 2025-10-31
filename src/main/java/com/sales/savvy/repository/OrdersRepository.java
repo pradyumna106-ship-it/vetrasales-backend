@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import entity.Orders;
+import com.sales.savvy.entity.Orders;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
