@@ -1,7 +1,5 @@
 package entity;
 
-package sales.savvy.entity;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
