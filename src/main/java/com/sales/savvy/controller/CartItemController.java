@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import service.CartItemService;
+import com.sales.savvy.service.CartItemService;
 @CrossOrigin("*")
 @RestController
 public class CartItemController {

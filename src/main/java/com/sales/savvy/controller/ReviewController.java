@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import entity.Review;
-import service.ReviewService;
+import com.sales.savvy.entity.Review;
+import com.sales.savvy.service.ReviewService;
 
 public class ReviewController {
 	@Autowired ReviewService service;

@@ -1,6 +1,6 @@
 package com.sales.savvy.dto;
 
-import entity.Product;
+import com.sales.savvy.entity.Product;
 
 public class CartData {
 	String customerEmail;

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.OrderDTO;
-import entity.Orders;
-import service.OrdersService;
+import com.sales.savvy.dto.OrderDTO;
+import com.sales.savvy.entity.Orders;
+import com.sales.savvy.service.OrdersService;
 
 @CrossOrigin("*")
 @RestController

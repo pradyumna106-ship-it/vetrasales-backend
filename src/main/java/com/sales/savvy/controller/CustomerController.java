@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.CustomerDTO;
-import entity.Customer;
-import service.CustomerService;
+import com.sales.savvy.dto.CustomerDTO;
+import com.sales.savvy.entity.Customer;
+import com.sales.savvy.service.CustomerService;
 
 @CrossOrigin("*")
 @RestController

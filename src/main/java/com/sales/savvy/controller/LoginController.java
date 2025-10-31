@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.LoginData;
-import dto.LoginResponseDTO;
-import service.LoginService;
+import com.sales.savvy.dto.LoginData;
+import com.sales.savvy.dto.LoginResponseDTO;
+import com.sales.savvy.service.LoginService;
 
 @CrossOrigin("*")
 @RestController

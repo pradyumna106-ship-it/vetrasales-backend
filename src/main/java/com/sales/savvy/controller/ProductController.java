@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.AddReviewDTO;
-import dto.CreateProductDTO;
-import dto.UpdateProductDTO;
-import entity.Product;
-import service.ProductService;
+import com.sales.savvy.dto.AddReviewDTO;
+import com.sales.savvy.dto.CreateProductDTO;
+import com.sales.savvy.dto.UpdateProductDTO;
+import com.sales.savvy.entity.Product;
+import com.sales.savvy.service.ProductService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

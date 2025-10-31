@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.AdminOtpValidateDTO;
-import dto.DeliveryOtpValidateDTO;
-import dto.DeliverySetPasswordDTO;
-import dto.EmailRequestDTO;
-import dto.SetPasswordDTO;
-import service.OtpService;
+import com.sales.savvy.dto.AdminOtpValidateDTO;
+import com.sales.savvy.dto.DeliveryOtpValidateDTO;
+import com.sales.savvy.dto.DeliverySetPasswordDTO;
+import com.sales.savvy.dto.EmailRequestDTO;
+import com.sales.savvy.dto.SetPasswordDTO;
+import com.sales.savvy.service.OtpService;
 
 @CrossOrigin("*")
 @RestController

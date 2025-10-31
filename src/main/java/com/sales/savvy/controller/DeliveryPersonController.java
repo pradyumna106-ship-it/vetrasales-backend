@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.DeliveryConfirmedProductDTO;
-import dto.DeliverySignupDTO;
-import entity.DeliveryPerson;
-import service.DeliveryPersonService;
+import com.sales.savvy.dto.DeliveryConfirmedProductDTO;
+import com.sales.savvy.dto.DeliverySignupDTO;
+import com.sales.savvy.entity.DeliveryPerson;
+import com.sales.savvy.service.DeliveryPersonService;
 
 import jakarta.mail.MessagingException;
 

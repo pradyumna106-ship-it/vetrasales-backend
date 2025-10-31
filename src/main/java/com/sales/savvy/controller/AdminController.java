@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.AdminOrderedProductDTO;
-import dto.AdminSignupDTO;
-import entity.Admin;
-import service.AdminService;
+import com.sales.savvy.dto.AdminOrderedProductDTO;
+import com.sales.savvy.dto.AdminSignupDTO;
+import com.sales.savvy.entity.Admin;
+import com.sales.savvy.service.AdminService;
 
 import jakarta.mail.MessagingException;
 

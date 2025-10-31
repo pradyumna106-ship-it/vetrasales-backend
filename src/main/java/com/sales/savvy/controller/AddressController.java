@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import entity.Address;
-import service.AddressService;
-import dto.AddressDTO;
+import com.sales.savvy.entity.Address;
+import com.sales.savvy.service.AddressService;
+import com.sales.savvy.dto.AddressDTO;
 @CrossOrigin("*")
 @RestController
 public class AddressController {

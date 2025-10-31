@@ -3,9 +3,9 @@ package com.sales.savvy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.LoginData;
-import entity.User;
-import service.UserService;
+import com.sales.savvy.dto.LoginData;
+import com.sales.savvy.entity.User;
+import com.sales.savvy.service.UserService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

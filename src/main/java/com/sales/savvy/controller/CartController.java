@@ -2,9 +2,9 @@ package com.sales.savvy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import dto.CartData;
-import dto.CartItemDTO;
-import service.CartService;
+import com.sales.savvy.dto.CartData;
+import com.sales.savvy.dto.CartItemDTO;
+import com.sales.savvy.service.CartService;
 
 import java.util.List;
 
