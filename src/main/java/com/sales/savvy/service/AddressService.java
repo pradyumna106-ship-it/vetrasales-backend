@@ -3,8 +3,8 @@ package com.sales.savvy.service;
 import java.util.List;
 import java.util.Optional;
 
-import dto.AddressDTO;
-import entity.Address;
+import com.sales.savvy.dto.AddressDTO;
+import com.sales.savvy.entity.Address;
 public interface AddressService {
 	void addAddress(AddressDTO addressDto);
 
