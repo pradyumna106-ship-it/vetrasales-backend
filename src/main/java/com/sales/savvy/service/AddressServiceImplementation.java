@@ -7,11 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dto.AddressDTO;
-import entity.Address;
-import entity.Customer;
-import repository.AddressRepository;
-import repository.CustomerRepository;
+import com.sales.savvy.dto.AddressDTO;
+import com.sales.savvy.entity.Address;
+import com.sales.savvy.entity.Customer;
+import com.sales.savvy.repository.AddressRepository;
+import com.sales.savvy.repository.CustomerRepository;
 
 @Service
 public class AddressServiceImplementation implements AddressService {
