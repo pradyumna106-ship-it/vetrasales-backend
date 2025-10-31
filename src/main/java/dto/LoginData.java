@@ -12,7 +12,7 @@ public class LoginData {
 	@NotNull(message = "Password cannot be null")
 	private String password;
 
-	public LoginDataDTO() {
+	public LoginData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

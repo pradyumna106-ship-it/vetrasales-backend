@@ -1,5 +1,7 @@
 package dto;
 
+import java.time.LocalDateTime;
+
 public class DeliveryConfirmedProductDTO {
 	private Long orderId;
 	private LocalDateTime orderTime;
