@@ -1,6 +1,5 @@
 package com.sales.savvy.entity;
 
-
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -10,7 +9,6 @@ import jakarta.persistence.*;
 
 @Entity
 public class Product {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
@@ -42,7 +40,7 @@ public class Product {
 	@OneToMany(mappedBy = "product")
 	@JsonManagedReference
 	private List<Review> review;
-	
+
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -50,7 +48,7 @@ public class Product {
 
 	public Product(Long id, String productName, String category, String brand, String description, double price,
 			double discount, double finalPrice, int quantity, double ratings, String productImage, Admin admin,
-			List<CartItem> item) {
+			List<CartItem> item, List<OrderItem> items, List<Review> review) {
 		super();
 		Id = id;
 		this.productName = productName;
@@ -65,14 +63,8 @@ public class Product {
 		this.productImage = productImage;
 		this.admin = admin;
 		this.item = item;
-	}
-
-	@Override
-	public String toString() {
-		return "Product [Id=" + Id + ", productName=" + productName + ", category=" + category + ", brand=" + brand
-				+ ", description=" + description + ", price=" + price + ", discount=" + discount + ", finalPrice="
-				+ finalPrice + ", quantity=" + quantity + ", ratings=" + ratings + ", productImage=" + productImage
-				+ ", admin=" + admin + ", item=" + item + "]";
+		this.items = items;
+		this.review = review;
 	}
 
 	public Long getId() {
@@ -178,7 +170,30 @@ public class Product {
 	public void setItem(List<CartItem> item) {
 		this.item = item;
 	}
-	
-	
 
+	public List<OrderItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<OrderItem> items) {
+		this.items = items;
+	}
+
+	public List<Review> getReview() {
+		return review;
+	}
+
+	public void setReview(List<Review> review) {
+		this.review = review;
+	}
+
+	@Override
+	public String toString() {
+		return "Product [Id=" + Id + ", productName=" + productName + ", category=" + category + ", brand=" + brand
+				+ ", description=" + description + ", price=" + price + ", discount=" + discount + ", finalPrice="
+				+ finalPrice + ", quantity=" + quantity + ", ratings=" + ratings + ", productImage=" + productImage
+				+ ", admin=" + admin + ", item=" + item + ", items=" + items + "]";
+	}
+	
+	
 }

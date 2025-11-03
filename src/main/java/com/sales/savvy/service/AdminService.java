@@ -2,9 +2,7 @@ package com.sales.savvy.service;
 
 import java.util.List;
 
-import dto.AdminOrderedProductDTO;
-import dto.AdminSignupDTO;
-import entity.Admin;
+import com.sales.savvy.entity.Admin;
 
 import jakarta.mail.MessagingException;
 

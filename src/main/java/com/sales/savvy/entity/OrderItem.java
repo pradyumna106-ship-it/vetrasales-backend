@@ -1,12 +1,8 @@
 package com.sales.savvy.entity;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class OrderItem {
@@ -39,12 +35,6 @@ public class OrderItem {
 		this.quantity = quantity;
 	}
 
-	@Override
-	public String toString() {
-		return "OrderItem [Id=" + Id + ", orders=" + orders + ", product=" + product 
-				+ ", quantity=" + quantity + "]";
-	}
-
 	public Long getId() {
 		return Id;
 	}
@@ -69,7 +59,6 @@ public class OrderItem {
 		this.product = product;
 	}
 
-
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -77,4 +66,11 @@ public class OrderItem {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderItem [Id=" + Id + ", quantity=" + quantity + "]";
+	}
+	
+	
 }

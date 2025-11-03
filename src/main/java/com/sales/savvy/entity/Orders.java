@@ -1,4 +1,5 @@
 package com.sales.savvy.entity;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 
 @Entity
@@ -37,14 +37,6 @@ public class Orders {
 	@JsonManagedReference
 	private List<OrderItem> items;
 
-	@OneToOne(mappedBy = "order")
-	@JsonManagedReference
-	private Payment paymnet;
-
-	@ManyToOne
-	@JsonBackReference
-	@JoinColumn(name = "delivery_person_id")
-	private DeliveryPerson deliveryPerson;
 
 	@PrePersist
 	public void setStatus() {
@@ -59,7 +51,7 @@ public class Orders {
 	}
 
 	public Orders(Long id, String paymentId, LocalDateTime ordertime, Double totAmount, String address, String status,
-			Customer customer, List<OrderItem> items, Payment paymnet, DeliveryPerson deliveryPerson) {
+			Customer customer, List<OrderItem> items) {
 		super();
 		this.id = id;
 		this.paymentId = paymentId;
@@ -69,15 +61,6 @@ public class Orders {
 		this.status = status;
 		this.customer = customer;
 		this.items = items;
-		this.paymnet = paymnet;
-		this.deliveryPerson = deliveryPerson;
-	}
-
-	@Override
-	public String toString() {
-		return "Orders [id=" + id + ", paymentId=" + paymentId + ", ordertime=" + ordertime + ", totAmount=" + totAmount
-				+ ", Address=" + Address + ", status=" + status + ", customer=" + customer + ", items=" + items
-				+ ", paymnet=" + paymnet + ", deliveryPerson=" + deliveryPerson + "]";
 	}
 
 	public Long getId() {
@@ -144,19 +127,10 @@ public class Orders {
 		this.items = items;
 	}
 
-	public Payment getPaymnet() {
-		return paymnet;
+	@Override
+	public String toString() {
+		return "Orders [id=" + id + ", paymentId=" + paymentId + ", ordertime=" + ordertime + ", totAmount=" + totAmount
+				+ ", Address=" + Address + ", status=" + status + ", customer=" + customer + ", items=" + items + "]";
 	}
-
-	public void setPaymnet(Payment paymnet) {
-		this.paymnet = paymnet;
-	}
-
-	public DeliveryPerson getDeliveryPerson() {
-		return deliveryPerson;
-	}
-
-	public void setDeliveryPerson(DeliveryPerson deliveryPerson) {
-		this.deliveryPerson = deliveryPerson;
-	}
+	
 }

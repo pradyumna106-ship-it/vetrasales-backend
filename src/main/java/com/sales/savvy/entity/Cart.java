@@ -1,57 +1,73 @@
 package com.sales.savvy.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", unique = true)
-    private User user;
+	@OneToOne
+	@JoinColumn(name = "customer", unique = true)
+	@JsonBackReference
+	private Customer customer;
 
-    @OneToMany(
-      mappedBy = "cart",
-      cascade = CascadeType.ALL,
-      orphanRemoval = true
-    )
-    @JsonManagedReference
-    private List<CartItem> itemList = new ArrayList<>();
+	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private List<CartItem> items;
 
-    public Cart() {}
-    public Cart(User user) {
-        this.user = user;
-    }
+	public Cart() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	public Long getId() {
+	public Cart(long id, Customer customer, List<CartItem> items) {
+		super();
+		this.id = id;
+		this.customer = customer;
+		this.items = items;
+	}
+
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public Customer getCustomer() {
+		return customer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
-	public List<CartItem> getItemList() {
-		return itemList;
+	public List<CartItem> getItems() {
+		return items;
 	}
 
-	public void setItemList(List<CartItem> itemList) {
-		this.itemList = itemList;
+	public void setItems(List<CartItem> items) {
+		this.items = items;
+	}
+
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + "]";
 	}
 	
 	
