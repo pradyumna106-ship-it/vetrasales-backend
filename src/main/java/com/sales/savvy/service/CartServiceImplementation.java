@@ -31,7 +31,8 @@ public class CartServiceImplementation implements CartService {
 				.orElseThrow(() -> new RuntimeException("User not found"));
 		Cart cart = repo.findByUser(user)
 				.orElseGet(() -> {
-					Cart c = new Cart(user);
+					Cart c = new Cart();
+					c.setUser(user);
 					return repo.save(c);
 				});
 
@@ -45,7 +46,10 @@ public class CartServiceImplementation implements CartService {
 		CartItem item = existing
 				.map(ci -> { ci.setQuantity(ci.getQuantity() + qty); return ci; })
 				.orElseGet(() -> {
-					CartItem ci = new CartItem(cart, prod, qty);
+					CartItem ci = new CartItem();
+					ci.setCart(cart);
+					ci.setProd(prod);
+					ci.setQuantity(qty);
 					return ci;
 				});
 
@@ -56,7 +60,7 @@ public class CartServiceImplementation implements CartService {
 	public void updateCartItem(CartData data) {
 		User user = userRepo.findByUsername(data.getUsername())
 				.orElseThrow(() -> new RuntimeException("User not found"));
-		Cart cart = cartRepo.findByUser(user)
+		Cart cart = repo.findByUser(user)
 				.orElseThrow(() -> new RuntimeException("Cart not found"));
 
 		Long pid = data.getProd().getId();
@@ -71,7 +75,7 @@ public class CartServiceImplementation implements CartService {
 		}
 	}
 
-	@Transactional(ReadOnly = true)
+	@Transactional
 	public List<CartItemDTO> getCartItems(String username) {
 		User user = userRepo.findByUsername(username)
 				.orElseThrow(() -> new RuntimeException("User not found"));
