@@ -19,7 +19,7 @@ public class UserController {
 	
 	@Autowired private UserService service;
 	
-	@PostMapping("/signUp")
+	@PostMapping(value = "/signUp", consumes = "application/json")
 	public String signUp(@RequestBody User user) {
 		return service.addUser(user);		
 	}
