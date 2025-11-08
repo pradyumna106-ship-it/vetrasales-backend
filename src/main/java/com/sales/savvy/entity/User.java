@@ -1,5 +1,9 @@
 package com.sales.savvy.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +21,9 @@ public class User {
 	
 	@OneToOne
 	private Cart cart;
+	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+	@JsonBackReference
+	private List<Product> products;
 	
 	public User() {
 		super();

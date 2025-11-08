@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sales.savvy.dto.ProductDTO;
 import com.sales.savvy.entity.Product;
 import com.sales.savvy.service.ProductService;
 
@@ -22,7 +23,7 @@ public class ProductController {
 	ProductService service;
 	
 	@PostMapping("/addProduct")
-	public String addProduct(@RequestBody Product prod) {
+	public String addProduct(@RequestBody ProductDTO prod) {
 		service.addProduct(prod);
 		return "success";
 	}

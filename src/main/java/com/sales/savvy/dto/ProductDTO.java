@@ -7,19 +7,19 @@ public class ProductDTO {
 	private String description;
 	private Integer price;
 	private String image;
-	private Long adminId;
+	private String adminName;
 	public ProductDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ProductDTO(Long id, String name, String description, Integer price, String image, Long adminId) {
+	public ProductDTO(Long id, String name, String description, Integer price, String image, String adminName) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.image = image;
-		this.adminId = adminId;
+		this.adminName = adminName;
 	}
 	public Long getId() {
 		return id;
@@ -51,16 +51,17 @@ public class ProductDTO {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public Long getAdminId() {
-		return adminId;
+	public String getAdminName() {
+		return adminName;
 	}
-	public void setAdminId(Long adminId) {
-		this.adminId = adminId;
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
 	}
 	@Override
 	public String toString() {
 		return "ProductDTO [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
-				+ ", image=" + image + ", adminId=" + adminId + "]";
+				+ ", image=" + image + ", adminName=" + adminName + "]";
 	}
+	
 	
 }

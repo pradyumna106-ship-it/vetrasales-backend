@@ -1,5 +1,7 @@
 package com.sales.savvy.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -12,19 +14,22 @@ public class Product {
 	private String description;
 	private Integer price;
 	private String image;
-	
+	@ManyToOne
+    @JoinColumn(name = "admin_id") // FK column in Product table
+	@JsonManagedReference
+    private User admin;
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Product(Long id, String name, String description, Integer price, String image) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.image = image;
-	}
+	public Product(Long id, String name, String description, Integer price, String image, User admin) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.image = image;
+        this.admin = admin;
+    }
 	public Long getId() {
 		return id;
 	}
@@ -55,11 +60,19 @@ public class Product {
 	public void setImage(String image) {
 		this.image = image;
 	}
+	
+	public User getAdmin() {
+		return admin;
+	}
+	public void setAdmin(User admin) {
+		this.admin = admin;
+	}
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", image="
-				+ image + "]";
+				+ image + ", admin=" + admin + "]";
 	}
+	
 
 	
 }
