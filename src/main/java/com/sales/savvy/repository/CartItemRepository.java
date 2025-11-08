@@ -1,11 +1,10 @@
 package com.sales.savvy.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.sales.savvy.entity.CartItem;
 
+import java.util.Optional;
+
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-	Optional<CartItem> findByCartIdAndProdId(Long cartId, Long prodId);
+    Optional<CartItem> findByCartIdAndProdId(Long cartId, Long prodId);
 }

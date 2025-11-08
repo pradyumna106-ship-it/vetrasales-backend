@@ -5,14 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Cart {
@@ -32,17 +25,10 @@ public class Cart {
     @JsonManagedReference
     private List<CartItem> itemList = new ArrayList<>();
 
-	public Cart() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Cart(Long id, User user, List<CartItem> itemList) {
-		super();
-		this.id = id;
-		this.user = user;
-		this.itemList = itemList;
-	}
+    public Cart() {}
+    public Cart(User user) {
+        this.user = user;
+    }
 
 	public Long getId() {
 		return id;
@@ -67,10 +53,4 @@ public class Cart {
 	public void setItemList(List<CartItem> itemList) {
 		this.itemList = itemList;
 	}
-
-	@Override
-	public String toString() {
-		return "Cart [id=" + id + ", user=" + user + ", itemList=" + itemList + "]";
-	}
-    
 }

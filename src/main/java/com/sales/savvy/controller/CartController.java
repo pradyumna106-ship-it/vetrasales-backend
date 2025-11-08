@@ -1,25 +1,20 @@
 package com.sales.savvy.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import com.sales.savvy.dto.CartData;
 import com.sales.savvy.dto.CartItemDTO;
 import com.sales.savvy.service.CartService;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
+@RequestMapping("/api")
 public class CartController {
-	@Autowired private CartService service;
-	
-	@PostMapping("/addToCart")
+    @Autowired private CartService service;
+
+    @PostMapping("/addToCart")
     public String addToCart(@RequestBody CartData data) {
         service.addToCart(data);
         return "success";
