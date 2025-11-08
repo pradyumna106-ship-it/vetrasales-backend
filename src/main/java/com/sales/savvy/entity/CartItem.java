@@ -16,9 +16,11 @@ public class CartItem {
     @JsonBackReference
     private Cart cart;
 
-    @ManyToOne
+    
     @JoinColumn(name = "product_id")
+    @ManyToOne
     private Product product;
+
 
     private int quantity;
 

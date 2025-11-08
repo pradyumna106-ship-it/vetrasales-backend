@@ -48,7 +48,7 @@ public class CartServiceImplementation implements CartService {
 				.orElseGet(() -> {
 					CartItem ci = new CartItem();
 					ci.setCart(cart);
-					ci.setProd(prod);
+					ci.setProduct(prod);
 					ci.setQuantity(qty);
 					return ci;
 				});
@@ -85,7 +85,7 @@ public class CartServiceImplementation implements CartService {
 		Cart cart = optCart.get();
 		List<CartItemDTO> out = new ArrayList<>();
 		for (CartItem ci : cart.getItemList()) {
-			Product p = ci.getProd();
+			Product p = ci.getProduct();
 			out.add(new CartItemDTO(
 					p.getId(), p.getName(), p.getDescription(),
 					p.getPrice(), p.getImage(), ci.getQuantity()
