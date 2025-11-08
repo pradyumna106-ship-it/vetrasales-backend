@@ -41,7 +41,7 @@ public class CartServiceImplementation implements CartService {
 
 		int qty = (data.getQuantity() != null ? data.getQuantity() : 1);
 		Optional<CartItem> existing = 
-				itemRepo.findByCartIdAndProdId(cart.getId(), prod.getId());
+				itemRepo.findByCartIdAndProductId(cart.getId(), prod.getId());
 
 		CartItem item = existing
 				.map(ci -> { ci.setQuantity(ci.getQuantity() + qty); return ci; })
@@ -64,7 +64,7 @@ public class CartServiceImplementation implements CartService {
 				.orElseThrow(() -> new RuntimeException("Cart not found"));
 
 		Long pid = data.getProd().getId();
-		CartItem item = itemRepo.findByCartIdAndProdId(cart.getId(), pid)
+		CartItem item = itemRepo.findByCartIdAndProductId(cart.getId(), pid)
 				.orElseThrow(() -> new RuntimeException("CartItem not found"));
 		int newQty = data.getQuantity();
 		if (newQty > 0) {
