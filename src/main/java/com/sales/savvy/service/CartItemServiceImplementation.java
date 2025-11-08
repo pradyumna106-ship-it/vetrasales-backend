@@ -8,4 +8,12 @@ import com.sales.savvy.repository.CartItemRepository;
 @Service
 public class CartItemServiceImplementation implements CartItemService {
 	@Autowired private CartItemRepository repo;
+
+	@Override
+	public String removeItem(Long id) {
+		// TODO Auto-generated method stub
+		repo.deleteById(id);
+		return "success";
+	}
+	
 }
