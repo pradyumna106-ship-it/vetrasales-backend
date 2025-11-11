@@ -22,7 +22,7 @@ public class User {
     private String dob;
     private String role;
  // User.java
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Product> products;
 
