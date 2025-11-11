@@ -1,6 +1,10 @@
 package com.sales.savvy.entity;
 
+import java.util.List;
+
 import org.springframework.boot.context.properties.bind.DefaultValue;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.*;
 
@@ -17,6 +21,10 @@ public class User {
     private String gender;
     private String dob;
     private String role;
+ // User.java
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Product> products;
 
     // Getters & Setters
     public Long getId() { return id; }
