@@ -3,9 +3,10 @@ package com.sales.savvy.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)  // ✅ Tells JPA to auto-generate IDs
     private Long id;
 
     private String username;

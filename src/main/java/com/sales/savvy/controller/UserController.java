@@ -1,6 +1,7 @@
 package com.sales.savvy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sales.savvy.dto.LoginData;
@@ -19,10 +20,16 @@ public class UserController {
 	
 	@Autowired private UserService service;
 	
-	@PostMapping(value = "/signUp", consumes = "application/json")
-	public String signUp(@RequestBody User user) {
-		return service.addUser(user);		
-	}
+	@PostMapping("/signUp")
+    public ResponseEntity<String> signUp(@RequestBody User user) {
+        String result = service.addUser(user);
+
+        if ("fail".equals(result)) {
+            return ResponseEntity.status(409).body("Username already exists");
+        } else {
+            return ResponseEntity.ok("User registered successfully");
+        }
+    }
 	
 	
 	@PostMapping("/signIn")
