@@ -19,7 +19,10 @@ public class ProductServiceImplementation
 	@Autowired private UserRepository userRepo;
 
 	@Override
-	public void addProduct(ProductDTO proddto) {
+	public String addProduct(ProductDTO proddto) {
+		if (proddto.getAdminName() == null || proddto.getDescription() == null || proddto.getId() == null || proddto.getName() == null || proddto.getPrice() == null) {
+			return "fail";
+		}
 		Optional<User> admin = userRepo.findByUsername(proddto.getAdminName());
 		Product prod = new Product();
 		prod.setAdmin(admin.get());
@@ -28,6 +31,7 @@ public class ProductServiceImplementation
 		prod.setName(proddto.getName());
 		prod.setPrice(proddto.getPrice());
 		repo.save(prod);
+		return "success";
 	}
 
 	@Override
@@ -41,8 +45,12 @@ public class ProductServiceImplementation
 	}
 
 	@Override
-	public void updateProduct(Product prod) {
+	public String updateProduct(Product prod) {
+		if (prod.getAdmin() == null|| prod.getDescription() == null || prod.getId() == null || prod.getImage() == null || prod.getName() == null || prod.getPrice() == null) {
+			return "fail";
+		}
 		repo.save(prod);
+		return "success";
 	}
 
 	@Override

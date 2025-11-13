@@ -2,7 +2,10 @@ package com.sales.savvy.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sales.savvy.dto.ProductDTO;
@@ -21,26 +24,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
 	@Autowired private ProductService service;
 	
-	@PostMapping(value = "/addProduct",consumes = {"application/json", "application/json;charset=UTF-8"})
+	@PostMapping(value = "/addProduct",consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String addProduct(@RequestBody ProductDTO prod) {
 		service.addProduct(prod);
 		return "success";
 	}
 	
-	@GetMapping(value = "/searchProduct", consumes = {"application/json", "application/json;charset=UTF-8"})
+	@GetMapping(value = "/searchProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Product searchProduct(Long id) {
 		return service.searchProduct(id);
 	}
 	
-	@GetMapping(value = "/getAllProducts", consumes = {"application/json", "application/json;charset=UTF-8"})
+	@GetMapping(value = "/getAllProducts", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public List<Product> getAllProducts() {
 		return service.getAllProducts();
 	}
 	
-	@PostMapping(value = "/updateProduct", consumes = {"application/json", "application/json;charset=UTF-8"})
-	public String updateProduct(@RequestBody Product prod) {
-		service.updateProduct(prod);
-		return "success";
+	@PostMapping(value = "/updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> updateProduct(@RequestBody Product prod) {
+		String result = service.updateProduct(prod);
+		
+		if ("fail".equals(result)) {
+            return ResponseEntity.status(409).body(" cant reach");
+        } else {
+            return ResponseEntity.ok("Updated successfully");
+        }
 	}
 	
 	@GetMapping(value = "/deleteProduct", consumes = {"application/json", "application/json;charset=UTF-8"})

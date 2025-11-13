@@ -1,6 +1,7 @@
 package com.sales.savvy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +21,7 @@ public class UserController {
 	
 	@Autowired private UserService service;
 	
-	@PostMapping("/signUp")
+	@PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> signUp(@RequestBody User user) {
         String result = service.addUser(user);
 
@@ -32,7 +33,7 @@ public class UserController {
     }
 	
 	
-	@PostMapping("/signIn")
+	@PostMapping(value = "/signIn", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String signIn(@RequestBody LoginData data) {
 		return service.validateUser(data);
 	}
