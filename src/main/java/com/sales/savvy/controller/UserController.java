@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api",consumes = MediaType.ALL_VALUE)
 public class UserController {
 	
 	@Autowired private UserService service;

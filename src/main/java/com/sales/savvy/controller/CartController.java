@@ -1,6 +1,7 @@
 package com.sales.savvy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import com.sales.savvy.dto.CartData;
 import com.sales.savvy.dto.CartItemDTO;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping(value = "/api",consumes = MediaType.ALL_VALUE)
 public class CartController {
     @Autowired private CartService service;
 

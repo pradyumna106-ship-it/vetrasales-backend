@@ -15,12 +15,14 @@ import com.sales.savvy.service.ProductService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping( value = "/api",
+consumes = MediaType.ALL_VALUE)
 public class ProductController {
 	@Autowired private ProductService service;
 	
@@ -31,7 +33,7 @@ public class ProductController {
 	}
 	
 	@GetMapping(value = "/searchProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Product searchProduct(Long id) {
+	public Product searchProduct(@RequestAttribute Long id) {
 		return service.searchProduct(id);
 	}
 	
