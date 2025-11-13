@@ -21,29 +21,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProductController {
 	@Autowired private ProductService service;
 	
-	@PostMapping("/addProduct")
+	@PostMapping(value = "/addProduct",consumes = {"application/json", "application/json;charset=UTF-8"})
 	public String addProduct(@RequestBody ProductDTO prod) {
 		service.addProduct(prod);
 		return "success";
 	}
 	
-	@GetMapping("/searchProduct")
+	@GetMapping(value = "/searchProduct", consumes = {"application/json", "application/json;charset=UTF-8"})
 	public Product searchProduct(Long id) {
 		return service.searchProduct(id);
 	}
 	
-	@GetMapping("/getAllProducts")
+	@GetMapping(value = "/getAllProducts", consumes = {"application/json", "application/json;charset=UTF-8"})
 	public List<Product> getAllProducts() {
 		return service.getAllProducts();
 	}
 	
-	@PostMapping("/updateProduct")
+	@PostMapping(value = "/updateProduct", consumes = {"application/json", "application/json;charset=UTF-8"})
 	public String updateProduct(@RequestBody Product prod) {
 		service.updateProduct(prod);
 		return "success";
 	}
 	
-	@GetMapping("/deleteProduct")
+	@GetMapping(value = "/deleteProduct", consumes = {"application/json", "application/json;charset=UTF-8"})
 	public void deleteProduct(Long id) {
 		service.deleteProduct(id);
 	}
