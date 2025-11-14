@@ -22,13 +22,12 @@ public class Product {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Product(Long id, String name, String description, Integer price, String image, User admin) {
+	public Product(Long id, String name, String description, Integer price, String image) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.image = image;
-        this.admin = admin;
     }
 	public Long getId() {
 		return id;

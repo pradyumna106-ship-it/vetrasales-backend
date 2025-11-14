@@ -2,10 +2,8 @@ package com.sales.savvy.controller;
 
 import java.util.List;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sales.savvy.dto.ProductDTO;
@@ -15,46 +13,39 @@ import com.sales.savvy.service.ProductService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping( value = "/api",
-consumes = MediaType.ALL_VALUE)
+@RequestMapping()
 public class ProductController {
 	@Autowired private ProductService service;
 	
-	@PostMapping(value = "/addProduct",consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String addProduct(@RequestBody ProductDTO prod) {
-		service.addProduct(prod);
-		return "success";
+	 @PostMapping(value = "/addProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
+	    public String addProduct(@RequestBody ProductDTO prod) {
+	        
+	        return service.addProduct(prod);
 	}
 	
-	@GetMapping(value = "/searchProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public Product searchProduct(@RequestAttribute Long id) {
-		return service.searchProduct(id);
+	@GetMapping("/searchProductById")
+	public Product searchProduct(@RequestParam Long productId) {
+		return service.searchProduct(productId);
 	}
 	
-	@GetMapping(value = "/getAllProducts", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping("/getAllProducts")
 	public List<Product> getAllProducts() {
 		return service.getAllProducts();
 	}
 	
 	@PostMapping(value = "/updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> updateProduct(@RequestBody Product prod) {
-		String result = service.updateProduct(prod);
-		
-		if ("fail".equals(result)) {
-            return ResponseEntity.status(409).body(" cant reach");
-        } else {
-            return ResponseEntity.ok("Updated successfully");
-        }
+	public String updateProduct(@RequestBody Product prod) {       
+	    return service.updateProduct(prod);
 	}
 	
-	@GetMapping(value = "/deleteProduct", consumes = {"application/json", "application/json;charset=UTF-8"})
-	public void deleteProduct(Long id) {
-		service.deleteProduct(id);
+	@GetMapping("/deleteProduct")
+	public void deleteProduct(@RequestParam Long productId) {
+		service.deleteProduct(productId);
 	}
 }
