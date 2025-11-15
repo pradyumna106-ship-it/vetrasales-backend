@@ -1,10 +1,12 @@
 package com.sales.savvy.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.*;
 
@@ -19,7 +21,8 @@ public class User {
     private String email;
     private String password;
     private String gender;
-    private String dob;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dob;
     private String role;
  // User.java
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
@@ -37,8 +40,13 @@ public class User {
     public void setPassword(String password) { this.password = password; }
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = gender; }
-    public String getDob() { return dob; }
-    public void setDob(String dob) { this.dob = dob; }
-    public String getRole() { return role; }
+   
+    public LocalDate getDob() {
+		return dob;
+	}
+	public void setDob(LocalDate dob) {
+		this.dob = dob;
+	}
+	public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 }
