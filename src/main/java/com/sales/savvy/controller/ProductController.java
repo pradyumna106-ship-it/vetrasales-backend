@@ -25,7 +25,6 @@ public class ProductController {
 	
 	 @PostMapping(value = "/addProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
 	    public String addProduct(@RequestBody ProductDTO prod) {
-	        
 	        return service.addProduct(prod);
 	}
 	
@@ -41,8 +40,8 @@ public class ProductController {
 	
 	@PostMapping(value = "/updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String updateProduct(@RequestBody ProductDTO prodDto) {
-	    service.updateProduct(prodDto);
-	    return "success";
+	    
+	    return service.updateProduct(prodDto);
 	}
 
 	

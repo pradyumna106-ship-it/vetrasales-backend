@@ -13,15 +13,15 @@ import com.sales.savvy.repository.ProductRepository;
 import com.sales.savvy.repository.UserRepository;
 
 @Service
-public class ProductServiceImplementation 
-			implements ProductService {
+public class ProductServiceImplementation implements ProductService {
 	@Autowired private ProductRepository repo;
 	@Autowired private UserRepository userRepo;
 
 	@Override
 	public String addProduct(ProductDTO proddto) {
-		if (proddto.getAdminName() == null || proddto.getDescription() == null || proddto.getId() == null || proddto.getName() == null || proddto.getPrice() == null) {
-			return "fail";
+		if (proddto.getAdminName() == null || proddto.getDescription() == null || proddto.getName() == null || proddto.getPrice() == null) {
+			System.out.println(proddto);
+			return proddto + " the reason.";
 		}
 		Optional<User> admin = userRepo.findByUsername(proddto.getAdminName());
 		Product prod = new Product();
@@ -46,14 +46,15 @@ public class ProductServiceImplementation
 
 	@Override
 	public String updateProduct(ProductDTO prod) {
-		if (prod.getAdminName() == null|| prod.getDescription() == null || prod.getId() == null || prod.getImage() == null || prod.getName() == null || prod.getPrice() == null) {
-			return "fail";
+		if (prod.getDescription() == null || prod.getId() == null || prod.getImage() == null || prod.getName() == null || prod.getPrice() == null) {
+			return  prod + "the reason is to get failed";
 		}
 		Product product = new Product();
 		product.setId(prod.getId());
 		product.setName(prod.getName());
 		product.setDescription(prod.getDescription());
 		product.setImage(prod.getImage());
+		product.setPrice(prod.getPrice());
 		repo.save(product);
 		return "success";
 	}
