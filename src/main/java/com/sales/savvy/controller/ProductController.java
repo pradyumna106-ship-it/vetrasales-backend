@@ -40,10 +40,13 @@ public class ProductController {
 	}
 	
 	@PostMapping(value = "/updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String updateProduct(@RequestBody Product prod) {       
-	    return service.updateProduct(prod);
+	public String updateProduct(@RequestBody ProductDTO prodDto) {
+	    service.updateProduct(prodDto);
+	    return "success";
 	}
+
 	
+
 	@GetMapping("/deleteProduct")
 	public void deleteProduct(@RequestParam Long productId) {
 		service.deleteProduct(productId);

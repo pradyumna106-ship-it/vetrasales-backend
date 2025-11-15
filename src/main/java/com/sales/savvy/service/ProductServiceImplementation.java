@@ -45,11 +45,16 @@ public class ProductServiceImplementation
 	}
 
 	@Override
-	public String updateProduct(Product prod) {
-		if (prod.getAdmin() == null|| prod.getDescription() == null || prod.getId() == null || prod.getImage() == null || prod.getName() == null || prod.getPrice() == null) {
+	public String updateProduct(ProductDTO prod) {
+		if (prod.getAdminName() == null|| prod.getDescription() == null || prod.getId() == null || prod.getImage() == null || prod.getName() == null || prod.getPrice() == null) {
 			return "fail";
 		}
-		repo.save(prod);
+		Product product = new Product();
+		product.setId(prod.getId());
+		product.setName(prod.getName());
+		product.setDescription(prod.getDescription());
+		product.setImage(prod.getImage());
+		repo.save(product);
 		return "success";
 	}
 
