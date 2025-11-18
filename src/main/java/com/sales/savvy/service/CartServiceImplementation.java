@@ -36,7 +36,7 @@ public class CartServiceImplementation implements CartService {
 					return repo.save(c);
 				});
 
-		Product prod = prodRepo.findById(data.getProd().getId())
+		Product prod = prodRepo.findById(data.getProductId())
 				.orElseThrow(() -> new RuntimeException("Product not found"));
 
 		int qty = (data.getQuantity() != null ? data.getQuantity() : 1);
@@ -63,7 +63,7 @@ public class CartServiceImplementation implements CartService {
 		Cart cart = repo.findByUser(user)
 				.orElseThrow(() -> new RuntimeException("Cart not found"));
 
-		Long pid = data.getProd().getId();
+		Long pid = data.getProductId();
 		CartItem item = itemRepo.findByCartIdAndProductId(cart.getId(), pid)
 				.orElseThrow(() -> new RuntimeException("CartItem not found"));
 		int newQty = data.getQuantity();

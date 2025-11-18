@@ -63,4 +63,10 @@ public class ProductServiceImplementation implements ProductService {
 	public void deleteProduct(Long id) {
 		repo.deleteById(id);
 	}
+
+	@Override
+	public List<Product> searchProduct(String keyword) {
+		// TODO Auto-generated method stub
+		return repo.searchProduct(keyword);
+	}
 }

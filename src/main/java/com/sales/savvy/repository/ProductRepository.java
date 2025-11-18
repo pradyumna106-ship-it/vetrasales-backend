@@ -9,5 +9,10 @@ import com.sales.savvy.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-	
+
+	@Query("SELECT p FROM Product p WHERE " +
+		       "LOWER(p.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+		       "LOWER(p.description) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+		List<Product> searchProduct(String keyword);
+	List<Product> findByAdminId(Long id);
 }

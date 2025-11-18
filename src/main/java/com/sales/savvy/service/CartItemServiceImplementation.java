@@ -5,14 +5,16 @@ import org.springframework.stereotype.Service;
 
 import com.sales.savvy.repository.CartItemRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CartItemServiceImplementation implements CartItemService {
 	@Autowired private CartItemRepository repo;
 
-	@Override
+	@Transactional
 	public String removeItem(Long id) {
 		// TODO Auto-generated method stub
-		repo.deleteById(id);
+		repo.deleteByProduct_Id(id);
 		return "success";
 	}
 	

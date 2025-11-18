@@ -4,16 +4,16 @@ import com.sales.savvy.entity.Product;
 
 public class CartData {
 	String username;
-	Product prod;
+	Long productId;
 	Integer quantity;
 	public CartData() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CartData(String username, Product prod, Integer quantity) {
+	public CartData(String username, Long productId, Integer quantity) {
 		super();
 		this.username = username;
-		this.prod = prod;
+		this.productId = productId;
 		this.quantity = quantity;
 	}
 	public String getUsername() {
@@ -22,11 +22,12 @@ public class CartData {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public Product getProd() {
-		return prod;
+	
+	public Long getProductId() {
+		return productId;
 	}
-	public void setProd(Product prod) {
-		this.prod = prod;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 	public Integer getQuantity() {
 		return quantity;
@@ -36,7 +37,7 @@ public class CartData {
 	}
 	@Override
 	public String toString() {
-		return "CartData [username=" + username + ", prod=" + prod + ", quantity=" + quantity + "]";
+		return "CartData [username=" + username + ", productId=" + productId + ", quantity=" + quantity + "]";
 	}
 	
 }
