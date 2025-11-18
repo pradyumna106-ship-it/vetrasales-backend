@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sales.savvy.dto.LoginData;
+import com.sales.savvy.dto.UserDTO;
 import com.sales.savvy.entity.User;
 import com.sales.savvy.repository.UserRepository;
 
@@ -15,12 +16,19 @@ public class UserServiceImplementation implements UserService {
     private UserRepository repo;
 
     @Override
-    public String addUser(User user) {
+    public String addUser(UserDTO userDto) {
     	// Check if username already exists
-        Optional<User> existing = repo.findByUsername(user.getUsername());
+        Optional<User> existing = repo.findByUsername(userDto.getUsername());
         if (existing.isPresent()) {
             return "fail";   // already taken
         }
+        User user = new User();
+        user.setDob(userDto.getDob());
+        user.setEmail(userDto.getEmail());
+        user.setGender(userDto.getGender());
+        user.setPassword(userDto.getPassword());
+        user.setRole(userDto.getRole());
+        user.setUsername(userDto.getUsername());
         // New username — save
         repo.save(user);
         return "success";

@@ -28,8 +28,8 @@ public class UserController {
 	@Autowired private UserService service;
 	
 	@PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> signUp(@RequestBody User user) {
-        String result = service.addUser(user);
+    public ResponseEntity<String> signUp(@RequestBody UserDTO userDto) {
+        String result = service.addUser(userDto);
 
         if ("fail".equals(result)) {
             return ResponseEntity.status(409).body("Username already exists");
