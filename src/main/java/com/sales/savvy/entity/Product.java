@@ -1,5 +1,7 @@
 package com.sales.savvy.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -18,6 +20,9 @@ public class Product {
     @JoinColumn(name = "admin_id") // FK column in Product table
 	@JsonManagedReference
     private User admin;
+	@OneToMany(mappedBy = "product")
+	@JsonManagedReference
+	private List<Review> reviews;
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -65,6 +70,13 @@ public class Product {
 	}
 	public void setAdmin(User admin) {
 		this.admin = admin;
+	}
+	
+	public List<Review> getReviews() {
+		return reviews;
+	}
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 	@Override
 	public String toString() {

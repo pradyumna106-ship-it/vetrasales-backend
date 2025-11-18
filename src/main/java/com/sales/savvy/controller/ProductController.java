@@ -6,6 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sales.savvy.dto.AddReviewDTO;
 import com.sales.savvy.dto.ProductDTO;
 import com.sales.savvy.entity.Product;
 import com.sales.savvy.service.ProductService;
@@ -49,7 +50,10 @@ public class ProductController {
 	    return service.updateProduct(prodDto);
 	}
 
-	
+	@PostMapping("/addReview")
+	public void addReview(@RequestBody AddReviewDTO review) {
+		 service.addReview(review);
+	}
 
 	@GetMapping("/deleteProduct")
 	public void deleteProduct(@RequestParam Long productId) {

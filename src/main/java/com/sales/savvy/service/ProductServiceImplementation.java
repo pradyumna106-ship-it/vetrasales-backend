@@ -6,16 +6,20 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sales.savvy.dto.AddReviewDTO;
 import com.sales.savvy.dto.ProductDTO;
 import com.sales.savvy.entity.Product;
+import com.sales.savvy.entity.Review;
 import com.sales.savvy.entity.User;
 import com.sales.savvy.repository.ProductRepository;
+import com.sales.savvy.repository.ReviewRepository;
 import com.sales.savvy.repository.UserRepository;
 
 @Service
 public class ProductServiceImplementation implements ProductService {
 	@Autowired private ProductRepository repo;
 	@Autowired private UserRepository userRepo;
+	@Autowired private ReviewRepository reviewRepo;
 
 	@Override
 	public String addProduct(ProductDTO proddto) {
@@ -68,5 +72,22 @@ public class ProductServiceImplementation implements ProductService {
 	public List<Product> searchProduct(String keyword) {
 		// TODO Auto-generated method stub
 		return repo.searchProduct(keyword);
+	}
+
+	@Override
+	public void addReview(AddReviewDTO review) {
+		// TODO Auto-generated method stub
+		Optional<Product> prod = repo.findById(review.getProductId());
+		if (prod.isPresent()) {
+			Review reviews = new Review();
+			reviews.setRating(review.getRating());
+			reviews.setComment(review.getComment());
+			reviews.setReviewerName(review.getReviewerName());
+			reviews.setProduct(prod.get());
+			reviewRepo.save(reviews);
+
+		} else {
+			throw new RuntimeException("Product with ID " + review.getProductId() + " not found.");
+		}
 	}
 }
