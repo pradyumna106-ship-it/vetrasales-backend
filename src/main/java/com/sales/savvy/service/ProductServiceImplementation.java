@@ -39,8 +39,16 @@ public class ProductServiceImplementation implements ProductService {
 	}
 
 	@Override
-	public Product searchProduct(Long id) {
-		return repo.findById(id).get();
+	public ProductDTO searchProduct(Long id) {
+		Product prod = repo.findById(id).get();
+		ProductDTO dto = new ProductDTO();
+		dto.setAdminName(prod.getAdmin().getUsername());
+		dto.setDescription(prod.getDescription());
+		dto.setId(prod.getId());
+		dto.setImage(prod.getImage());
+		dto.setName(prod.getName());
+		dto.setPrice(prod.getPrice());
+		return dto;
 	}
 
 	@Override

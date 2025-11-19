@@ -30,7 +30,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/searchProductById")
-	public Product searchProductById(@RequestParam Long productId) {
+	public ProductDTO searchProductById(@RequestParam Long productId) {
 		return service.searchProduct(productId);
 	}
 	@GetMapping("/searchProduct")

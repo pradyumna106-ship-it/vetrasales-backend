@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sales.savvy.dto.AddReviewDTO;
 import com.sales.savvy.entity.Review;
 import com.sales.savvy.service.ReviewService;
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
@@ -41,7 +42,7 @@ public class ReviewController {
 	    return service.deleteReviewsByProduct(productId);
 	}
 	@GetMapping("/allReviews")
-	public List<Review> allReviews() {
+	public List<AddReviewDTO> allReviews() {
 		return service.allReviews();
 	}
 	

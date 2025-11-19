@@ -1,11 +1,13 @@
 package com.sales.savvy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sales.savvy.dto.AddReviewDTO;
 import com.sales.savvy.entity.Product;
 import com.sales.savvy.entity.Review;
 import com.sales.savvy.repository.ProductRepository;
@@ -48,9 +50,21 @@ public class ReviewServiceImplementation implements ReviewService {
         return "deleted_by_product";
 	}
 	@Override
-	public List<Review> allReviews() {
+	public List<AddReviewDTO> allReviews() {
 		// TODO Auto-generated method stub
-		return repo.findAll();
+		List<Review> reviews = repo.findAll();
+		List<AddReviewDTO> dtos = new ArrayList<>();
+		for (int i = 0; i < reviews.size(); i++) {
+			Review review = reviews.get(i);
+			AddReviewDTO dto = new AddReviewDTO();
+			dto.setComment(review.getComment());
+			dto.setProductId(review.getProduct().getId());
+			dto.setRating(review.getRating());
+			dto.setReviewerName(review.getReviewerName());
+			dtos.add(dto);
+		}
+		
+		return dtos;
 	}
 	
 	
