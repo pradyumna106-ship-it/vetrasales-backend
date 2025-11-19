@@ -40,6 +40,10 @@ public class ReviewController {
 	public String deleteReviewsByProduct(@RequestParam Long productId) {
 	    return service.deleteReviewsByProduct(productId);
 	}
-
+	@GetMapping("/allReviews")
+	public List<Review> allReviews() {
+		return service.allReviews();
+	}
+	
 	
 }

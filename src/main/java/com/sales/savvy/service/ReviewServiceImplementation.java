@@ -47,6 +47,11 @@ public class ReviewServiceImplementation implements ReviewService {
 		repo.deleteByProduct_Id(productId);
         return "deleted_by_product";
 	}
+	@Override
+	public List<Review> allReviews() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
+	}
 	
 	
 

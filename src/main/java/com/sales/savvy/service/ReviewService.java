@@ -9,4 +9,5 @@ public interface ReviewService {
 	String deleteReview(Long reviewId, String username, boolean isAdmin);
 	String deleteAllReviews();
 	String deleteReviewsByProduct(Long productId);
+	List<Review> allReviews();
 }
