@@ -21,20 +21,5 @@ public class ReviewServiceImplementation implements ReviewService {
 		return repo.findByProduct_Id(productId);
 	}
 
-	@Override
-	public String avgReview(Long productId) {
-		// TODO Auto-generated method stub
-		Optional<Product> prod = prodRepo.findById(productId);
-		List<Review> reviews = repo.findByProduct_Id(productId);
-			int length = reviews.size();
-			double totRes = 0.0;
-			for(int i = 0; i < length; i++) {
-				double review = reviews.get(i).getRating();
-				totRes = totRes+ review;
-			}
-			double avgRev = (double) totRes / length;
-			avgRev = Math.round(avgRev * 10.0) / 10.0;
-		return String.valueOf(avgRev);
-	}
 
 }

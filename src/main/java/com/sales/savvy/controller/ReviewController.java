@@ -22,8 +22,4 @@ public class ReviewController {
 		return service.listOfReview(productId);
 	}
 	
-	@GetMapping("/avgReview")
-	public String avgReview(@RequestParam Long productId) {
-		return service.avgReview(productId);
-	}
 }
