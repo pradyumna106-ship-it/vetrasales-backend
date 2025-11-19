@@ -20,6 +20,13 @@ public class ReviewServiceImplementation implements ReviewService {
 		// TODO Auto-generated method stub
 		return repo.findByProduct_Id(productId);
 	}
+	
+	@Override
+	public String deleteReviewByProductId(Long productId) {
+		// TODO Auto-generated method stub
+		repo.deletebyProduct_Id(productId);
+		return "success";
+	}
 
 
 }

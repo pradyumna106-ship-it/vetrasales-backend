@@ -21,5 +21,9 @@ public class ReviewController {
 	public List<Review> getReviews(@RequestParam("productId") Long productId) {
 		return service.listOfReview(productId);
 	}
+	@GetMapping("/deleteReviewByProduct")
+	public String deleteReviewByProduct(@RequestParam("productId") Long productId) {
+		return service.deleteReviewByProductId(productId);
+	}
 	
 }
