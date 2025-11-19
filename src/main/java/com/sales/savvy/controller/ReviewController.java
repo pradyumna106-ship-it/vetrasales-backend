@@ -3,6 +3,7 @@ package com.sales.savvy.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,8 +39,14 @@ public class ReviewController {
 	}
 
 	@DeleteMapping("/deleteReviewsByProduct")
-	public String deleteReviewsByProduct(@RequestParam Long productId) {
-	    return service.deleteReviewsByProduct(productId);
+	public ResponseEntity<String> deleteReviewsByProduct(@RequestParam Long productId) {
+	    try {
+	        service.deleteReviewsByProduct(productId);
+	        return ResponseEntity.ok("Deleted successfully");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(500).body(e.getMessage());
+	    }
 	}
 	@GetMapping("/allReviews")
 	public List<AddReviewDTO> allReviews() {
