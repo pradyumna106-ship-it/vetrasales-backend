@@ -20,13 +20,35 @@ public class ReviewServiceImplementation implements ReviewService {
 		// TODO Auto-generated method stub
 		return repo.findByProduct_Id(productId);
 	}
-	
 	@Override
-	public String deleteReviewByProductId(Long productId) {
+	public String deleteReview(Long reviewId, String username, boolean isAdmin) {
 		// TODO Auto-generated method stub
-		repo.deletebyProduct_Id(productId);
-		return "success";
+		Review r = repo.findById(reviewId).orElse(null);
+
+        if (r == null) return "Review Not Found";
+
+        // If not admin → only delete his own review
+        if (!isAdmin && !r.getReviewerName().equals(username)) {
+            return "You can delete only your own reviews!";
+        }
+
+        repo.deleteById(reviewId);
+        return "deleted";
 	}
+	@Override
+	public String deleteAllReviews() {
+		// TODO Auto-generated method stub
+		repo.deleteAll();
+        return "all_deleted";
+	}
+	@Override
+	public String deleteReviewsByProduct(Long productId) {
+		// TODO Auto-generated method stub
+		repo.deleteByProduct_Id(productId);
+        return "deleted_by_product";
+	}
+	
+	
 
 
 }

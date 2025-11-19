@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.sales.savvy.entity.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-	List<Review> findByProduct_Id(Long productId);
-	void deletebyProduct_Id(Long productId);
+    List<Review> findByProduct_Id(Long productId);
+
+    void deleteByProduct_Id(Long productId);
+
+    void deleteByReviewerName(String reviewerName);
 }
