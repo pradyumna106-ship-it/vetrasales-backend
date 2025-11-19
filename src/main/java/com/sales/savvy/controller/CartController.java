@@ -9,7 +9,7 @@ import com.sales.savvy.service.CartService;
 
 import java.util.List;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
 @RequestMapping(value = "/api",consumes = MediaType.ALL_VALUE)
 public class CartController {
