@@ -1,5 +1,6 @@
 package com.sales.savvy.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,41 +23,59 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
-@RequestMapping(consumes = MediaType.ALL_VALUE)
+@RequestMapping("/api/user")
 public class UserController {
-	
-	@Autowired private UserService service;
-	
-	@PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    @Autowired 
+    private UserService service;
+
+    @PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> signUp(@RequestBody UserDTO userDto) {
         String result = service.addUser(userDto);
-
-        if ("fail".equals(result)) {
+        if ("fail".equals(result))
             return ResponseEntity.status(409).body("Username already exists");
-        } else {
-            return ResponseEntity.ok("User registered successfully");
-        }
+        return ResponseEntity.ok("User registered successfully");
     }
-	
-	
-	@PostMapping(value = "/signIn", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String signIn(@RequestBody LoginData data) {
-		return service.validateUser(data);
-	}
-	@GetMapping("/userData")
-	public UserDTO userData(@RequestParam String username) {
-		Optional<User> profile = service.getUser(username);
-		User user = profile.orElseThrow(() -> new RuntimeException("User not found"));  // or real data;
-		UserDTO userdto = new UserDTO();
-		userdto.setId(user.getId());
-		userdto.setUsername(user.getUsername());
-		userdto.setPassword(user.getPassword());
-		userdto.setRole(user.getRole());
-		userdto.setGender(user.getGender());
-		userdto.setEmail(user.getEmail());
-		userdto.setDob(user.getDob());
-	    return userdto;
-	}
 
-	
+    @PostMapping(value = "/signIn", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String signIn(@RequestBody LoginData data) {
+        return service.validateUser(data);
+    }
+
+    @GetMapping("/userData")
+    public UserDTO userData(@RequestParam String username) {
+        User user = service.getUser(username)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        UserDTO userdto = new UserDTO();
+        userdto.setId(user.getId());
+        userdto.setUsername(user.getUsername());
+        userdto.setPassword(user.getPassword());
+        userdto.setRole(user.getRole());
+        userdto.setGender(user.getGender());
+        userdto.setEmail(user.getEmail());
+        userdto.setDob(user.getDob());
+        return userdto;
+    }
+
+    @GetMapping("/deleteAll")
+    public void deleteAllUser() {
+        service.deleteAllUser();
+    }
+
+    @GetMapping("/delete")
+    public void deleteUser(Long id) {
+        service.deleteUser(id);
+    }
+
+    @GetMapping("/searchUser")
+    public List<UserDTO> searchUser(String name) {
+        return service.searchUser(name);
+    }
+
+    @GetMapping("/getAllUser")
+    public List<UserDTO> getAllUser() {
+        return service.getAllUser();
+    }
 }
+

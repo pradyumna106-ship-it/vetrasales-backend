@@ -1,5 +1,7 @@
 package com.sales.savvy.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,4 +57,54 @@ public class UserServiceImplementation implements UserService {
         // Return role
         return u.getRole().equalsIgnoreCase("ADMIN") ? "admin" : "customer";
     }
+
+	@Override
+	public void deleteUser(Long id) {
+		// TODO Auto-generated method stub
+		repo.deleteById(id);
+	}
+
+	@Override
+	public void deleteAllUser() {
+		// TODO Auto-generated method stub
+		repo.deleteAll();
+	}
+
+	@Override
+	public List<UserDTO> searchUser(String name) {
+		// TODO Auto-generated method stub
+		List<User> users = repo.searchUser(name);
+		List<UserDTO> dtos = new ArrayList<>();
+		for (int i = 0; i < users.size(); i++) {
+			User user = users.get(i);
+			UserDTO dto = new UserDTO();
+			dto.setDob(user.getDob());
+			dto.setEmail(user.getEmail());
+			dto.setGender(user.getGender());
+			dto.setPassword(user.getPassword());
+			dto.setRole(user.getRole());
+			dto.setUsername(user.getUsername());
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+
+	@Override
+	public List<UserDTO> getAllUser() {
+		// TODO Auto-generated method stub
+		List<User> users = repo.findAll();
+		List<UserDTO> dtos = new ArrayList<>();
+		for (int i = 0; i < users.size(); i++) {
+			User user = users.get(i);
+			UserDTO dto = new UserDTO();
+			dto.setDob(user.getDob());
+			dto.setEmail(user.getEmail());
+			dto.setGender(user.getGender());
+			dto.setPassword(user.getPassword());
+			dto.setRole(user.getRole());
+			dto.setUsername(user.getUsername());
+			dtos.add(dto);
+		}
+		return dtos;
+	}
 }
