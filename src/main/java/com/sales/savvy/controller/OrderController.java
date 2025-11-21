@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sales.savvy.dto.OrderDTO;
 import com.sales.savvy.entity.Order;
 import com.sales.savvy.service.OrderService;
-
+@CrossOrigin(origins = "*", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
@@ -58,7 +59,7 @@ public class OrderController {
     public Optional<OrderDTO> getOrderById(@RequestParam Long orderId) {
         return service.getOrderById(orderId);
     }
-    @PutMapping("/orders/{id}/status")
+    @PutMapping("/{id}/status")
     public ResponseEntity<Order> updateOrderStatus(
             @PathVariable Long id,
             @RequestParam String status) {
@@ -66,5 +67,7 @@ public class OrderController {
         Order order = service.updateOrderStatus(id, status);
         return ResponseEntity.ok(order);
     }
+    
+
 
 }

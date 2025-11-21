@@ -5,9 +5,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import com.sales.savvy.service.CartItemService;
 
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
-@RequestMapping(consumes = MediaType.ALL_VALUE)
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class CartItemController {
 
     @Autowired
@@ -18,3 +18,5 @@ public class CartItemController {
         return service.removeItem(prodId);
     }
 }
+
+

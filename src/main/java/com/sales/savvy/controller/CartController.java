@@ -1,19 +1,26 @@
 package com.sales.savvy.controller;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.sales.savvy.dto.CartData;
 import com.sales.savvy.dto.CartItemDTO;
 import com.sales.savvy.service.CartService;
 
-import java.util.List;
-
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
-@RequestMapping(value = "/api",consumes = MediaType.ALL_VALUE)
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class CartController {
-    @Autowired private CartService service;
+
+    @Autowired 
+    private CartService service;
 
     @PostMapping("/addToCart")
     public String addToCart(@RequestBody CartData data) {
@@ -32,3 +39,4 @@ public class CartController {
         return service.getCartItems(username);
     }
 }
+
