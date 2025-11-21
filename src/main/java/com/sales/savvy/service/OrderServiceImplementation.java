@@ -46,17 +46,17 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> listOfOrders(String username) {
+    public List<OrderDTO> getAllOrders() {
 
-        List<Order> orders = repo.findByUsername(username);
+        List<Order> orders = repo.findAll();
         List<OrderDTO> dtos = new ArrayList<>();
 
         for (Order order : orders) {
             dtos.add(convertToDTO(order));
         }
-
         return dtos;
     }
+
 
     @Override
     public List<OrderDTO> getDeliveredOrders(String username) {

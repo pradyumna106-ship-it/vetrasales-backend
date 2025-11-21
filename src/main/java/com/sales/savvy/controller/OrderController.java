@@ -34,10 +34,11 @@ public class OrderController {
     // ---------------------------------------------------------
     // GET ALL ORDERS OF A USER
     // ---------------------------------------------------------
-    @GetMapping("/list")
-    public List<OrderDTO> listOfOrders(@RequestParam String username) {
-        return service.listOfOrders(username);
+    @GetMapping
+    public List<OrderDTO> getAllOrders() {
+        return service.getAllOrders();
     }
+
 
     // ---------------------------------------------------------
     // GET DELIVERED ORDERS OF USER

@@ -10,7 +10,7 @@ import com.sales.savvy.entity.Order;
 public interface OrderService {
 	void createOrder(OrderDTO order);
 
-	List<OrderDTO> listOfOrders(String name);
+	List<OrderDTO> getAllOrders();
 
 	List<OrderDTO> getDeliveredOrders(String name);
 
