@@ -103,6 +103,7 @@ public class UserServiceImplementation implements UserService {
 			dto.setPassword(user.getPassword());
 			dto.setRole(user.getRole());
 			dto.setUsername(user.getUsername());
+			dto.setId(user.getId());
 			dtos.add(dto);
 		}
 		return dtos;
