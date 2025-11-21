@@ -15,4 +15,6 @@ public interface OrderService {
 	List<OrderDTO> getDeliveredOrders(String name);
 
 	Optional<OrderDTO> getOrderById(Long orderId);
+
+	Order updateOrderStatus(Long id, String status);
 }

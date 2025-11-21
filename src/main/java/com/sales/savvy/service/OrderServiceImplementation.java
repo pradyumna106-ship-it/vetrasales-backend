@@ -105,4 +105,13 @@ public class OrderServiceImplementation implements OrderService {
 
         return dto;
     }
+
+    public Order updateOrderStatus(Long id, String status) {
+        Order order = repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        order.setStatus(status);
+        return repo.save(order);
+    }
+
 }
