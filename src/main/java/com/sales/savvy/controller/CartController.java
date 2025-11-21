@@ -16,7 +16,8 @@ import com.sales.savvy.service.CartService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(originPatterns = "*", allowCredentials = "true")
+
 public class CartController {
 
     @Autowired 

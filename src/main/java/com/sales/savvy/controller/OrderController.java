@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sales.savvy.dto.OrderDTO;
 import com.sales.savvy.entity.Order;
 import com.sales.savvy.service.OrderService;
-@CrossOrigin(origins = "*", allowCredentials = "true")
+@CrossOrigin(originPatterns = "*", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {
@@ -67,7 +67,10 @@ public class OrderController {
         Order order = service.updateOrderStatus(id, status);
         return ResponseEntity.ok(order);
     }
-    
+    @GetMapping
+    public String test() {
+        return "hello";
+    }
 
 
 }
