@@ -28,7 +28,7 @@ Docker support is included for easy deployment.
 | **Spring Data JPA** | Database ORM |
 | **MySQL** | Persistent Storage |
 | **Docker** | Containerized Deployment |
-| **Maven** | Build Tool |
+| **Spring Boot Maven** | Build Tool |
 
 ---
 
