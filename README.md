@@ -35,50 +35,53 @@ Docker support is included for easy deployment.
 ## 📁 Project Structure
 
 <details> <summary><strong>Click to expand folder tree</strong></summary>
+<br> <pre>
+
 savvy/
-│── .classpath
-│── .gitattributes
-│── .gitignore
-│── .project
-│── Dockerfile
-│── HELP.md
-│── mvnw
-│── mvnw.cmd
-│── pom.xml
-│── README.md
+│
+├── .classpath
+├── .gitattributes
+├── .gitignore
+├── .project
+├── Dockerfile
+├── HELP.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── README.md
 │
 ├── .mvn/
-│ └── wrapper/
+│   └── wrapper/
 │
 ├── src/
-│ ├── main/
-│ │ ├── java/com/sales/savvy/
-│ │ │ ├── SavvyApplication.java
-│ │ │ ├── WebConfig.java
-│ │ │ ├── controller/
-│ │ │ ├── dto/
-│ │ │ ├── entity/
-│ │ │ ├── repository/
-│ │ │ └── service/
-│ │ │
-│ │ └── resources/
-│ │ ├── application.properties
-│ │ ├── static/
-│ │ └── templates/
-│ │
-│ └── test/java/com/sales/savvy/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/sales/savvy/
+│   │   │       ├── SavvyApplication.java
+│   │   │       ├── WebConfig.java
+│   │   │       ├── controller/
+│   │   │       ├── dto/
+│   │   │       ├── entity/
+│   │   │       ├── repository/
+│   │   │       └── service/
+│   │   │
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       ├── static/
+│   │       └── templates/
+│   │
+│   └── test/
+│       └── java/com/sales/savvy/
 │
 └── target/
+</pre>
 </details>
 
 ## 🤝 Contributing
 Pull requests are welcome!
 
+
 ##📜 License
 - This project is licensed under MIT License.
 
-- If you want, I can also generate:
-- ✅ README for your Frontend
-- ✅ README for your Razorpay project
-- ✅ A combined root README for full monorepo
-Just tell me!
+
