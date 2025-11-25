@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sales.savvy.dto.AddReviewDTO;
 import com.sales.savvy.entity.Review;
 import com.sales.savvy.service.ReviewService;
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(originPatterns = "*", allowCredentials = "true")
 @RestController
 @RequestMapping
 public class ReviewController {
