@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(originPatterns = "*", allowCredentials = "true")
 @RestController
-@RequestMapping()
+@RequestMapping("/api/product")
 public class ProductController {
 	@Autowired private ProductService service;
 	

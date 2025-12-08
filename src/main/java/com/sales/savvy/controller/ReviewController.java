@@ -16,7 +16,7 @@ import com.sales.savvy.entity.Review;
 import com.sales.savvy.service.ReviewService;
 @CrossOrigin(originPatterns = "*", allowCredentials = "true")
 @RestController
-@RequestMapping
+@RequestMapping("/api/review")
 public class ReviewController {
 	@Autowired private ReviewService service;
 	
