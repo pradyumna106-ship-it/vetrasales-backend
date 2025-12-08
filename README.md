@@ -81,7 +81,7 @@ savvy/
 Pull requests are welcome!
 
 
-##📜 License
+## 📜 License
 - This project is licensed under MIT License.
 
 
