@@ -15,7 +15,6 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 
-
 # ====================== Stage 2: Runtime Image ======================
 FROM eclipse-temurin:17-jdk-alpine
 
