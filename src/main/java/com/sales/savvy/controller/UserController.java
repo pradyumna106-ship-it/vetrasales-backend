@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(originPatterns = "*", allowCredentials = "true")
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired 
