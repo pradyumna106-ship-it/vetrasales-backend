@@ -26,7 +26,7 @@ WORKDIR /savvy
 COPY --from=build /savvy/target/*.jar app.jar
 
 # Expose the application port (default Spring Boot port)
-EXPOSE 8080
+EXPOSE 9090
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
