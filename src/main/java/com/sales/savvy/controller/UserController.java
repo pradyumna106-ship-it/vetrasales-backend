@@ -36,6 +36,14 @@ public class UserController {
             return ResponseEntity.status(409).body("Username already exists");
         return ResponseEntity.ok("User registered successfully");
     }
+    
+    @PostMapping(value = "/updateUser", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> updateUser(@RequestBody UserDTO userDto) {
+        String result = service.updateUser(userDto);
+        if ("fail".equals(result))
+            return ResponseEntity.status(409).body("Username not found");
+        return ResponseEntity.ok("User updated successfully");
+    }
 
     @PostMapping(value = "/signIn", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String signIn(@RequestBody LoginData data) {

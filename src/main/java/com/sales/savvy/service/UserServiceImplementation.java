@@ -109,4 +109,24 @@ public class UserServiceImplementation implements UserService {
 		}
 		return dtos;
 	}
+
+	@Override
+	public String updateUser(UserDTO userDto) {
+		// TODO Auto-generated method stub
+		Optional<User> existing = repo.findByUsername(userDto.getUsername());
+        if (existing.isPresent()) {
+            return "fail";   // already taken
+        }
+        User user = new User();
+        user.setId(userDto.getId());
+        user.setDob(userDto.getDob());
+        user.setEmail(userDto.getEmail());
+        user.setGender(userDto.getGender());
+        user.setPassword(userDto.getPassword());
+        user.setRole(userDto.getRole());
+        user.setUsername(userDto.getUsername());
+        // New username — save
+        repo.save(user);
+        return "success";
+	}
 }
