@@ -18,4 +18,6 @@ public interface UserService {
     List<UserDTO> searchUser(String name);
     List<UserDTO> getAllUser();
     String updateUser(UserDTO userDto);
+	List<String> getAllUserEmails();
+	List<String> getAllUserPhone();
 }

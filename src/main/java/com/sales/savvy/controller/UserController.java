@@ -85,5 +85,15 @@ public class UserController {
     public List<UserDTO> getAllUser() {
         return service.getAllUser();
     }
+    
+    @GetMapping("/emails")
+    public List<String> getAllUserEmails() {
+        return service.getAllUserEmails();
+    }
+    
+    @GetMapping("/phones")
+    public List<String> getAllUserPhones() {
+        return service.getAllUserPhone();
+    }
 }
 

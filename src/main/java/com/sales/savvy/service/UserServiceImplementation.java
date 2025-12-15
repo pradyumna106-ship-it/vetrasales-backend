@@ -27,6 +27,7 @@ public class UserServiceImplementation implements UserService {
         User user = new User();
         user.setDob(userDto.getDob());
         user.setEmail(userDto.getEmail());
+        user.setPhone(userDto.getPhone());
         user.setGender(userDto.getGender());
         user.setPassword(userDto.getPassword());
         user.setRole(userDto.getRole());
@@ -121,6 +122,7 @@ public class UserServiceImplementation implements UserService {
         user.setId(userDto.getId());
         user.setDob(userDto.getDob());
         user.setEmail(userDto.getEmail());
+        user.setPhone(userDto.getPhone());
         user.setGender(userDto.getGender());
         user.setPassword(userDto.getPassword());
         user.setRole(userDto.getRole());
@@ -128,5 +130,27 @@ public class UserServiceImplementation implements UserService {
         // New username — save
         repo.save(user);
         return "success";
+	}
+
+	@Override
+	public List<String> getAllUserEmails() {
+		// TODO Auto-generated method stub
+		List<User> users = repo.findAll();
+		List<String> emails = new ArrayList<>();
+		for (int i = 0; i < users.size(); i++) {
+			emails.add(users.get(i).getEmail());
+		}
+		return emails;
+	}
+	
+	@Override
+	public List<String> getAllUserPhone() {
+		// TODO Auto-generated method stub
+		List<User> users = repo.findAll();
+		List<String> phones = new ArrayList<>();
+		for (int i = 0; i < users.size(); i++) {
+			phones.add(users.get(i).getEmail());
+		}
+		return phones;
 	}
 }
