@@ -6,13 +6,14 @@ public class ProductDTO {
 	private String name;
 	private String description;
 	private Integer price;
+	private String category;
 	private String image;
 	private String adminName;
 	public ProductDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ProductDTO(Long id, String name, String description, Integer price, String image, String adminName) {
+	public ProductDTO(Long id, String name, String description, Integer price, String image, String adminName, String category) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -56,6 +57,13 @@ public class ProductDTO {
 	}
 	public void setAdminName(String adminName) {
 		this.adminName = adminName;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	@Override
 	public String toString() {

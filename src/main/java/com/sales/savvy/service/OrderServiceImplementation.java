@@ -11,6 +11,7 @@ import com.sales.savvy.dto.OrderDTO;
 import com.sales.savvy.dto.OrderItemDTO;
 import com.sales.savvy.entity.Order;
 import com.sales.savvy.entity.OrderItem;
+import com.sales.savvy.enums.OrderStatus;
 import com.sales.savvy.repository.OrderRepository;
 
 @Service
@@ -24,7 +25,7 @@ public class OrderServiceImplementation implements OrderService {
 
         Order order = new Order();
         order.setAddress(orderDTO.getAddress());
-        order.setStatus(orderDTO.getStatus());
+        order.setStatus(OrderStatus.valueOf(orderDTO.getStatus().toUpperCase()));
         order.setTotalAmount(orderDTO.getTotalAmount());
         order.setUsername(orderDTO.getUsername());
 
@@ -65,7 +66,7 @@ public class OrderServiceImplementation implements OrderService {
         List<OrderDTO> delivered = new ArrayList<>();
 
         for (Order order : orders) {
-            if ("DELIVERED".equals(order.getStatus())) {
+            if (OrderStatus.DELIVERED.equals(order.getStatus())) {
                 delivered.add(convertToDTO(order));
             }
         }
@@ -85,7 +86,7 @@ public class OrderServiceImplementation implements OrderService {
         OrderDTO dto = new OrderDTO();
         dto.setId(order.getId());
         dto.setAddress(order.getAddress());
-        dto.setStatus(order.getStatus());
+        dto.setStatus(order.getStatus().toString());
         dto.setTotalAmount(order.getTotalAmount());
         dto.setUsername(order.getUsername());
 
@@ -110,7 +111,7 @@ public class OrderServiceImplementation implements OrderService {
         Order order = repo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        order.setStatus(status);
+        order.setStatus(OrderStatus.valueOf(status.toUpperCase()));
         return repo.save(order);
     }
 

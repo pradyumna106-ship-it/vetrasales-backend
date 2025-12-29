@@ -22,9 +22,13 @@ public class User {
     private String phone;
     private String password;
     private String gender;
+    private String location;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
     private String role;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate joinedDate;
+    private String status;
  // User.java
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     @JsonBackReference
@@ -57,4 +61,18 @@ public class User {
 	}
 	public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
+	public String getLocation() {
+		return this.location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+    
 }

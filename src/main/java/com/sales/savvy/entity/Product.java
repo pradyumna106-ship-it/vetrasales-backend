@@ -3,6 +3,7 @@ package com.sales.savvy.entity;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sales.savvy.enums.Category;
 
 import jakarta.persistence.*;
 
@@ -11,10 +12,12 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-
 	private String name;
-	private String description;
+	@Column(length = 1000)
+    private String description;
 	private Integer price;
+	@Enumerated(EnumType.STRING)
+    private Category category;
 	private String image;
 	@ManyToOne
     @JoinColumn(name = "admin_id") // FK column in Product table
@@ -27,13 +30,17 @@ public class Product {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Product(Long id, String name, String description, Integer price, String image) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.image = image;
-    }
+	
+	public Product(Long id, String name, String description, Integer price, Category category, String image) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.category = category;
+		this.image = image;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -78,6 +85,15 @@ public class Product {
 	public void setReviews(List<Review> reviews) {
 		this.reviews = reviews;
 	}
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", image="

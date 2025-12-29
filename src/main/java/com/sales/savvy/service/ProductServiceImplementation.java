@@ -11,6 +11,7 @@ import com.sales.savvy.dto.ProductDTO;
 import com.sales.savvy.entity.Product;
 import com.sales.savvy.entity.Review;
 import com.sales.savvy.entity.User;
+import com.sales.savvy.enums.Category;
 import com.sales.savvy.repository.ProductRepository;
 import com.sales.savvy.repository.ReviewRepository;
 import com.sales.savvy.repository.UserRepository;
@@ -34,6 +35,7 @@ public class ProductServiceImplementation implements ProductService {
 		prod.setImage(proddto.getImage());
 		prod.setName(proddto.getName());
 		prod.setPrice(proddto.getPrice());
+		prod.setCategory(Category.valueOf(proddto.getCategory().toUpperCase()));
 		repo.save(prod);
 		return "success";
 	}
@@ -65,6 +67,7 @@ public class ProductServiceImplementation implements ProductService {
 		product.setId(prod.getId());
 		product.setName(prod.getName());
 		product.setDescription(prod.getDescription());
+		product.setCategory(Category.valueOf(prod.getCategory().toUpperCase()));
 		product.setImage(prod.getImage());
 		product.setPrice(prod.getPrice());
 		repo.save(product);

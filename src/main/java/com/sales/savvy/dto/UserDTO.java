@@ -10,25 +10,35 @@ public class UserDTO {
     private String email;
     private String phone;
     private String password;
+    private String location;
     private String gender;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
     private String role;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate joinedDate;
+    private String status;
 	public UserDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UserDTO(Long id, String username, String email,String phone, String password, String gender, LocalDate dob, String role) {
+	
+	public UserDTO(Long id, String username, String email, String phone, String password, String location,
+			String gender, LocalDate dob, String role, LocalDate joinedDate, String status) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
+		this.location = location;
 		this.gender = gender;
 		this.dob = dob;
 		this.role = role;
+		this.joinedDate = joinedDate;
+		this.status = status;
 	}
+
 	public Long getId() {
 		return id;
 	}
@@ -66,6 +76,12 @@ public class UserDTO {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	public String getLocation() {
+		return this.location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
 	public LocalDate getDob() {
 		return dob;
 	}
@@ -78,6 +94,23 @@ public class UserDTO {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	public LocalDate getJoinedDate() {
+		return joinedDate;
+	}
+
+	public void setJoinedDate(LocalDate joinedDate) {
+		this.joinedDate = joinedDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO [id=" + id + ", username=" + username + ", email=" + email + ", phone=" + phone + ", password="

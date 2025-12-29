@@ -5,9 +5,12 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sales.savvy.dto.OrderItemDTO;
+import com.sales.savvy.enums.OrderStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,8 +23,9 @@ public class Order {
 	    @GeneratedValue(strategy = GenerationType.AUTO)
 	    private Long id;
 	    private String username;          // Who placed the order
-	    private String address;           // Delivery address
-	    private String status;            // PAID, SHIPPED, DELIVERED
+	    private String address;				// Delivery address
+	    @Enumerated(EnumType.STRING)
+	    private OrderStatus status;            // PAID, SHIPPED, DELIVERED
 	    private double totalAmount;       // Total price
 
 	    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -39,7 +43,7 @@ public class Order {
 			this.id = id;
 			this.username = username;
 			this.address = address;
-			this.status = status;
+			this.status = OrderStatus.valueOf(status.toUpperCase());
 			this.totalAmount = totalAmount;
 			this.orderItems = orderItems;
 		}
@@ -68,11 +72,13 @@ public class Order {
 			this.address = address;
 		}
 
-		public String getStatus() {
+		
+
+		public OrderStatus getStatus() {
 			return status;
 		}
 
-		public void setStatus(String status) {
+		public void setStatus(OrderStatus status) {
 			this.status = status;
 		}
 

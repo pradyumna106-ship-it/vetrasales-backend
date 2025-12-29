@@ -29,6 +29,7 @@ public class UserServiceImplementation implements UserService {
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
         user.setGender(userDto.getGender());
+        user.setLocation(userDto.getLocation());
         user.setPassword(userDto.getPassword());
         user.setRole(userDto.getRole());
         user.setUsername(userDto.getUsername());
@@ -124,6 +125,7 @@ public class UserServiceImplementation implements UserService {
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
         user.setGender(userDto.getGender());
+        user.setLocation(userDto.getLocation());
         user.setPassword(userDto.getPassword());
         user.setRole(userDto.getRole());
         user.setUsername(userDto.getUsername());
