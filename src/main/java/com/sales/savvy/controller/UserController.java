@@ -59,8 +59,8 @@ public class UserController {
         userdto.setId(user.getId());
         userdto.setUsername(user.getUsername());
         userdto.setPassword(user.getPassword());
-        userdto.setRole(user.getRole());
-        userdto.setGender(user.getGender());
+        userdto.setRole(user.getRole().toString());
+        userdto.setGender(user.getGender().toString());
         userdto.setEmail(user.getEmail());
         userdto.setDob(user.getDob());
         return userdto;
