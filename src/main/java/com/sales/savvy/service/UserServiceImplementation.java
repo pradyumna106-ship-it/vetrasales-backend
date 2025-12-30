@@ -38,6 +38,8 @@ public class UserServiceImplementation implements UserService {
         user.setPassword(userDto.getPassword());
         user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
         user.setUsername(userDto.getUsername());
+        user.setJoinedDate(userDto.getJoinedDate());
+        user.setStatus(userDto.getStatus());
         // New username — save
         repo.save(user);
         return "success";
