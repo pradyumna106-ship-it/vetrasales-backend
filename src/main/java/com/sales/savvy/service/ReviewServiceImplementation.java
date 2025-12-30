@@ -57,7 +57,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			Review review = reviews.get(i);
 			AddReviewDTO dto = new AddReviewDTO();
 			dto.setComment(review.getComment());
-			dto.setProductName(review.getProductName());;
+			dto.setProductName(review.getProduct().getName());;
 			dto.setRating(review.getRating());
 			dto.setCustomerName(review.getCustomerName());
 			dtos.add(dto);
