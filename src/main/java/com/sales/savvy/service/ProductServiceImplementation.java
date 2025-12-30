@@ -37,6 +37,7 @@ public class ProductServiceImplementation implements ProductService {
 		prod.setName(proddto.getName());
 		prod.setPrice(proddto.getPrice());
 		prod.setCategory(Category.valueOf(proddto.getCategory().toUpperCase()));
+		prod.setInStock(proddto.isInStock());
 		repo.save(prod);
 		return "success";
 	}
@@ -51,6 +52,7 @@ public class ProductServiceImplementation implements ProductService {
 		dto.setImage(prod.getImage());
 		dto.setName(prod.getName());
 		dto.setPrice(prod.getPrice());
+		dto.setCategory(prod.getCategory().toString());
 		return dto;
 	}
 
@@ -71,6 +73,7 @@ public class ProductServiceImplementation implements ProductService {
 		product.setCategory(Category.valueOf(prod.getCategory().toUpperCase()));
 		product.setImage(prod.getImage());
 		product.setPrice(prod.getPrice());
+		product.setInStock(prod.isInStock());
 		repo.save(product);
 		return "success";
 	}

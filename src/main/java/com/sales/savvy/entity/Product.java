@@ -19,6 +19,7 @@ public class Product {
 	@Enumerated(EnumType.STRING)
     private Category category;
 	private String image;
+	private Boolean inStock;
 	@ManyToOne
     @JoinColumn(name = "admin_id") // FK column in Product table
 	@JsonManagedReference
@@ -31,7 +32,7 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Product(Long id, String name, String description, Integer price, Category category, String image) {
+	public Product(Long id, String name, String description, Integer price, Category category, String image, Boolean inStock) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -39,7 +40,8 @@ public class Product {
 		this.price = price;
 		this.category = category;
 		this.image = image;
-	}
+		this.inStock = inStock;
+}
 
 	public Long getId() {
 		return id;
@@ -92,6 +94,15 @@ public class Product {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	
+
+	public Boolean getInStock() {
+		return inStock;
+	}
+
+	public void setInStock(Boolean inStock) {
+		this.inStock = inStock;
 	}
 
 	@Override
