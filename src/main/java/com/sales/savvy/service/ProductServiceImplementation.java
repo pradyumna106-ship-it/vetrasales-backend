@@ -66,6 +66,7 @@ public class ProductServiceImplementation implements ProductService {
 		if (prod.getDescription() == null || prod.getId() == null || prod.getImage() == null || prod.getName() == null || prod.getPrice() == null) {
 			return  prod + "the reason is to get failed";
 		}
+		Optional<User> admin = userRepo.findByUsername(prod.getAdminName());
 		Product product = new Product();
 		product.setId(prod.getId());
 		product.setName(prod.getName());
@@ -74,6 +75,7 @@ public class ProductServiceImplementation implements ProductService {
 		product.setImage(prod.getImage());
 		product.setPrice(prod.getPrice());
 		product.setInStock(prod.isInStock());
+		product.setAdmin(admin.get());
 		repo.save(product);
 		return "success";
 	}

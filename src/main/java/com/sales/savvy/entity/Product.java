@@ -19,6 +19,7 @@ public class Product {
 	@Enumerated(EnumType.STRING)
     private Category category;
 	private String image;
+	@Column(nullable = false)
 	private Boolean inStock;
 	@ManyToOne
     @JoinColumn(name = "admin_id") // FK column in Product table

@@ -2,9 +2,12 @@ package com.sales.savvy.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.sales.savvy.dto.LoginData;
@@ -58,6 +61,7 @@ public class UserServiceImplementation implements UserService {
         if (!u.getPassword().equals(data.getPassword())) {
             return "invalid";  // wrong password
         }
+        
         // Return role
         return u.getRole().equals(Role.ADMIN.toString()) ? "admin" : "customer";
     }
