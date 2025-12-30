@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import com.sales.savvy.dto.LoginData;
 import com.sales.savvy.dto.UserDTO;
 import com.sales.savvy.entity.User;
+import com.sales.savvy.enums.Gender;
+import com.sales.savvy.enums.Role;
 import com.sales.savvy.repository.UserRepository;
 
 @Service
@@ -28,10 +30,10 @@ public class UserServiceImplementation implements UserService {
         user.setDob(userDto.getDob());
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
-        user.setGender(userDto.getGender());
+        user.setGender(Gender.valueOf(userDto.getGender().toUpperCase()));
         user.setLocation(userDto.getLocation());
         user.setPassword(userDto.getPassword());
-        user.setRole(userDto.getRole());
+        user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
         user.setUsername(userDto.getUsername());
         // New username — save
         repo.save(user);
@@ -57,7 +59,7 @@ public class UserServiceImplementation implements UserService {
             return "invalid";  // wrong password
         }
         // Return role
-        return u.getRole().equalsIgnoreCase("ADMIN") ? "admin" : "customer";
+        return u.getRole().equals(Role.ADMIN.toString()) ? "admin" : "customer";
     }
 
 	@Override
@@ -82,9 +84,9 @@ public class UserServiceImplementation implements UserService {
 			UserDTO dto = new UserDTO();
 			dto.setDob(user.getDob());
 			dto.setEmail(user.getEmail());
-			dto.setGender(user.getGender());
+			dto.setGender(user.getGender().toString());
 			dto.setPassword(user.getPassword());
-			dto.setRole(user.getRole());
+			dto.setRole(user.getRole().toString());
 			dto.setUsername(user.getUsername());
 			dto.setId(user.getId());
 			dtos.add(dto);
@@ -102,9 +104,9 @@ public class UserServiceImplementation implements UserService {
 			UserDTO dto = new UserDTO();
 			dto.setDob(user.getDob());
 			dto.setEmail(user.getEmail());
-			dto.setGender(user.getGender());
+			dto.setGender(user.getGender().toString());
 			dto.setPassword(user.getPassword());
-			dto.setRole(user.getRole());
+			dto.setRole(user.getRole().toString());
 			dto.setUsername(user.getUsername());
 			dto.setId(user.getId());
 			dtos.add(dto);
@@ -124,10 +126,10 @@ public class UserServiceImplementation implements UserService {
         user.setDob(userDto.getDob());
         user.setEmail(userDto.getEmail());
         user.setPhone(userDto.getPhone());
-        user.setGender(userDto.getGender());
+        user.setGender(Gender.valueOf(userDto.getGender().toUpperCase()));
         user.setLocation(userDto.getLocation());
         user.setPassword(userDto.getPassword());
-        user.setRole(userDto.getRole());
+        user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
         user.setUsername(userDto.getUsername());
         // New username — save
         repo.save(user);

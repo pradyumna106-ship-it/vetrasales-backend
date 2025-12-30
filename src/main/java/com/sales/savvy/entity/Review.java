@@ -1,8 +1,14 @@
 package com.sales.savvy.entity;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sales.savvy.enums.ReviewStatus;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,9 +19,12 @@ public class Review {
 	 	@Id
 	    @GeneratedValue(strategy = GenerationType.AUTO)
 	    private Long id;
-
-	    private String reviewerName;
+	    private String customerName;
 	    private String comment;
+	    @Enumerated(EnumType.STRING)
+	    private ReviewStatus status;
+	    @JsonFormat(pattern = "yyyy-MM-dd")
+	    private LocalDate date;
 	    private int rating;
 
 	    @ManyToOne
@@ -23,18 +32,21 @@ public class Review {
 	    @JsonBackReference
 	    private Product product;
 
-		public Review(Long id, String reviewerName, String comment, int rating, Product product) {
-			super();
-			this.id = id;
-			this.reviewerName = reviewerName;
-			this.comment = comment;
-			this.rating = rating;
-			this.product = product;
-		}
-
 		public Review() {
 			super();
 			// TODO Auto-generated constructor stub
+		}
+
+		public Review(Long id, String productName, String customerName, String comment, ReviewStatus status, LocalDate date,
+				int rating, Product product) {
+			super();
+			this.id = id;
+			this.customerName = customerName;
+			this.comment = comment;
+			this.status = status;
+			this.date = date;
+			this.rating = rating;
+			this.product = product;
 		}
 
 		public Long getId() {
@@ -45,12 +57,13 @@ public class Review {
 			this.id = id;
 		}
 
-		public String getReviewerName() {
-			return reviewerName;
+
+		public String getCustomerName() {
+			return customerName;
 		}
 
-		public void setReviewerName(String reviewerName) {
-			this.reviewerName = reviewerName;
+		public void setCustomerName(String customerName) {
+			this.customerName = customerName;
 		}
 
 		public String getComment() {
@@ -59,6 +72,23 @@ public class Review {
 
 		public void setComment(String comment) {
 			this.comment = comment;
+		}
+
+
+		public ReviewStatus getStatus() {
+			return status;
+		}
+
+		public void setStatus(ReviewStatus status) {
+			this.status = status;
+		}
+
+		public LocalDate getDate() {
+			return date;
+		}
+
+		public void setDate(LocalDate date) {
+			this.date = date;
 		}
 
 		public int getRating() {
@@ -79,9 +109,12 @@ public class Review {
 
 		@Override
 		public String toString() {
-			return "Review [id=" + id + ", reviewerName=" + reviewerName + ", comment=" + comment + ", rating=" + rating
-					+ ", product=" + product + "]";
+			return "Review [id=" + id + ", customerName=" + customerName + ", comment="
+					+ comment + ", status=" + status + ", date=" + date + ", rating=" + rating + ", product=" + product
+					+ "]";
 		}
+
+		
 	    
 	    
 }

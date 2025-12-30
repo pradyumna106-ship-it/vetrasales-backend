@@ -12,6 +12,7 @@ import com.sales.savvy.entity.Product;
 import com.sales.savvy.entity.Review;
 import com.sales.savvy.entity.User;
 import com.sales.savvy.enums.Category;
+import com.sales.savvy.enums.ReviewStatus;
 import com.sales.savvy.repository.ProductRepository;
 import com.sales.savvy.repository.ReviewRepository;
 import com.sales.savvy.repository.UserRepository;
@@ -88,17 +89,18 @@ public class ProductServiceImplementation implements ProductService {
 	@Override
 	public void addReview(AddReviewDTO review) {
 		// TODO Auto-generated method stub
-		Optional<Product> prod = repo.findById(review.getProductId());
+		Optional<Product> prod = repo.findByName(review.getProductName());
 		if (prod.isPresent()) {
 			Review reviews = new Review();
 			reviews.setRating(review.getRating());
 			reviews.setComment(review.getComment());
-			reviews.setReviewerName(review.getReviewerName());
+			reviews.setCustomerName(review.getCustomerName());;
 			reviews.setProduct(prod.get());
+			reviews.setStatus(ReviewStatus.valueOf(review.getStatus().toUpperCase()));
 			reviewRepo.save(reviews);
 
 		} else {
-			throw new RuntimeException("Product with ID " + review.getProductId() + " not found.");
+			throw new RuntimeException("Product " + review.getProductName() + " not found.");
 		}
 	}
 }

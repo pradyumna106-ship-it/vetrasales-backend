@@ -16,22 +16,16 @@ public class OrderItem {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private Long productId;
     private String productName;
     private int quantity;
     private double price;
     private double subtotal;
-
     @ManyToOne
     @JoinColumn(name = "order_id")
     @JsonBackReference
     private Order order;
-
-
-
     public OrderItem() {}
-
 	public OrderItem(Long id, Long productId, String productName, int quantity, double price, double subtotal,
 			Order order) {
 		super();

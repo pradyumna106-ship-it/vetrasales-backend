@@ -16,7 +16,6 @@ import com.sales.savvy.repository.ReviewRepository;
 public class ReviewServiceImplementation implements ReviewService {
 	@Autowired private ReviewRepository repo;
 	
-	@Autowired private ProductRepository prodRepo;
 	@Override
 	public List<Review> listOfReview(Long productId) {
 		// TODO Auto-generated method stub
@@ -30,7 +29,7 @@ public class ReviewServiceImplementation implements ReviewService {
         if (r == null) return "Review Not Found";
 
         // If not admin → only delete his own review
-        if (!isAdmin && !r.getReviewerName().equals(username)) {
+        if (!isAdmin && !r.getCustomerName().equals(username)) {
             return "You can delete only your own reviews!";
         }
 
@@ -58,9 +57,9 @@ public class ReviewServiceImplementation implements ReviewService {
 			Review review = reviews.get(i);
 			AddReviewDTO dto = new AddReviewDTO();
 			dto.setComment(review.getComment());
-			dto.setProductId(review.getProduct().getId());
+			dto.setProductName(review.getProductName());;
 			dto.setRating(review.getRating());
-			dto.setReviewerName(review.getReviewerName());
+			dto.setCustomerName(review.getCustomerName());
 			dtos.add(dto);
 		}
 		

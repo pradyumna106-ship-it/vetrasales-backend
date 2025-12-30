@@ -7,6 +7,8 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sales.savvy.enums.Gender;
+import com.sales.savvy.enums.Role;
 
 import jakarta.persistence.*;
 
@@ -21,11 +23,13 @@ public class User {
     private String email;
     private String phone;
     private String password;
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private String location;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate joinedDate;
     private String status;
@@ -50,17 +54,31 @@ public class User {
 	}
 	public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-    public String getGender() { return gender; }
-    public void setGender(String gender) { this.gender = gender; }
-   
     public LocalDate getDob() {
 		return dob;
 	}
 	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
-	public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+	
+	public Gender getGender() {
+		return gender;
+	}
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	public LocalDate getJoinedDate() {
+		return joinedDate;
+	}
+	public void setJoinedDate(LocalDate joinedDate) {
+		this.joinedDate = joinedDate;
+	}
 	public String getLocation() {
 		return this.location;
 	}
@@ -73,6 +91,12 @@ public class User {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", phone=" + phone + ", password="
+				+ password + ", gender=" + gender + ", location=" + location + ", dob=" + dob + ", role=" + role
+				+ ", joinedDate=" + joinedDate + ", status=" + status + ", products=" + products + "]";
 	}
     
 }
