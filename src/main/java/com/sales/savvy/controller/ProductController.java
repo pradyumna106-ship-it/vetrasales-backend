@@ -34,13 +34,13 @@ public class ProductController {
 		return service.searchProduct(productId);
 	}
 	@GetMapping("/searchProduct")
-	public List<Product> searchProduct(@RequestParam String keyword) {
+	public List<ProductDTO> searchProduct(@RequestParam String keyword) {
 		return service.searchProduct(keyword);
 	}
 	
 	
 	@GetMapping("/getAllProducts")
-	public List<Product> getAllProducts() {
+	public List<ProductDTO> getAllProducts() {
 		return service.getAllProducts();
 	}
 	

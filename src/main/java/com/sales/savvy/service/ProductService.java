@@ -9,8 +9,8 @@ import com.sales.savvy.entity.Product;
 public interface ProductService {
 	String addProduct(ProductDTO prod);
 	ProductDTO searchProduct(Long id);
-	List<Product> searchProduct(String keyword);
-	List<Product> getAllProducts();
+	List<ProductDTO> searchProduct(String keyword);
+	List<ProductDTO> getAllProducts();
 	String updateProduct(ProductDTO prod);
 	void addReview(AddReviewDTO review);
 	void deleteProduct(Long id);

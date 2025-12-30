@@ -1,5 +1,6 @@
 package com.sales.savvy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,8 +58,23 @@ public class ProductServiceImplementation implements ProductService {
 	}
 
 	@Override
-	public List<Product> getAllProducts() {
-		return repo.findAll();
+	public List<ProductDTO> getAllProducts() {
+		List<Product> products = repo.findAll();
+		List<ProductDTO> productsDto = new ArrayList<>();
+		for (int i = 0; i < products.size(); i++) {
+			Product prod = products.get(i);
+			ProductDTO proddto = new ProductDTO();
+			proddto.setAdminName(prod.getAdmin().getUsername());
+			proddto.setCategory(prod.getCategory().toString());
+			proddto.setDescription(prod.getDescription());
+			proddto.setId(prod.getId());
+			proddto.setImage(prod.getImage());
+			proddto.setInStock(prod.getInStock());
+			proddto.setName(prod.getName());
+			proddto.setPrice(prod.getPrice());
+			productsDto.add(proddto);
+		}
+		return productsDto;
 	}
 
 	@Override
@@ -86,9 +102,24 @@ public class ProductServiceImplementation implements ProductService {
 	}
 
 	@Override
-	public List<Product> searchProduct(String keyword) {
+	public List<ProductDTO> searchProduct(String keyword) {
 		// TODO Auto-generated method stub
-		return repo.searchProduct(keyword);
+		List<Product> products = repo.searchProduct(keyword);
+		List<ProductDTO> productsDto = new ArrayList<>();
+		for (int i = 0; i < products.size(); i++) {
+			Product prod = products.get(i);
+			ProductDTO proddto = new ProductDTO();
+			proddto.setAdminName(prod.getAdmin().getUsername());
+			proddto.setCategory(prod.getCategory().toString());
+			proddto.setDescription(prod.getDescription());
+			proddto.setId(prod.getId());
+			proddto.setImage(prod.getImage());
+			proddto.setInStock(prod.getInStock());
+			proddto.setName(prod.getName());
+			proddto.setPrice(prod.getPrice());
+			productsDto.add(proddto);
+		}
+		return productsDto;
 	}
 
 	@Override
