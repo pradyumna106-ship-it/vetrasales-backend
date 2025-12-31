@@ -11,7 +11,7 @@ import com.sales.savvy.entity.User;
 
 public interface UserService {
     String addUser(UserDTO userDto);
-    Optional<User> getUser(String username);
+    UserDTO getUser(String username);
     String validateUser(LoginData data);
     void deleteUser(Long id);
     void deleteAllUser();

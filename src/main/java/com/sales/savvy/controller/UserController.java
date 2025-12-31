@@ -52,18 +52,8 @@ public class UserController {
 
     @GetMapping("/userData")
     public UserDTO userData(@RequestParam String username) {
-        User user = service.getUser(username)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        UserDTO userdto = new UserDTO();
-        userdto.setId(user.getId());
-        userdto.setUsername(user.getUsername());
-        userdto.setPassword(user.getPassword());
-        userdto.setRole(user.getRole().toString());
-        userdto.setGender(user.getGender().toString());
-        userdto.setEmail(user.getEmail());
-        userdto.setDob(user.getDob());
-        return userdto;
+        
+        return service.getUser(username);
     }
 
     @GetMapping("/deleteAll")

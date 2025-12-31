@@ -46,9 +46,23 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public Optional<User> getUser(String username) {
+    public UserDTO getUser(String username) {
         // Just wrap repo call
-        return repo.findByUsername(username);
+    	Optional<User> userOP = repo.findByUsername(username);
+    	User user = userOP.get();
+		UserDTO dto = new UserDTO();
+		dto.setDob(user.getDob());
+		dto.setEmail(user.getEmail());
+		dto.setGender(user.getGender().toString());
+		dto.setPassword(user.getPassword());
+		dto.setRole(user.getRole().toString());
+		dto.setUsername(user.getUsername());
+		dto.setJoinedDate(user.getJoinedDate());
+		dto.setLocation(user.getLocation());
+		dto.setPhone(user.getPhone());
+		dto.setStatus(user.getStatus());
+		dto.setId(user.getId());
+        return dto;
     }
 
     @Override
