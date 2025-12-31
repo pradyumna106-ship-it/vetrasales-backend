@@ -5,7 +5,7 @@ public class ProductDTO {
 	private Long id;
 	private String name;
 	private String description;
-	private Integer price;
+	private Double price;
 	private String category;
 	private String image;
 	private Boolean inStock;
@@ -14,7 +14,7 @@ public class ProductDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ProductDTO(Long id, String name, String description, Integer price, String image, String adminName, String category, Boolean inStock) {
+	public ProductDTO(Long id, String name, String description, Double price, String image, String adminName, String category, Boolean inStock) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -42,10 +42,10 @@ public class ProductDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(Integer price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public String getImage() {

@@ -15,7 +15,7 @@ public class Product {
 	private String name;
 	@Column(length = 1000)
     private String description;
-	private Integer price;
+	private Double price;
 	@Enumerated(EnumType.STRING)
     private Category category;
 	private String image;
@@ -33,7 +33,7 @@ public class Product {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Product(Long id, String name, String description, Integer price, Category category, String image, Boolean inStock) {
+	public Product(Long id, String name, String description, Double price, Category category, String image, Boolean inStock) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -62,10 +62,10 @@ public class Product {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(Integer price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	public String getImage() {
