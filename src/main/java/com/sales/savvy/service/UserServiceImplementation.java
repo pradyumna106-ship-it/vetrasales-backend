@@ -1,5 +1,6 @@
 package com.sales.savvy.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.sales.savvy.dto.LoginData;
 import com.sales.savvy.dto.UserDTO;
@@ -31,7 +33,10 @@ public class UserServiceImplementation implements UserService {
             return "fail";   // already taken
         }
         if (existing2.isPresent()) {
-            return "fail";
+        	throw new ResponseStatusException(
+        		    HttpStatus.CONFLICT,
+        		    "Email already registered"
+        		);
         }
         User user = new User();
         user.setDob(userDto.getDob());
@@ -42,8 +47,8 @@ public class UserServiceImplementation implements UserService {
         user.setPassword(userDto.getPassword());
         user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
         user.setUsername(userDto.getUsername());
-        user.setJoinedDate(userDto.getJoinedDate());
-        user.setStatus(userDto.getStatus());
+        user.setJoinedDate(LocalDate.now());
+        user.setStatus("ACTIVE");
         // New username — save
         repo.save(user);
         return "success";
