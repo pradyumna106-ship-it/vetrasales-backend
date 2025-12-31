@@ -2,6 +2,9 @@ package com.sales.savvy.dto;
 
 import com.sales.savvy.enums.Category;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+
 public class CartItemDTO {
 
     private Long productId;
@@ -10,7 +13,7 @@ public class CartItemDTO {
     private Double price;        // ✅ FIXED
     private String image;
     private Integer quantity;
-    private Category category;   // ✅ OPTIONAL but recommended
+    private String category;   // ✅ OPTIONAL but recommended
 
     public CartItemDTO() {}
 
@@ -21,7 +24,7 @@ public class CartItemDTO {
             Double price,
             String image,
             Integer quantity,
-            Category category
+            String category
     ) {
         this.productId = productId;
         this.name = name;
@@ -52,6 +55,6 @@ public class CartItemDTO {
     public Integer getQuantity() { return quantity; }
     public void setQuantity(Integer quantity) { this.quantity = quantity; }
 
-    public Category getCategory() { return category; }
-    public void setCategory(Category category) { this.category = category; }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 }

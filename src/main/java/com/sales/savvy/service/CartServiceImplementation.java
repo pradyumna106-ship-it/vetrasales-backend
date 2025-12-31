@@ -97,7 +97,7 @@ public class CartServiceImplementation implements CartService {
 	                p.getPrice(),          // ✅ Double → Double
 	                p.getImage(),
 	                ci.getQuantity(),
-	                p.getCategory()        // ✅ Enum
+	                p.getCategory().toString()        // ✅ Enum
 	        ));
 	    }
 	    return out;
