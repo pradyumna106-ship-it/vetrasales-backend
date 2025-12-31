@@ -65,7 +65,7 @@ public class UserServiceImplementation implements UserService {
         }
         
         // Return role
-        return u.getRole().equals(Role.ADMIN.toString()) ? "admin" : "customer";
+        return u.getRole().name().equals("ADMIN") ? "admin" : "customer";
     }
 
 	@Override
