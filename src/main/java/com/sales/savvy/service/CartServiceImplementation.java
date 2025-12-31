@@ -77,21 +77,32 @@ public class CartServiceImplementation implements CartService {
 
 	@Transactional
 	public List<CartItemDTO> getCartItems(String username) {
-		User user = userRepo.findByUsername(username)
-				.orElseThrow(() -> new RuntimeException("User not found"));
-		Optional<Cart> optCart = repo.findByUser(user);
-		if (optCart.isEmpty()) return new ArrayList<>();
 
-		Cart cart = optCart.get();
-		List<CartItemDTO> out = new ArrayList<>();
-		for (CartItem ci : cart.getItemList()) {
-			Product p = ci.getProduct();
-			out.add(new CartItemDTO(
-					p.getId(), p.getName(), p.getDescription(),
-					p.getPrice(), p.getImage(), ci.getQuantity()
-					));
-		}
-		return out;
+	    User user = userRepo.findByUsername(username)
+	            .orElseThrow(() -> new RuntimeException("User not found"));
+
+	    Optional<Cart> optCart = repo.findByUser(user);
+	    if (optCart.isEmpty()) return new ArrayList<>();
+
+	    Cart cart = optCart.get();
+	    List<CartItemDTO> out = new ArrayList<>();
+
+	    for (CartItem ci : cart.getItemList()) {
+	        Product p = ci.getProduct();
+
+	        out.add(new CartItemDTO(
+	                p.getId(),
+	                p.getName(),
+	                p.getDescription(),
+	                p.getPrice(),          // ✅ Double → Double
+	                p.getImage(),
+	                ci.getQuantity(),
+	                p.getCategory()        // ✅ Enum
+	        ));
+	    }
+	    return out;
 	}
+
+
 
 }

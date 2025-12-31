@@ -17,13 +17,10 @@ public class Cart {
     @JoinColumn(name = "user_id", unique = true)
     private User user;
 
-    @OneToMany(
-      mappedBy = "cart",
-      cascade = CascadeType.ALL,
-      orphanRemoval = true
-    )
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<CartItem> itemList = new ArrayList<>();
+
 
     public Cart() {}
     public Cart(User user) {
