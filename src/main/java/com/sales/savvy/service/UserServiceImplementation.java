@@ -114,6 +114,10 @@ public class UserServiceImplementation implements UserService {
 			dto.setPassword(user.getPassword());
 			dto.setRole(user.getRole().toString());
 			dto.setUsername(user.getUsername());
+			dto.setJoinedDate(user.getJoinedDate());
+			dto.setLocation(user.getLocation());
+			dto.setPhone(user.getPhone());
+			dto.setStatus(user.getStatus());
 			dto.setId(user.getId());
 			dtos.add(dto);
 		}
