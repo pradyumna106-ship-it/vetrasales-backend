@@ -38,6 +38,9 @@ public class UserServiceImplementation implements UserService {
         		    "Email already registered"
         		);
         }
+        System.out.println("Email exists: " + repo.existsByEmail(userDto.getEmail()));
+        System.out.println("Username exists: " + repo.findByUsername(userDto.getUsername()));
+
         User user = new User();
         user.setDob(userDto.getDob());
         user.setEmail(userDto.getEmail());
