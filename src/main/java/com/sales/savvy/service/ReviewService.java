@@ -6,7 +6,7 @@ import com.sales.savvy.dto.AddReviewDTO;
 import com.sales.savvy.entity.Review;
 
 public interface ReviewService {
-	List<Review> listOfReview(Long productId);
+	List<AddReviewDTO> listOfReview(Long productId);
 	String deleteReview(Long reviewId, String username, boolean isAdmin);
 	String deleteAllReviews();
 	String deleteReviewsByProduct(Long productId);

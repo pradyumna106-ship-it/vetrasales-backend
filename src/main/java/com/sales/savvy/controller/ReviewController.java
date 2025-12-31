@@ -21,7 +21,7 @@ public class ReviewController {
 	@Autowired private ReviewService service;
 	
 	@GetMapping("/listOfReview")
-	public List<Review> getReviews(@RequestParam("productId") Long productId) {
+	public List<AddReviewDTO> getReviews(@RequestParam("productId") Long productId) {
 		return service.listOfReview(productId);
 	}
 	@DeleteMapping("/deleteReview")

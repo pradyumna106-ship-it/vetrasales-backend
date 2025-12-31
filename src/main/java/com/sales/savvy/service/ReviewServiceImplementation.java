@@ -17,9 +17,21 @@ public class ReviewServiceImplementation implements ReviewService {
 	@Autowired private ReviewRepository repo;
 	
 	@Override
-	public List<Review> listOfReview(Long productId) {
+	public List<AddReviewDTO> listOfReview(Long productId) {
 		// TODO Auto-generated method stub
-		return repo.findByProduct_Id(productId);
+		List<Review> reviews = repo.findByProduct_Id(productId);
+		List<AddReviewDTO> dtos = new ArrayList<>();
+		for (int i = 0; i < reviews.size(); i++) {
+			Review review = reviews.get(i);
+			AddReviewDTO dto = new AddReviewDTO();
+			dto.setComment(review.getComment());
+			dto.setProductName(review.getProduct().getName());;
+			dto.setRating(review.getRating());
+			dto.setCustomerName(review.getCustomerName());
+			dtos.add(dto);
+		}
+		
+		return dtos;
 	}
 	@Override
 	public String deleteReview(Long reviewId, String username, boolean isAdmin) {
