@@ -33,10 +33,7 @@ public class UserServiceImplementation implements UserService {
             return "fail";   // already taken
         }
         if (existing2.isPresent()) {
-        	throw new ResponseStatusException(
-        		    HttpStatus.CONFLICT,
-        		    "Email already registered"
-        		);
+        	return "fail";
         }
         System.out.println("Email exists: " + repo.existsByEmail(userDto.getEmail()));
         System.out.println("Username exists: " + repo.findByUsername(userDto.getUsername()));
