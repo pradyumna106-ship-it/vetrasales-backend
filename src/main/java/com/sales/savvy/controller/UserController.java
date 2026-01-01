@@ -75,6 +75,15 @@ public class UserController {
         return service.getAllUser();
     }
     
+    @GetMapping("/getAllAdmin")
+    public List<UserDTO> getAllAdmin() {
+        return service.getAllAdmin();
+    }
+    @GetMapping("/getAllCustomer")
+    public List<UserDTO> getAllCustomer() {
+        return service.getAllCustomer();
+    }
+    
     @GetMapping("/emails")
     public List<String> getAllUserEmails() {
         return service.getAllUserEmails();

@@ -9,12 +9,13 @@ import org.springframework.data.repository.query.Param;
 
 import com.sales.savvy.dto.UserDTO;
 import com.sales.savvy.entity.User;
+import com.sales.savvy.enums.Role;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByUsername(String username);
 	@Query("SELECT u FROM User u WHERE u.username LIKE :keyword%")
 	List<User> searchUser(String keyword);
 	Optional<User> existsByEmail(String email);
-
+	List<User> findByRole(Role role);
 
 }

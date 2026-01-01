@@ -190,4 +190,52 @@ public class UserServiceImplementation implements UserService {
 		}
 		return phones;
 	}
+
+	@Override
+	public List<UserDTO> getAllAdmin() {
+		// TODO Auto-generated method stub
+		List<User> users = repo.findByRole(Role.ADMIN);
+		List<UserDTO> dtos = new ArrayList<>();
+		for (int i = 0; i < users.size(); i++) {
+			User user = users.get(i);
+			UserDTO dto = new UserDTO();
+			dto.setDob(user.getDob());
+			dto.setEmail(user.getEmail());
+			dto.setGender(user.getGender().toString());
+			dto.setPassword(user.getPassword());
+			dto.setRole(user.getRole().toString());
+			dto.setUsername(user.getUsername());
+			dto.setJoinedDate(user.getJoinedDate());
+			dto.setLocation(user.getLocation());
+			dto.setPhone(user.getPhone());
+			dto.setStatus(user.getStatus());
+			dto.setId(user.getId());
+			dtos.add(dto);
+		}
+		return dtos;
+	}
+
+	@Override
+	public List<UserDTO> getAllCustomer() {
+		// TODO Auto-generated method stub
+		List<User> users = repo.findByRole(Role.CUSTOMER);
+		List<UserDTO> dtos = new ArrayList<>();
+		for (int i = 0; i < users.size(); i++) {
+			User user = users.get(i);
+			UserDTO dto = new UserDTO();
+			dto.setDob(user.getDob());
+			dto.setEmail(user.getEmail());
+			dto.setGender(user.getGender().toString());
+			dto.setPassword(user.getPassword());
+			dto.setRole(user.getRole().toString());
+			dto.setUsername(user.getUsername());
+			dto.setJoinedDate(user.getJoinedDate());
+			dto.setLocation(user.getLocation());
+			dto.setPhone(user.getPhone());
+			dto.setStatus(user.getStatus());
+			dto.setId(user.getId());
+			dtos.add(dto);
+		}
+		return dtos;
+	}
 }

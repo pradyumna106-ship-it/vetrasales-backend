@@ -17,6 +17,8 @@ public interface UserService {
     void deleteAllUser();
     List<UserDTO> searchUser(String name);
     List<UserDTO> getAllUser();
+    List<UserDTO> getAllAdmin();
+    List<UserDTO> getAllCustomer();
     String updateUser(UserDTO userDto);
 	List<String> getAllUserEmails();
 	List<String> getAllUserPhone();
