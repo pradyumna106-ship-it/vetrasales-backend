@@ -33,8 +33,6 @@ public class UserController {
     public ResponseEntity<String> signUp(@RequestBody UserDTO userDto) {
         String result = service.addUser(userDto);
         
-        if ("fail".equals(result))
-            return ResponseEntity.status(409).body("Username already exists");
         return ResponseEntity.ok("User registered successfully");
     }
     
