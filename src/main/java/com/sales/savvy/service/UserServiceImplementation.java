@@ -27,16 +27,16 @@ public class UserServiceImplementation implements UserService {
     @Override
     public String addUser(UserDTO userDto) {
     	// Check if username already exists
-        Optional<User> existing = repo.findByUsername(userDto.getUsername());
-        Optional<User> existing2 = repo.existsByEmail(userDto.getEmail());
-        if (existing.isPresent()) {
-            return "fail";   // already taken
-        }
-        if (existing2.isPresent()) {
-        	return "fail";
-        }
-        System.out.println("Email exists: " + repo.existsByEmail(userDto.getEmail()));
-        System.out.println("Username exists: " + repo.findByUsername(userDto.getUsername()));
+//        Optional<User> existing = repo.findByUsername(userDto.getUsername());
+//        Optional<User> existing2 = repo.existsByEmail(userDto.getEmail());
+//        if (existing.isPresent()) {
+//            return "fail";   // already taken
+//        }
+//        if (existing2.isPresent()) {
+//        	return "fail";
+//        }
+//        System.out.println("Email exists: " + repo.existsByEmail(userDto.getEmail()));
+//        System.out.println("Username exists: " + repo.findByUsername(userDto.getUsername()));
 
         User user = new User();
         user.setDob(userDto.getDob());
