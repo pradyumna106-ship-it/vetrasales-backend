@@ -87,7 +87,7 @@ public class UserServiceImplementation implements UserService {
         }
 
         // ✅ role check
-        return u.getRole() == Role.ADMIN ? "admin" : "customer";
+        return u.getRole().name().toString().equals("ADMIN") ? "admin" : "customer";
     }
 
 
