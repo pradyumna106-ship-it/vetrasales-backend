@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByUsername(String username);
 	@Query("SELECT u FROM User u WHERE u.username LIKE :keyword%")
 	List<User> searchUser(String keyword);
-	Optional<User> existsByEmail(String email);
+	Optional<User> findByEmail(String email);
 	List<User> findByRole(Role role);
 
 }
