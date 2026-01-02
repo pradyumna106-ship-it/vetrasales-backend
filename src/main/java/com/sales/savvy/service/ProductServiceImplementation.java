@@ -139,4 +139,25 @@ public class ProductServiceImplementation implements ProductService {
 			throw new RuntimeException("Product " + review.getProductName() + " not found.");
 		}
 	}
+
+	@Override
+	public List<ProductDTO> getByAdmin(Long id) {
+		// TODO Auto-generated method stub
+		List<Product> products = repo.findByAdminId(id);
+		List<ProductDTO> productsDto = new ArrayList<>();
+		for (int i = 0; i < products.size(); i++) {
+			Product prod = products.get(i);
+			ProductDTO proddto = new ProductDTO();
+			proddto.setAdminName(prod.getAdmin().getUsername());
+			proddto.setCategory(prod.getCategory().toString());
+			proddto.setDescription(prod.getDescription());
+			proddto.setId(prod.getId());
+			proddto.setImage(prod.getImage());
+			proddto.setInStock(prod.getInStock());
+			proddto.setName(prod.getName());
+			proddto.setPrice(prod.getPrice());
+			productsDto.add(proddto);
+		}
+		return productsDto;
+	}
 }

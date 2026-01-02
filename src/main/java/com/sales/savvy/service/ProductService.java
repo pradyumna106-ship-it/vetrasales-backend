@@ -11,6 +11,7 @@ public interface ProductService {
 	ProductDTO searchProduct(Long id);
 	List<ProductDTO> searchProduct(String keyword);
 	List<ProductDTO> getAllProducts();
+	List<ProductDTO> getByAdmin(Long id);
 	String updateProduct(ProductDTO prod);
 	void addReview(AddReviewDTO review);
 	void deleteProduct(Long id);

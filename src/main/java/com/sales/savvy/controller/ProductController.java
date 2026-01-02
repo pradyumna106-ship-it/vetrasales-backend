@@ -44,6 +44,11 @@ public class ProductController {
 		return service.getAllProducts();
 	}
 	
+	@GetMapping("/getByAdmin")
+	public List<ProductDTO> getByAdmin(@RequestParam Long id) {
+		return service.getByAdmin(id);
+	}
+	
 	@PostMapping(value = "/updateProduct", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String updateProduct(@RequestBody ProductDTO prodDto) {
 	    
