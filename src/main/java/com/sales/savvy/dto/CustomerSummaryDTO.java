@@ -10,15 +10,8 @@ public class CustomerSummaryDTO {
 	  }
 	  @Override
 	public String toString() {
-		return "CustomerSummaryDTO [id=" + id + ", username=" + username + ", totalOrders=" + totalOrders
-				+ ", totalSpend=" + totalSpend + "]";
+		return "CustomerSummaryDTO [ username=" + username + ", totalOrders=" + totalOrders + ", totalSpend=" + totalSpend + "]";
 	}
-	  public int getId() {
-		return id;
-	}
-	  public void setId(int id) {
-		  this.id = id;
-	  }
 	  public String getUsername() {
 		  return username;
 	  }

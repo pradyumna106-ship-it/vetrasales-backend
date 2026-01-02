@@ -63,7 +63,7 @@ public class OrderController {
         return "hello";
     }
     @GetMapping("/getSummary")
-    public List<CustomerSummaryDTO> getSummary() {
-        return service.getSummary();
+    public CustomerSummaryDTO getSummary(@RequestParam String username) {
+        return service.getSummary(username);
     }
 }
