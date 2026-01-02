@@ -13,10 +13,12 @@ import jakarta.transaction.Transactional;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findByProduct_Id(Long productId);
+    List<Review> findByCustomerName(String customerName);
     @Transactional
     @Modifying
     @Query("DELETE FROM Review r WHERE r.product.id = :productId")
     void deleteByProduct_Id(@Param("productId") Long productId);
 
     void deleteByCustomerName(String reviewerName);
+    
 }

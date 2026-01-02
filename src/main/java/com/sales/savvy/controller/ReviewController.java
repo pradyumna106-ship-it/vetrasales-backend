@@ -52,6 +52,9 @@ public class ReviewController {
 	public List<AddReviewDTO> allReviews() {
 		return service.allReviews();
 	}
-	
+	@GetMapping("/customerReviews")
+	public List<AddReviewDTO> customerReviews(@RequestParam String username) {
+		return service.listofCustomerReview(username);
+	}
 	
 }

@@ -77,6 +77,22 @@ public class ReviewServiceImplementation implements ReviewService {
 		
 		return dtos;
 	}
+	@Override
+	public List<AddReviewDTO> listofCustomerReview(String username) {
+		// TODO Auto-generated method stub
+		List<Review> reviews = repo.findByCustomerName(username);
+		List<AddReviewDTO> dtos = new ArrayList<>();
+		for (int i = 0; i < reviews.size(); i++) {
+			Review review = reviews.get(i);
+			AddReviewDTO dto = new AddReviewDTO();
+			dto.setComment(review.getComment());
+			dto.setProductName(review.getProduct().getName());;
+			dto.setRating(review.getRating());
+			dto.setCustomerName(review.getCustomerName());
+			dtos.add(dto);
+		}
+		return dtos;
+	}
 	
 	
 

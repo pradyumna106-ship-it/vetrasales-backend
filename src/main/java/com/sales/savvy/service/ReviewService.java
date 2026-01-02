@@ -11,4 +11,5 @@ public interface ReviewService {
 	String deleteAllReviews();
 	String deleteReviewsByProduct(Long productId);
 	List<AddReviewDTO> allReviews();
+	List<AddReviewDTO> listofCustomerReview(String username);
 }
