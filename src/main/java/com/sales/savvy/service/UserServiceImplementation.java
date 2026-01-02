@@ -77,7 +77,7 @@ public class UserServiceImplementation implements UserService {
         if (optUser.isEmpty()) {
             return "invalid";  // no such user
         }
-//        User u = optUser.get();
+       User u = optUser.get();
 //        // Check password
 //        if (!u.getPassword().equals(data.getPassword()) && u.getUsername().equals(data.getUsername())) {
 //            return "invalid";  // wrong password
