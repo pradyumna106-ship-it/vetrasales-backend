@@ -78,17 +78,17 @@ public class UserServiceImplementation implements UserService {
     public String validateUser(LoginData data) {
         // Look up by username
         Optional<User> optUser = repo.findByUsername(data.getUsername());
-        if (!optUser.isPresent()) {
-            return "invalid";  // no such user
-        }
+//        if (!optUser.isPresent()) {
+//            return "invalid";  // no such user
+//        }
         User u = optUser.get();
         // Check password
-        if (!u.getPassword().equals(data.getPassword())) {
+        if (!u.getPassword().equals(data.getPassword()) && u.getUsername().equals(data.getUsername())) {
             return "invalid";  // wrong password
         }
         
         // Return role
-        return u.getRole().name().equals("ADMIN") ? "admin" : "customer";
+        return u.getRole().equals(Role.ADMIN) ? "admin" : "customer";
     }
 
 	@Override
