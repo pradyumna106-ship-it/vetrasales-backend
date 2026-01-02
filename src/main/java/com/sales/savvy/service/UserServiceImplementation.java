@@ -27,17 +27,13 @@ public class UserServiceImplementation implements UserService {
     @Override
     public String addUser(UserDTO userDto) {
     	// Check if username already exists
-//        Optional<User> existing = repo.findByUsername(userDto.getUsername());
-//        Optional<User> existing2 = repo.existsByEmail(userDto.getEmail());
-//        if (existing.isPresent()) {
-//            return "fail";   // already taken
-//        }
-//        if (existing2.isPresent()) {
-//        	return "fail";
-//        }
-        System.out.println("Email exists: " + repo.existsByEmail(userDto.getEmail()));
+        Optional<User> existing = repo.findByUsername(userDto.getUsername());
+        Optional<User> existing2 = repo.findByEmail(userDto.getEmail());
+        if (existing.isPresent() || existing2.isPresent()) {
+            return "fail";   // already taken
+        }
+        System.out.println("Email exists: " + repo.findByEmail(userDto.getEmail()));
         System.out.println("Username exists: " + repo.findByUsername(userDto.getUsername()));
-
         User user = new User();
         user.setDob(userDto.getDob());
         user.setEmail(userDto.getEmail());
@@ -78,9 +74,9 @@ public class UserServiceImplementation implements UserService {
     public String validateUser(LoginData data) {
         // Look up by username
         Optional<User> optUser = repo.findByUsername(data.getUsername());
-//        if (!optUser.isPresent()) {
-//            return "invalid";  // no such user
-//        }
+        if (optUser.isEmpty()) {
+            return "invalid";  // no such user
+        }
         User u = optUser.get();
         // Check password
         if (!u.getPassword().equals(data.getPassword()) && u.getUsername().equals(data.getUsername())) {
