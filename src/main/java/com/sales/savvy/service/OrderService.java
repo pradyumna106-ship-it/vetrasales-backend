@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sales.savvy.dto.CartData;
+import com.sales.savvy.dto.CustomerSummaryDTO;
 import com.sales.savvy.dto.OrderDTO;
 import com.sales.savvy.entity.Order;
 
@@ -17,4 +18,6 @@ public interface OrderService {
 	Optional<OrderDTO> getOrderById(Long orderId);
 
 	Order updateOrderStatus(Long id, String status);
+	
+	CustomerSummaryDTO getSummary(String username);
 }

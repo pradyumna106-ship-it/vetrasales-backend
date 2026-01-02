@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sales.savvy.dto.CustomerSummaryDTO;
 import com.sales.savvy.dto.OrderDTO;
 import com.sales.savvy.dto.OrderItemDTO;
 import com.sales.savvy.entity.Order;
@@ -114,5 +115,20 @@ public class OrderServiceImplementation implements OrderService {
         order.setStatus(OrderStatus.valueOf(status.toUpperCase()));
         return repo.save(order);
     }
+
+	@Override
+	public CustomerSummaryDTO getSummary(String username) {
+
+	    List<Order> orders = repo.findByUsername(username);
+
+	    int totalOrders = orders.size();
+	    double totalSpend = 0.0;
+
+	    for (Order order : orders) {
+	        totalSpend += order.getTotalAmount();
+	    }
+	    return new CustomerSummaryDTO(username, totalOrders, totalSpend);
+	}
+
 
 }

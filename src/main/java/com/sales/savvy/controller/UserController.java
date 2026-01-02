@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sales.savvy.dto.CustomerSummaryDTO;
 import com.sales.savvy.dto.LoginData;
 import com.sales.savvy.dto.UserDTO;
 import com.sales.savvy.entity.User;
@@ -93,5 +94,7 @@ public class UserController {
     public List<String> getAllUserPhones() {
         return service.getAllUserPhone();
     }
+    
+    
 }
 

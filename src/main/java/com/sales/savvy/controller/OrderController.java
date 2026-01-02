@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sales.savvy.dto.CustomerSummaryDTO;
 import com.sales.savvy.dto.OrderDTO;
 import com.sales.savvy.entity.Order;
 import com.sales.savvy.service.OrderService;
@@ -60,5 +61,9 @@ public class OrderController {
     @GetMapping("/test")
     public String test() {
         return "hello";
+    }
+    @GetMapping("/getSummary")
+    public List<CustomerSummaryDTO> getSummary() {
+        return service.getSummary();
     }
 }

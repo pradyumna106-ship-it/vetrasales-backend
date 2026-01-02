@@ -210,7 +210,7 @@ public class UserServiceImplementation implements UserService {
 		}
 		return dtos;
 	}
-
+	
 	@Override
 	public List<UserDTO> getAllCustomer() {
 		// TODO Auto-generated method stub
