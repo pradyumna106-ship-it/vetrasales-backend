@@ -22,4 +22,5 @@ public interface UserService {
     String updateUser(UserDTO userDto);
 	List<String> getAllUserEmails();
 	List<String> getAllUserPhone();
+	String userStatus(Long id);
 }

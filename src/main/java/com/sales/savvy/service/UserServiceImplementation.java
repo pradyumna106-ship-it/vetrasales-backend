@@ -241,4 +241,17 @@ public class UserServiceImplementation implements UserService {
 		}
 		return dtos;
 	}
+
+	@Override
+	public String userStatus(Long id) {
+		// TODO Auto-generated method stub
+		Optional<User> userOpt = repo.findById(id);
+		User user = userOpt.get();
+		if(user.getStatus().equals(userStatus.ACTIVE)) {
+			user.setStatus(userStatus.DISABLED);
+		} else {
+			user.setStatus(userStatus.ACTIVE);
+		}
+		return "changed";
+	}
 }

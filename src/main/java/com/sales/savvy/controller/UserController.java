@@ -95,6 +95,11 @@ public class UserController {
         return service.getAllUserPhone();
     }
     
+    @GetMapping("/userStatus")
+    public String userStatus(@RequestParam Long id) {
+        return service.userStatus(id);
+    }
+    
     
 }
 
