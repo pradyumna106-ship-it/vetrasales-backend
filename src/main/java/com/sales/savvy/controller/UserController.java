@@ -62,12 +62,12 @@ public class UserController {
     }
 
     @GetMapping("/delete")
-    public void deleteUser(Long id) {
+    public void deleteUser(@RequestParam Long id) {
         service.deleteUser(id);
     }
 
     @GetMapping("/searchUser")
-    public List<UserDTO> searchUser(String name) {
+    public List<UserDTO> searchUser(@RequestParam String name) {
         return service.searchUser(name);
     }
 
