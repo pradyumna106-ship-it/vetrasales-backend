@@ -19,7 +19,7 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Review {
 	 	@Id
-	    @GeneratedValue(strategy = GenerationType.AUTO)
+	 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 	    private String customerName;
 	    private String comment;
@@ -34,7 +34,6 @@ public class Review {
 	    @ManyToOne
 	    @JoinColumn(name = "product_id")
 	    @JsonBackReference
-	    @JsonIgnoreProperties("reviews")
 	    private Product product;
 
 		public Review() {
