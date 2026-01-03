@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sales.savvy.enums.ReviewStatus;
 
 import jakarta.persistence.Column;
@@ -33,6 +34,7 @@ public class Review {
 	    @ManyToOne
 	    @JoinColumn(name = "product_id")
 	    @JsonBackReference
+	    @JsonIgnoreProperties("reviews")
 	    private Product product;
 
 		public Review() {

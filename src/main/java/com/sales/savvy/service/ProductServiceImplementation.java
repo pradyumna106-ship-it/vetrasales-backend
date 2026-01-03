@@ -136,8 +136,6 @@ public class ProductServiceImplementation implements ProductService {
 			reviews.setComment(review.getComment());
 			reviews.setCustomerName(review.getCustomerName());;
 			reviews.setProduct(prod.get());
-			reviews.setStatus(ReviewStatus.PENDING);
-			reviews.setDate(LocalDate.now());
 			reviewRepo.save(reviews);
 
 		} else {
