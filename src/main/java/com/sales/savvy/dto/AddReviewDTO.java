@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class AddReviewDTO {
 	private Long id;
- 	private Long productId;
-    private String customerName;
-    private String comment;
+	private Long productId;
+	private int rating;
+	private String comment;
+	private String customerName;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
-    private int rating;
 	public AddReviewDTO() {
 		super();
 		// TODO Auto-generated constructor stub

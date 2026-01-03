@@ -58,10 +58,11 @@ public class ProductController {
 
 	@PostMapping("/addReview")
 	public ResponseEntity<?> addReview(@RequestBody AddReviewDTO dto) {
-	    System.out.println("CONTROLLER RECEIVED: " + dto);
+	    System.out.println("CONTROLLER RECEIVED DTO: " + dto);
 	    service.addReview(dto);
 	    return ResponseEntity.ok("Review added");
 	}
+
 
 
 	@GetMapping("/deleteProduct")

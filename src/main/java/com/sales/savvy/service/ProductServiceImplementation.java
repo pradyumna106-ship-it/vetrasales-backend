@@ -133,9 +133,8 @@ public class ProductServiceImplementation implements ProductService {
 
 	        Optional<Product> prod = repo.findById(review.getProductId());
 	        if (prod.isEmpty()) {
-	            throw new RuntimeException("Product not found: " + review.getProductId());
+	            throw new RuntimeException("Product not found");
 	        }
-
 	        Review r = new Review();
 	        r.setRating(review.getRating());
 	        r.setComment(review.getComment());
