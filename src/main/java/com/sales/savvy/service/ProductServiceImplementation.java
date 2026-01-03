@@ -1,5 +1,6 @@
 package com.sales.savvy.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -132,7 +133,8 @@ public class ProductServiceImplementation implements ProductService {
 			reviews.setComment(review.getComment());
 			reviews.setCustomerName(review.getCustomerName());;
 			reviews.setProduct(prod.get());
-			reviews.setStatus(ReviewStatus.valueOf(review.getStatus().toUpperCase()));
+			reviews.setStatus(ReviewStatus.PENDING);
+			reviews.setDate(LocalDate.now());
 			reviewRepo.save(reviews);
 
 		} else {
