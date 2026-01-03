@@ -128,20 +128,31 @@ public class ProductServiceImplementation implements ProductService {
 	@Override
 	@Transactional
 	public void addReview(AddReviewDTO review) {
-		// TODO Auto-generated method stub
-		Optional<Product> prod = repo.findById(review.getProductId());
-		if (prod.isPresent()) {
-			Review reviews = new Review();
-			reviews.setRating(review.getRating());
-			reviews.setComment(review.getComment());
-			reviews.setCustomerName(review.getCustomerName());;
-			reviews.setProduct(prod.get());
-			reviewRepo.save(reviews);
+	    try {
+	        System.out.println("SERVICE START: " + review);
 
-		} else {
-			throw new RuntimeException("Product " + review.getProductId() + " not found.");
-		}
+	        Optional<Product> prod = repo.findById(review.getProductId());
+	        if (prod.isEmpty()) {
+	            throw new RuntimeException("Product not found: " + review.getProductId());
+	        }
+
+	        Review r = new Review();
+	        r.setRating(review.getRating());
+	        r.setComment(review.getComment());
+	        r.setCustomerName(review.getCustomerName());
+	        r.setProduct(prod.get());
+	        r.setStatus(ReviewStatus.PENDING);
+	        r.setDate(LocalDate.now());
+
+	        reviewRepo.save(r);
+	        System.out.println("REVIEW SAVED SUCCESSFULLY");
+
+	    } catch (Exception e) {
+	        e.printStackTrace(); // 🚨 THIS WILL SHOW REAL ERROR
+	        throw e;
+	    }
 	}
+
 
 	@Override
 	public List<ProductDTO> getByAdmin(Long id) {
