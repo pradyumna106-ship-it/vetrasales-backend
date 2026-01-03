@@ -252,6 +252,7 @@ public class UserServiceImplementation implements UserService {
 		} else {
 			user.setStatus(userStatus.ACTIVE);
 		}
+		repo.save(user);
 		return "changed";
 	}
 }
