@@ -3,6 +3,7 @@ package com.sales.savvy.controller;
 import java.util.List;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,8 +57,9 @@ public class ProductController {
 	}
 
 	@PostMapping("/addReview")
-	public void addReview(@RequestBody AddReviewDTO review) {
+	public ResponseEntity<String> addReview(@RequestBody AddReviewDTO review) {
 		 service.addReview(review);
+		 return ResponseEntity.ok("Review added");
 	}
 
 	@GetMapping("/deleteProduct")

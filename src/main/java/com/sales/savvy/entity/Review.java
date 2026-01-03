@@ -23,8 +23,10 @@ public class Review {
 	    private String customerName;
 	    private String comment;
 	    @Enumerated(EnumType.STRING)
+	    @Column(nullable = false)
 	    private ReviewStatus status;
 	    @JsonFormat(pattern = "yyyy-MM-dd")
+	    @Column(nullable = false)
 	    private LocalDate date;
 	    private int rating;
 
