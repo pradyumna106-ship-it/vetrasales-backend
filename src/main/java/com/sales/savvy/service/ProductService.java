@@ -5,6 +5,7 @@ import java.util.List;
 import com.sales.savvy.dto.AddReviewDTO;
 import com.sales.savvy.dto.ProductDTO;
 import com.sales.savvy.entity.Product;
+import com.sales.savvy.entity.Review;
 
 public interface ProductService {
 	String addProduct(ProductDTO prod);
@@ -13,6 +14,6 @@ public interface ProductService {
 	List<ProductDTO> getAllProducts();
 	List<ProductDTO> getByAdmin(Long id);
 	String updateProduct(ProductDTO prod);
-	void addReview(AddReviewDTO review);
+	Review addReview(AddReviewDTO review);
 	void deleteProduct(Long id);
 }

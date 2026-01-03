@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sales.savvy.dto.AddReviewDTO;
 import com.sales.savvy.dto.ProductDTO;
 import com.sales.savvy.entity.Product;
+import com.sales.savvy.entity.Review;
 import com.sales.savvy.service.ProductService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -57,11 +58,11 @@ public class ProductController {
 	}
 
 	@PostMapping("/addReview")
-	public ResponseEntity<?> addReview(@RequestBody AddReviewDTO dto) {
-	    System.out.println("CONTROLLER RECEIVED DTO: " + dto);
-	    service.addReview(dto);
-	    return ResponseEntity.ok("Review added");
+	public ResponseEntity<Review> addReview(@RequestBody AddReviewDTO dto) {
+	    Review saved = service.addReview(dto);
+	    return ResponseEntity.ok(saved);
 	}
+
 
 
 

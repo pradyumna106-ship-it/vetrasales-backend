@@ -127,30 +127,21 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	@Transactional
-	public void addReview(AddReviewDTO review) {
-	    try {
-	        System.out.println("SERVICE START: " + review);
+	public Review addReview(AddReviewDTO review) {
+	    Product prod = repo.findById(review.getProductId())
+	        .orElseThrow(() -> new RuntimeException("Product not found"));
 
-	        Optional<Product> prod = repo.findById(review.getProductId());
-	        if (prod.isEmpty()) {
-	            throw new RuntimeException("Product not found");
-	        }
-	        Review r = new Review();
-	        r.setRating(review.getRating());
-	        r.setComment(review.getComment());
-	        r.setCustomerName(review.getCustomerName());
-	        r.setProduct(prod.get());
-	        r.setStatus(ReviewStatus.PENDING);
-	        r.setDate(LocalDate.now());
+	    Review r = new Review();
+	    r.setRating(review.getRating());
+	    r.setComment(review.getComment());
+	    r.setCustomerName(review.getCustomerName());
+	    r.setProduct(prod);
+	    r.setStatus(ReviewStatus.PENDING);
+	    r.setDate(LocalDate.now());
 
-	        reviewRepo.save(r);
-	        System.out.println("REVIEW SAVED SUCCESSFULLY");
-
-	    } catch (Exception e) {
-	        e.printStackTrace(); // 🚨 THIS WILL SHOW REAL ERROR
-	        throw e;
-	    }
+	    return reviewRepo.save(r);
 	}
+
 
 
 	@Override
