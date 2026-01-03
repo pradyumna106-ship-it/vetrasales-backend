@@ -125,7 +125,7 @@ public class ProductServiceImplementation implements ProductService {
 	@Override
 	public void addReview(AddReviewDTO review) {
 		// TODO Auto-generated method stub
-		Optional<Product> prod = repo.findByName(review.getProductName());
+		Optional<Product> prod = repo.findById(review.getProductId());
 		if (prod.isPresent()) {
 			Review reviews = new Review();
 			reviews.setRating(review.getRating());
@@ -136,7 +136,7 @@ public class ProductServiceImplementation implements ProductService {
 			reviewRepo.save(reviews);
 
 		} else {
-			throw new RuntimeException("Product " + review.getProductName() + " not found.");
+			throw new RuntimeException("Product " + review.getProductId() + " not found.");
 		}
 	}
 

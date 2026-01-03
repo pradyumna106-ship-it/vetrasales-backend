@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class AddReviewDTO {
 	private Long id;
- 	private String productName;
+ 	private Long productId;
     private String customerName;
     private String comment;
     private String status;
@@ -17,11 +17,11 @@ public class AddReviewDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AddReviewDTO(Long id, String productName, String customerName, String comment, String status,
+	public AddReviewDTO(Long id, Long productId, String customerName, String comment, String status,
 			LocalDate date, int rating) {
 		super();
 		this.id = id;
-		this.productName = productName;
+		this.productId = productId;
 		this.customerName = customerName;
 		this.comment = comment;
 		this.status = status;
@@ -34,11 +34,11 @@ public class AddReviewDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getProductName() {
-		return productName;
+	public Long getProductId() {
+		return productId;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 	public String getCustomerName() {
 		return customerName;
@@ -73,7 +73,7 @@ public class AddReviewDTO {
 	}
 	@Override
 	public String toString() {
-		return "AddReviewDTO [id=" + id + ", productName=" + productName + ", customerName=" + customerName
+		return "AddReviewDTO [id=" + id + ", productName=" + productId + ", customerName=" + customerName
 				+ ", comment=" + comment + ", status=" + status + ", date=" + date + ", rating=" + rating + "]";
 	}
 	
