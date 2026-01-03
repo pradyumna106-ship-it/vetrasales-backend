@@ -25,7 +25,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			Review review = reviews.get(i);
 			AddReviewDTO dto = new AddReviewDTO();
 			dto.setComment(review.getComment());
-			dto.setProductName(review.getProduct().getName());;
+			dto.setProductId(review.getProduct().getId());;
 			dto.setRating(review.getRating());
 			dto.setCustomerName(review.getCustomerName());
 			dtos.add(dto);
@@ -69,7 +69,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			Review review = reviews.get(i);
 			AddReviewDTO dto = new AddReviewDTO();
 			dto.setComment(review.getComment());
-			dto.setProductName(review.getProduct().getName());;
+			dto.setProductId(review.getProduct().getId());
 			dto.setRating(review.getRating());
 			dto.setCustomerName(review.getCustomerName());
 			dtos.add(dto);
@@ -86,7 +86,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			Review review = reviews.get(i);
 			AddReviewDTO dto = new AddReviewDTO();
 			dto.setComment(review.getComment());
-			dto.setProductName(review.getProduct().getName());;
+			dto.setProductId(review.getProduct().getId());
 			dto.setRating(review.getRating());
 			dto.setCustomerName(review.getCustomerName());
 			dtos.add(dto);
