@@ -17,6 +17,7 @@ import com.sales.savvy.dto.UserDTO;
 import com.sales.savvy.entity.User;
 import com.sales.savvy.enums.Gender;
 import com.sales.savvy.enums.Role;
+import com.sales.savvy.enums.userStatus;
 import com.sales.savvy.repository.UserRepository;
 
 @Service
@@ -44,7 +45,7 @@ public class UserServiceImplementation implements UserService {
         user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
         user.setUsername(userDto.getUsername());
         user.setJoinedDate(LocalDate.now());
-        user.setStatus("ACTIVE");
+        user.setStatus(userStatus.ACTIVE);
         // New username — save
         repo.save(user);
         return "success";
@@ -65,7 +66,7 @@ public class UserServiceImplementation implements UserService {
 		dto.setJoinedDate(user.getJoinedDate());
 		dto.setLocation(user.getLocation());
 		dto.setPhone(user.getPhone());
-		dto.setStatus(user.getStatus());
+		dto.setStatus(user.getStatus().toString());
 		dto.setId(user.getId());
         return dto;
     }
@@ -140,7 +141,7 @@ public class UserServiceImplementation implements UserService {
 			dto.setJoinedDate(user.getJoinedDate());
 			dto.setLocation(user.getLocation());
 			dto.setPhone(user.getPhone());
-			dto.setStatus(user.getStatus());
+			dto.setStatus(user.getStatus().toString());
 			dto.setId(user.getId());
 			dtos.add(dto);
 		}
@@ -164,6 +165,8 @@ public class UserServiceImplementation implements UserService {
         user.setPassword(userDto.getPassword());
         user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
         user.setUsername(userDto.getUsername());
+        user.setJoinedDate(userDto.getJoinedDate());
+        user.setStatus(userStatus.valueOf(userDto.getStatus()));
         // New username — save
         repo.save(user);
         return "success";
@@ -208,7 +211,7 @@ public class UserServiceImplementation implements UserService {
 			dto.setJoinedDate(user.getJoinedDate());
 			dto.setLocation(user.getLocation());
 			dto.setPhone(user.getPhone());
-			dto.setStatus(user.getStatus());
+			dto.setStatus(user.getStatus().toString());
 			dto.setId(user.getId());
 			dtos.add(dto);
 		}
@@ -232,7 +235,7 @@ public class UserServiceImplementation implements UserService {
 			dto.setJoinedDate(user.getJoinedDate());
 			dto.setLocation(user.getLocation());
 			dto.setPhone(user.getPhone());
-			dto.setStatus(user.getStatus());
+			dto.setStatus(user.getStatus().toString());
 			dto.setId(user.getId());
 			dtos.add(dto);
 		}

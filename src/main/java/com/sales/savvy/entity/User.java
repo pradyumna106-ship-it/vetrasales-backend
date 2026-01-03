@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sales.savvy.enums.Gender;
 import com.sales.savvy.enums.Role;
+import com.sales.savvy.enums.userStatus;
 
 import jakarta.persistence.*;
 
@@ -33,7 +34,8 @@ public class User {
     private Role role;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate joinedDate;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private userStatus status;
  // User.java
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     @JsonBackReference
@@ -86,11 +88,11 @@ public class User {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public String getStatus() {
+	public userStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(userStatus status) {
 		this.status = status;
 	}
 	@Override

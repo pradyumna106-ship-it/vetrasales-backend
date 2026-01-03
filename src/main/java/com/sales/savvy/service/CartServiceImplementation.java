@@ -89,16 +89,15 @@ public class CartServiceImplementation implements CartService {
 
 	    for (CartItem ci : cart.getItemList()) {
 	        Product p = ci.getProduct();
-
-	        out.add(new CartItemDTO(
-	                p.getId(),
-	                p.getName(),
-	                p.getDescription(),
-	                p.getPrice(),          // ✅ Double → Double
-	                p.getImage(),
-	                ci.getQuantity(),
-	                p.getCategory().toString()        // ✅ Enum
-	        ));
+	        CartItemDTO dto = new CartItemDTO();
+	        dto.setProductId(p.getId());
+	        dto.setName(p.getName());
+	        dto.setCategory(p.getCategory().toString());
+	        dto.setDescription(p.getDescription());
+	        dto.setImage(p.getImage());
+	        dto.setPrice(p.getPrice());
+	        dto.setQuantity(ci.getQuantity());
+	        out.add(dto);
 	    }
 	    return out;
 	}
