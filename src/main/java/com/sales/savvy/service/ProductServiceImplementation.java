@@ -19,6 +19,8 @@ import com.sales.savvy.repository.ProductRepository;
 import com.sales.savvy.repository.ReviewRepository;
 import com.sales.savvy.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProductServiceImplementation implements ProductService {
 	@Autowired private ProductRepository repo;
@@ -124,6 +126,7 @@ public class ProductServiceImplementation implements ProductService {
 	}
 
 	@Override
+	@Transactional
 	public void addReview(AddReviewDTO review) {
 		// TODO Auto-generated method stub
 		Optional<Product> prod = repo.findById(review.getProductId());
