@@ -2,14 +2,14 @@ package com.sales.savvy.service;
 
 import java.util.List;
 
-import com.sales.savvy.dto.AddReviewDTO;
+import com.sales.savvy.dto.ReviewDTO;
 import com.sales.savvy.entity.Review;
 
 public interface ReviewService {
-	List<AddReviewDTO> listOfReview(Long productId);
+	List<ReviewDTO> listOfReview(Long productId);
 	String deleteReview(Long reviewId, String username, boolean isAdmin);
 	String deleteAllReviews();
 	String deleteReviewsByProduct(Long productId);
-	List<AddReviewDTO> allReviews();
-	List<AddReviewDTO> listofCustomerReview(String username);
+	List<ReviewDTO> allReviews();
+	List<ReviewDTO> listofCustomerReview(String username);
 }

@@ -138,7 +138,6 @@ public class ProductServiceImplementation implements ProductService {
 	    r.setProduct(prod);
 	    r.setStatus(ReviewStatus.PENDING);
 	    r.setDate(LocalDate.now());
-
 	    return reviewRepo.save(r);
 	}
 

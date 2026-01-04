@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sales.savvy.dto.AddReviewDTO;
+import com.sales.savvy.dto.ReviewDTO;
 import com.sales.savvy.entity.Product;
 import com.sales.savvy.entity.Review;
 import com.sales.savvy.repository.ProductRepository;
@@ -17,13 +17,13 @@ public class ReviewServiceImplementation implements ReviewService {
 	@Autowired private ReviewRepository repo;
 	
 	@Override
-	public List<AddReviewDTO> listOfReview(Long productId) {
+	public List<ReviewDTO> listOfReview(Long productId) {
 		// TODO Auto-generated method stub
 		List<Review> reviews = repo.findByProduct_Id(productId);
-		List<AddReviewDTO> dtos = new ArrayList<>();
+		List<ReviewDTO> dtos = new ArrayList<>();
 		for (int i = 0; i < reviews.size(); i++) {
 			Review review = reviews.get(i);
-			AddReviewDTO dto = new AddReviewDTO();
+			ReviewDTO dto = new ReviewDTO();
 			dto.setComment(review.getComment());
 			dto.setProductId(review.getProduct().getId());;
 			dto.setRating(review.getRating());
@@ -61,13 +61,13 @@ public class ReviewServiceImplementation implements ReviewService {
         return "deleted_by_product";
 	}
 	@Override
-	public List<AddReviewDTO> allReviews() {
+	public List<ReviewDTO> allReviews() {
 		// TODO Auto-generated method stub
 		List<Review> reviews = repo.findAll();
-		List<AddReviewDTO> dtos = new ArrayList<>();
+		List<ReviewDTO> dtos = new ArrayList<>();
 		for (int i = 0; i < reviews.size(); i++) {
 			Review review = reviews.get(i);
-			AddReviewDTO dto = new AddReviewDTO();
+			ReviewDTO dto = new ReviewDTO();
 			dto.setComment(review.getComment());
 			dto.setProductId(review.getProduct().getId());
 			dto.setRating(review.getRating());
@@ -81,13 +81,13 @@ public class ReviewServiceImplementation implements ReviewService {
 		return dtos;
 	}
 	@Override
-	public List<AddReviewDTO> listofCustomerReview(String username) {
+	public List<ReviewDTO> listofCustomerReview(String username) {
 		// TODO Auto-generated method stub
 		List<Review> reviews = repo.findByCustomerName(username);
-		List<AddReviewDTO> dtos = new ArrayList<>();
+		List<ReviewDTO> dtos = new ArrayList<>();
 		for (int i = 0; i < reviews.size(); i++) {
 			Review review = reviews.get(i);
-			AddReviewDTO dto = new AddReviewDTO();
+			ReviewDTO dto = new ReviewDTO();
 			dto.setComment(review.getComment());
 			dto.setProductId(review.getProduct().getId());
 			dto.setRating(review.getRating());
