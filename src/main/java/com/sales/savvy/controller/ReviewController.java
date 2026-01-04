@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sales.savvy.dto.AddReviewDTO;
+import com.sales.savvy.dto.ReviewDTO;
 import com.sales.savvy.entity.Review;
 import com.sales.savvy.service.ReviewService;
 @CrossOrigin(originPatterns = "*", allowCredentials = "true")
@@ -21,7 +21,7 @@ public class ReviewController {
 	@Autowired private ReviewService service;
 	
 	@GetMapping("/listOfReview")
-	public List<AddReviewDTO> getReviews(@RequestParam("productId") Long productId) {
+	public List<ReviewDTO> getReviews(@RequestParam("productId") Long productId) {
 		return service.listOfReview(productId);
 	}
 	@DeleteMapping("/deleteReview")
@@ -49,11 +49,11 @@ public class ReviewController {
 	    }
 	}
 	@GetMapping("/allReviews")
-	public List<AddReviewDTO> allReviews() {
+	public List<ReviewDTO> allReviews() {
 		return service.allReviews();
 	}
 	@GetMapping("/customerReviews")
-	public List<AddReviewDTO> customerReviews(@RequestParam String username) {
+	public List<ReviewDTO> customerReviews(@RequestParam String username) {
 		return service.listofCustomerReview(username);
 	}
 	
