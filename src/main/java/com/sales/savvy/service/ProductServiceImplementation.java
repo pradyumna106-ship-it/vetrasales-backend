@@ -134,7 +134,7 @@ public class ProductServiceImplementation implements ProductService {
 	    Review r = new Review();
 	    r.setRating(review.getRating());
 	    r.setComment(review.getComment());
-	    r.setCustomerName(review.getCustomerName());
+	    r.setUsername(review.getUsername());
 	    r.setProduct(prod);
 	    r.setStatus(ReviewStatus.PENDING);
 	    r.setDate(LocalDate.now());

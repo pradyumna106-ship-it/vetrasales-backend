@@ -27,7 +27,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			dto.setComment(review.getComment());
 			dto.setProductId(review.getProduct().getId());;
 			dto.setRating(review.getRating());
-			dto.setCustomerName(review.getCustomerName());
+			dto.setUsername(review.getUsername());
 			dtos.add(dto);
 		}
 		
@@ -41,7 +41,7 @@ public class ReviewServiceImplementation implements ReviewService {
         if (r == null) return "Review Not Found";
 
         // If not admin → only delete his own review
-        if (!isAdmin && !r.getCustomerName().equals(username)) {
+        if (!isAdmin && !r.getUsername().equals(username)) {
             return "You can delete only your own reviews!";
         }
 
@@ -71,7 +71,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			dto.setComment(review.getComment());
 			dto.setProductId(review.getProduct().getId());
 			dto.setRating(review.getRating());
-			dto.setCustomerName(review.getCustomerName());
+			dto.setUsername(review.getUsername());
 			dto.setId(review.getId());
 			dto.setStatus(review.getStatus().toString());
 			dto.setDate(review.getDate());
@@ -83,7 +83,7 @@ public class ReviewServiceImplementation implements ReviewService {
 	@Override
 	public List<ReviewDTO> listofCustomerReview(String username) {
 		// TODO Auto-generated method stub
-		List<Review> reviews = repo.findByCustomerName(username);
+		List<Review> reviews = repo.findByUserame(username);
 		List<ReviewDTO> dtos = new ArrayList<>();
 		for (int i = 0; i < reviews.size(); i++) {
 			Review review = reviews.get(i);
@@ -91,7 +91,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			dto.setComment(review.getComment());
 			dto.setProductId(review.getProduct().getId());
 			dto.setRating(review.getRating());
-			dto.setCustomerName(review.getCustomerName());
+			dto.setUsername(review.getUsername());
 			dto.setId(review.getId());
 			dto.setStatus(review.getStatus().toString());
 			dto.setDate(review.getDate());

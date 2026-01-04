@@ -21,7 +21,7 @@ public class Review {
 	 	@Id
 	 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
-	    private String customerName;
+	    private String username;
 	    private String comment;
 	    @Enumerated(EnumType.STRING)
 	    @Column(nullable = false)
@@ -29,7 +29,7 @@ public class Review {
 	    @JsonFormat(pattern = "yyyy-MM-dd")
 	    @Column(nullable = false)
 	    private LocalDate date;
-	    private int rating;
+	    private Integer rating;
 
 	    @ManyToOne
 	    @JoinColumn(name = "product_id")
@@ -41,11 +41,11 @@ public class Review {
 			// TODO Auto-generated constructor stub
 		}
 
-		public Review(Long id, String productName, String customerName, String comment, ReviewStatus status, LocalDate date,
+		public Review(Long id, String productName, String username, String comment, ReviewStatus status, LocalDate date,
 				int rating, Product product) {
 			super();
 			this.id = id;
-			this.customerName = customerName;
+			this.username = username;
 			this.comment = comment;
 			this.status = status;
 			this.date = date;
@@ -62,12 +62,12 @@ public class Review {
 		}
 
 
-		public String getCustomerName() {
-			return customerName;
+		public String getUsername() {
+			return username;
 		}
 
-		public void setCustomerName(String customerName) {
-			this.customerName = customerName;
+		public void setUsername(String username) {
+			this.username = username;
 		}
 
 		public String getComment() {
@@ -113,7 +113,7 @@ public class Review {
 
 		@Override
 		public String toString() {
-			return "Review [id=" + id + ", customerName=" + customerName + ", comment="
+			return "Review [id=" + id + ", username=" + username + ", comment="
 					+ comment + ", status=" + status + ", date=" + date + ", rating=" + rating + ", product=" + product
 					+ "]";
 		}

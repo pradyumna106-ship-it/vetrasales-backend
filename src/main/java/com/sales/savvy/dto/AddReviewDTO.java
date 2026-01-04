@@ -8,17 +8,17 @@ public class AddReviewDTO {
 	private Long productId;
 	private int rating;
 	private String comment;
-	private String customerName;
+	private String username;
 	public AddReviewDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AddReviewDTO(Long productId, int rating, String comment, String customerName) {
+	public AddReviewDTO(Long productId, int rating, String comment, String username) {
 		super();
 		this.productId = productId;
 		this.rating = rating;
 		this.comment = comment;
-		this.customerName = customerName;
+		this.username = username;
 	}
 	public Long getProductId() {
 		return productId;
@@ -38,16 +38,16 @@ public class AddReviewDTO {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	public String getCustomerName() {
-		return customerName;
+	public String getUsername() {
+		return username;
 	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	@Override
 	public String toString() {
 		return "AddReviewDTO [productId=" + productId + ", rating=" + rating + ", comment=" + comment
-				+ ", customerName=" + customerName + "]";
+				+ ", username=" + username + "]";
 	}
 	
 	

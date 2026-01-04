@@ -9,7 +9,7 @@ public class ReviewDTO {
 	private Long productId;
 	private int rating;
 	private String comment;
-	private String customerName;
+	private String username;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
@@ -17,12 +17,12 @@ public class ReviewDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ReviewDTO(Long id, Long productId, String customerName, String comment, String status,
+	public ReviewDTO(Long id, Long productId, String username, String comment, String status,
 			LocalDate date, int rating) {
 		super();
 		this.id = id;
 		this.productId = productId;
-		this.customerName = customerName;
+		this.username = username;
 		this.comment = comment;
 		this.status = status;
 		this.date = date;
@@ -40,11 +40,11 @@ public class ReviewDTO {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
-	public String getCustomerName() {
-		return customerName;
+	public String getUsername() {
+		return username;
 	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getComment() {
 		return comment;
@@ -73,7 +73,7 @@ public class ReviewDTO {
 	}
 	@Override
 	public String toString() {
-		return "AddReviewDTO [id=" + id + ", productName=" + productId + ", customerName=" + customerName
+		return "AddReviewDTO [id=" + id + ", productName=" + productId + ", username=" + username
 				+ ", comment=" + comment + ", status=" + status + ", date=" + date + ", rating=" + rating + "]";
 	}
 	
