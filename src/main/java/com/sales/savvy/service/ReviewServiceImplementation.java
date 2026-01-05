@@ -87,7 +87,7 @@ public class ReviewServiceImplementation implements ReviewService {
 	public List<ReviewDTO> listofCustomerReview(String username) {
 		// TODO Auto-generated method stub
 		Optional<User> userOpt = userRepo.findByUsername(username);
-		List<Review> reviews = repo.findByUser(userOpt.get());
+		List<Review> reviews = repo.findByUser_Id(userOpt.get().getId());
 		List<ReviewDTO> dtos = new ArrayList<>();
 		for (int i = 0; i < reviews.size(); i++) {
 			Review review = reviews.get(i);
@@ -102,6 +102,32 @@ public class ReviewServiceImplementation implements ReviewService {
 			dtos.add(dto);
 		}
 		return dtos;
+	}
+	@Override
+	public Integer getAvgRatingByProduct(Long productId) {
+		// TODO Auto-generated method stub
+		List<Review> reviews = repo.findByProduct_Id(productId);
+
+	    if (reviews == null || reviews.isEmpty()) {
+	        return 0; // No reviews yet
+	    }
+
+	    int totalRating = 0;
+	    for (Review review : reviews) {
+	        totalRating += review.getRating();
+	    }
+
+	    // Calculate average
+	    double avg = (double) totalRating / reviews.size();
+
+	    // Round to nearest integer between 1-5
+	    int starRating = (int) Math.round(avg);
+
+	    // Ensure rating is within 1-5
+	    if (starRating > 5) starRating = 5;
+	    if (starRating < 1) starRating = 1;
+
+	    return starRating;
 	}
 	
 	

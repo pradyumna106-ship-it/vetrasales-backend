@@ -12,4 +12,5 @@ public interface ReviewService {
 	String deleteReviewsByProduct(Long productId);
 	List<ReviewDTO> allReviews();
 	List<ReviewDTO> listofCustomerReview(String username);
+	Integer getAvgRatingByProduct(Long productId);
 }

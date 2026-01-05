@@ -56,5 +56,10 @@ public class ReviewController {
 	public List<ReviewDTO> customerReviews(@RequestParam String username) {
 		return service.listofCustomerReview(username);
 	}
+	@GetMapping("/getRating")
+	public Integer getMethodName(@RequestParam Long ProductId) {
+		return service.getAvgRatingByProduct(ProductId);
+	}
+	
 	
 }
