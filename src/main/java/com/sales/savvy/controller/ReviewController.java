@@ -57,8 +57,8 @@ public class ReviewController {
 		return service.listofCustomerReview(username);
 	}
 	@GetMapping("/getRating")
-	public Integer getMethodName(@RequestParam("productId") Long ProductId) {
-		return service.getAvgRatingByProduct(ProductId);
+	public Integer getMethodName(@RequestParam("productId") Long productId) {
+		return service.getAvgRatingByProduct(productId);
 	}
 	
 	
