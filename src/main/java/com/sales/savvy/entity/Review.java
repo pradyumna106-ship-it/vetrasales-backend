@@ -1,10 +1,12 @@
 package com.sales.savvy.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sales.savvy.enums.ReviewStatus;
 
 import jakarta.persistence.Column;
@@ -15,13 +17,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 @Entity
 public class Review {
 	 	@Id
 	 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
-	    private String username;
 	    private String comment;
 	    @Enumerated(EnumType.STRING)
 	    @Column(nullable = false)
@@ -30,22 +33,23 @@ public class Review {
 	    @Column(nullable = false)
 	    private LocalDate date;
 	    private Integer rating;
-
 	    @ManyToOne
 	    @JoinColumn(name = "product_id")
 	    @JsonBackReference
 	    private Product product;
-
+	    @ManyToOne
+	    @JoinColumn(name = "user_id")
+	    @JsonManagedReference
+	    private User user;
 		public Review() {
 			super();
 			// TODO Auto-generated constructor stub
 		}
 
-		public Review(Long id, String productName, String username, String comment, ReviewStatus status, LocalDate date,
+		public Review(Long id, String productName,  String comment, ReviewStatus status, LocalDate date,
 				int rating, Product product) {
 			super();
 			this.id = id;
-			this.username = username;
 			this.comment = comment;
 			this.status = status;
 			this.date = date;
@@ -62,12 +66,12 @@ public class Review {
 		}
 
 
-		public String getUsername() {
-			return username;
+		public User getUser() {
+			return user;
 		}
 
-		public void setUsername(String username) {
-			this.username = username;
+		public void setUser(User user) {
+			this.user = user;
 		}
 
 		public String getComment() {
@@ -113,7 +117,7 @@ public class Review {
 
 		@Override
 		public String toString() {
-			return "Review [id=" + id + ", username=" + username + ", comment="
+			return "Review [id=" + id + ", comment="
 					+ comment + ", status=" + status + ", date=" + date + ", rating=" + rating + ", product=" + product
 					+ "]";
 		}

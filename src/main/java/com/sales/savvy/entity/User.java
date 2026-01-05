@@ -40,6 +40,9 @@ public class User {
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     @JsonBackReference
     private List<Product> products;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Review> reviews;
 
     // Getters & Setters
     public Long getId() { return id; }

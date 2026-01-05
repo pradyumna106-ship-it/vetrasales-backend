@@ -28,22 +28,22 @@ public class UserServiceImplementation implements UserService {
     @Override
     public String addUser(UserDTO userDto) {
     	// Check if username already exists
-        Optional<User> existing = repo.findByUsername(userDto.getUsername());
-        Optional<User> existing2 = repo.findByEmail(userDto.getEmail());
+        Optional<User> existing = repo.findByUsername(userDto.getUsername().toLowerCase());
+        Optional<User> existing2 = repo.findByEmail(userDto.getEmail().toLowerCase());
         if (existing.isPresent() || existing2.isPresent()) {
             return "fail";   // already taken
         }
-        System.out.println("Email exists: " + repo.findByEmail(userDto.getEmail()));
-        System.out.println("Username exists: " + repo.findByUsername(userDto.getUsername()));
+        System.out.println("Email exists: " + repo.findByEmail(userDto.getEmail().toLowerCase()));
+        System.out.println("Username exists: " + repo.findByUsername(userDto.getUsername().toLowerCase()));
         User user = new User();
         user.setDob(userDto.getDob());
-        user.setEmail(userDto.getEmail());
+        user.setEmail(userDto.getEmail().toLowerCase());
         user.setPhone(userDto.getPhone());
         user.setGender(Gender.valueOf(userDto.getGender().toUpperCase()));
         user.setLocation(userDto.getLocation());
         user.setPassword(userDto.getPassword());
         user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
-        user.setUsername(userDto.getUsername());
+        user.setUsername(userDto.getUsername().toLowerCase());
         user.setJoinedDate(LocalDate.now());
         user.setStatus(userStatus.ACTIVE);
         // New username — save
@@ -54,7 +54,7 @@ public class UserServiceImplementation implements UserService {
     @Override
     public UserDTO getUser(String username) {
         // Just wrap repo call
-    	Optional<User> userOP = repo.findByUsername(username);
+    	Optional<User> userOP = repo.findByUsername(username.toLowerCase());
     	User user = userOP.get();
 		UserDTO dto = new UserDTO();
 		dto.setDob(user.getDob());

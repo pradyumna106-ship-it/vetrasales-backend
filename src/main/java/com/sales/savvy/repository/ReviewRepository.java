@@ -8,18 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.sales.savvy.entity.Review;
+import com.sales.savvy.entity.User;
 
 import jakarta.transaction.Transactional;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     List<Review> findByProduct_Id(Long productId);
-    List<Review> findByUsername(String username);
     @Transactional
     @Modifying
     @Query("DELETE FROM Review r WHERE r.product.id = :productId")
     void deleteByProduct_Id(@Param("productId") Long productId);
-
-    void deleteByUsername(String username);
-
-    
+    List<Review> findByUser(User user);
 }

@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 import com.sales.savvy.dto.ReviewDTO;
 import com.sales.savvy.entity.Product;
 import com.sales.savvy.entity.Review;
+import com.sales.savvy.entity.User;
 import com.sales.savvy.repository.ProductRepository;
 import com.sales.savvy.repository.ReviewRepository;
+import com.sales.savvy.repository.UserRepository;
 @Service
 public class ReviewServiceImplementation implements ReviewService {
 	@Autowired private ReviewRepository repo;
+	@Autowired private UserRepository userRepo;
 	
 	@Override
 	public List<ReviewDTO> listOfReview(Long productId) {
@@ -27,7 +30,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			dto.setComment(review.getComment());
 			dto.setProductId(review.getProduct().getId());;
 			dto.setRating(review.getRating());
-			dto.setUsername(review.getUsername());
+			dto.setUsername(review.getUser().getUsername());
 			dtos.add(dto);
 		}
 		
@@ -41,7 +44,7 @@ public class ReviewServiceImplementation implements ReviewService {
         if (r == null) return "Review Not Found";
 
         // If not admin → only delete his own review
-        if (!isAdmin && !r.getUsername().equals(username)) {
+        if (!isAdmin && !r.getUser().getUsername().equals(username)) {
             return "You can delete only your own reviews!";
         }
 
@@ -71,7 +74,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			dto.setComment(review.getComment());
 			dto.setProductId(review.getProduct().getId());
 			dto.setRating(review.getRating());
-			dto.setUsername(review.getUsername());
+			dto.setUsername(review.getUser().getUsername());
 			dto.setId(review.getId());
 			dto.setStatus(review.getStatus().toString());
 			dto.setDate(review.getDate());
@@ -83,7 +86,8 @@ public class ReviewServiceImplementation implements ReviewService {
 	@Override
 	public List<ReviewDTO> listofCustomerReview(String username) {
 		// TODO Auto-generated method stub
-		List<Review> reviews = repo.findByUserame(username);
+		Optional<User> userOpt = userRepo.findByUsername(username);
+		List<Review> reviews = repo.findByUser(userOpt.get());
 		List<ReviewDTO> dtos = new ArrayList<>();
 		for (int i = 0; i < reviews.size(); i++) {
 			Review review = reviews.get(i);
@@ -91,7 +95,7 @@ public class ReviewServiceImplementation implements ReviewService {
 			dto.setComment(review.getComment());
 			dto.setProductId(review.getProduct().getId());
 			dto.setRating(review.getRating());
-			dto.setUsername(review.getUsername());
+			dto.setUsername(review.getUser().getUsername());
 			dto.setId(review.getId());
 			dto.setStatus(review.getStatus().toString());
 			dto.setDate(review.getDate());

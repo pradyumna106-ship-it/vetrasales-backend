@@ -130,11 +130,11 @@ public class ProductServiceImplementation implements ProductService {
 	public Review addReview(AddReviewDTO review) {
 	    Product prod = repo.findById(review.getProductId())
 	        .orElseThrow(() -> new RuntimeException("Product not found"));
-
+	    Optional<User> userOpt = userRepo.findByUsername(review.getUsername());
 	    Review r = new Review();
 	    r.setRating(review.getRating());
 	    r.setComment(review.getComment());
-	    r.setUsername(review.getUsername());
+	    r.setUser(userOpt.get());
 	    r.setProduct(prod);
 	    r.setStatus(ReviewStatus.PENDING);
 	    r.setDate(LocalDate.now());
