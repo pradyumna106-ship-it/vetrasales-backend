@@ -29,7 +29,6 @@ public class OrderServiceImplementation implements OrderService {
         order.setStatus(OrderStatus.valueOf(orderDTO.getStatus().toUpperCase()));
         order.setTotalAmount(orderDTO.getTotalAmount());
         order.setUsername(orderDTO.getUsername());
-
         List<OrderItem> items = new ArrayList<>();
 
         for (OrderItemDTO dto : orderDTO.getItems()) {
