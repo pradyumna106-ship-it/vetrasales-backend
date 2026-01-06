@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.sales.savvy.dto.FetchContactDTO;
 import com.sales.savvy.dto.LoginData;
 import com.sales.savvy.dto.UserDTO;
 import com.sales.savvy.entity.User;
@@ -254,5 +255,13 @@ public class UserServiceImplementation implements UserService {
 		}
 		repo.save(user);
 		return "changed";
+	}
+
+	@Override
+	public FetchContactDTO getEmailAndPhoneByUser(String username) {
+		// TODO Auto-generated method stub
+		Optional<User> userOpt = repo.findByUsername(username);
+		FetchContactDTO contact = new FetchContactDTO(userOpt.get().getPhone(),userOpt.get().getEmail());
+		return contact;
 	}
 }

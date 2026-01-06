@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sales.savvy.dto.CustomerSummaryDTO;
+import com.sales.savvy.dto.FetchContactDTO;
 import com.sales.savvy.dto.LoginData;
 import com.sales.savvy.dto.UserDTO;
 import com.sales.savvy.entity.User;
@@ -99,6 +100,11 @@ public class UserController {
     public String userStatus(@RequestParam Long id) {
         return service.userStatus(id);
     }
+    @GetMapping("/getEmail")
+    public FetchContactDTO getEamil(@RequestParam String username) {
+        return service.getEmailAndPhoneByUser(username);
+    }
+    
     
     
 }
