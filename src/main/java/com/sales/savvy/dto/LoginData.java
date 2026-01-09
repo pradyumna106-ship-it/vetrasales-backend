@@ -1,4 +1,5 @@
 package com.sales.savvy.dto;
+import java.lang.module.ModuleDescriptor.Builder;
 
 public class LoginData {
 	private String username;
@@ -12,6 +13,9 @@ public class LoginData {
 		this.username = username;
 		this.password = password;
 	}
+	public static Builder builder() {
+        return new Builder();
+    }
 	public String getUsername() {
 		return username;
 	}
@@ -28,5 +32,25 @@ public class LoginData {
 	public String toString() {
 		return "LoginData [username=" + username + ", password=" + password + "]";
 	}
-	
+	public static class Builder {
+        private String username;
+        private String password;
+        
+        public Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+        
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+        
+        public LoginData build() {
+        	LoginData request = new LoginData();
+            request.username = this.username;
+            request.password = this.password;
+            return request;
+        }
+    }
 }

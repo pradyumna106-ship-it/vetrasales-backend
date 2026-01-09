@@ -1,0 +1,50 @@
+package com.sales.savvy.dto;
+
+public class JwtResponse {
+    private String jwtToken;
+    private String username;
+    
+    // Private constructor for Builder only
+    private JwtResponse() {}
+    
+    public String getJwtToken() { 
+        return jwtToken; 
+    }
+    
+    public String getUsername() { 
+        return username; 
+    }
+    
+    @Override
+    public String toString() {
+        return "JwtResponse [jwtToken=" + jwtToken + ", username=" + username + "]";
+    }
+    
+    // ✅ FIX 1: Make Builder STATIC (public static class)
+    public static class Builder {
+        private String jwtToken;
+        private String username;
+        
+        // ✅ FIX 2: Complete the static builder() method
+        public static Builder builder() {
+            return new Builder();
+        }
+        
+        public Builder jwtToken(String jwtToken) {
+            this.jwtToken = jwtToken;
+            return this;
+        }
+        
+        public Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+        
+        public JwtResponse build() {
+            JwtResponse response = new JwtResponse();
+            response.jwtToken = this.jwtToken;
+            response.username = this.username;
+            return response;
+        }
+    }
+}
