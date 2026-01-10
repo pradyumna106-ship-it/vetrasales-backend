@@ -59,10 +59,10 @@ public class SecurityConfig {
         
         // ✅ ALLOW YOUR VERCEL FRONTEND
         config.setAllowedOriginPatterns(Arrays.asList(
-            "https://vetra-sales-front-end-git-main-j-pradyumnas-projects.vercel.app",
-            "https://vetra-sales-front-i4v4eaoji-j-pradyumnas-projects.vercel.app",
-            "https://vetra-sales-front-end.vercel.app",
-            "http://localhost:3005"
+            "https://vetra-sales-front-end-git-main-j-pradyumnas-projects.vercel.app/",
+            "https://vetra-sales-front-i4v4eaoji-j-pradyumnas-projects.vercel.app/",
+            "https://vetra-sales-front-end.vercel.app/",
+            "http://localhost:3005/"
         ));
         
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
