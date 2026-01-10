@@ -39,8 +39,9 @@ public class SecurityConfig {
          .authorizeHttpRequests(auth -> auth
              .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
              .requestMatchers("/auth/Login").permitAll()
-             .requestMatchers("/api/**").permitAll()
-             .requestMatchers("/api/product/getAllProducts").permitAll()
+             .requestMatchers("/api/user/**").permitAll()
+             .requestMatchers("/api/product/**").permitAll()
+             .anyRequest().authenticated()
              .anyRequest().authenticated()
          );
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);

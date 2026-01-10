@@ -33,6 +33,10 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         //Authorization
         String requestHeader = request.getHeader("Authorization");
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         //Bearer 2352345235sdfrsfgsdfsdf
         logger.info(" Header :  {}", requestHeader);
         String username = null;
