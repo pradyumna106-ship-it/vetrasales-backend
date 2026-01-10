@@ -33,17 +33,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-    	 http
-         .csrf(csrf -> csrf.disable())
-         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-         .authorizeHttpRequests(auth -> auth
-             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-             .requestMatchers("/auth/Login").permitAll()
-             .requestMatchers("/api/user/**").permitAll()
-             .requestMatchers("/api/product/**").permitAll()
-             .anyRequest().authenticated()
-             .anyRequest().authenticated()
-         );
+    	http
+    	  .csrf(csrf -> csrf.disable())
+    	  .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+    	  .authorizeHttpRequests(auth -> auth
+    	      .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+    	      .anyRequest().authenticated()
+    	  );
+
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
