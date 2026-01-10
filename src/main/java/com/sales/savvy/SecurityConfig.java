@@ -1,5 +1,6 @@
 package com.sales.savvy;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,22 +44,20 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        
-        // ✅ ALLOW YOUR VERCEL FRONTEND
-        config.setAllowedOriginPatterns(Arrays.asList(
+        config.setAllowedOrigins(List.of(
+            "https://vetra-sales-front-end.vercel.app/",
             "https://vetra-sales-front-end-git-main-j-pradyumnas-projects.vercel.app/",
             "https://vetra-sales-front-i4v4eaoji-j-pradyumnas-projects.vercel.app/",
-            "https://vetra-sales-front-end.vercel.app/",
             "http://localhost:3005/"
         ));
-        
-        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
-        
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+
 
 }
