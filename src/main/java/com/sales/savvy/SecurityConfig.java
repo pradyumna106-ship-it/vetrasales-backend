@@ -30,8 +30,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.sales.savvy.security.JWTAuthenticationFilter;
 import com.sales.savvy.security.JwtAuthenticationEntryPoint;
 import com.sales.savvy.security.JwtHelper;
-
 @Configuration
+@EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
 
