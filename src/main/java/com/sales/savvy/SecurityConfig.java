@@ -50,12 +50,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(
-            "https://vetra-sales-front-end.vercel.app/",
-            "https://vetra-sales-front-end-git-main-j-pradyumnas-projects.vercel.app/",
-            "https://vetra-sales-front-i4v4eaoji-j-pradyumnas-projects.vercel.app/",
-            "http://localhost:3005/"
-        ));
+        config.setAllowedOriginPatterns(List.of(
+        	    "https://*.vercel.app"
+        	));
+
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
