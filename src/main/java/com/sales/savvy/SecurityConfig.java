@@ -38,6 +38,11 @@ public class SecurityConfig {
     	  .cors(cors -> cors.configurationSource(corsConfigurationSource()))
     	  .authorizeHttpRequests(auth -> auth
     			    .requestMatchers(HttpMethod.GET, "/api/product/**").permitAll()
+    			    .requestMatchers(HttpMethod.GET, "/api/user/**").permitAll()
+    			    .requestMatchers(HttpMethod.GET, "/api/review/**").permitAll()
+    			    .requestMatchers(HttpMethod.GET, "/api/orders/**").permitAll()
+    			    .requestMatchers(HttpMethod.GET, "/api/review/**").permitAll()
+    			    .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
     			    .requestMatchers("/auth/**").permitAll()
     			    .anyRequest().authenticated()
     			);
