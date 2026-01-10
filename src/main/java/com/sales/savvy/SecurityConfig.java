@@ -37,15 +37,15 @@ public class SecurityConfig {
     	  .csrf(csrf -> csrf.disable())
     	  .cors(cors -> cors.configurationSource(corsConfigurationSource()))
     	  .authorizeHttpRequests(auth -> auth
-    			    .requestMatchers(HttpMethod.GET, "/api/product/**").permitAll()
-    			    .requestMatchers(HttpMethod.GET, "/api/user/**").permitAll()
-    			    .requestMatchers(HttpMethod.GET, "/api/review/**").permitAll()
-    			    .requestMatchers(HttpMethod.GET, "/api/orders/**").permitAll()
-    			    .requestMatchers(HttpMethod.GET, "/api/review/**").permitAll()
     			    .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+    			    .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
+    			    .requestMatchers(HttpMethod.PUT, "/api/**").permitAll()
+    			    .requestMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+    			    .requestMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
     			    .requestMatchers("/auth/**").permitAll()
     			    .anyRequest().authenticated()
     			);
+
 
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
