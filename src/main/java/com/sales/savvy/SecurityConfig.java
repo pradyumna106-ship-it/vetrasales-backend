@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,12 +33,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(csrf -> csrf.disable())
-                .authorizeRequests(requests -> requests.
-                        requestMatchers("/api/**").authenticated().requestMatchers("/auth/login").permitAll()
-                        .anyRequest()
-                        .authenticated()).exceptionHandling(ex -> ex.authenticationEntryPoint(point))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+    	 http
+         .csrf(csrf -> csrf.disable())
+         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+         .authorizeHttpRequests(auth -> auth
+             .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+             .requestMatchers("/auth/Login").permitAll()
+             .requestMatchers("/api/**").permitAll()
+             .requestMatchers("/api/product/getAllProducts").permitAll()
+             .anyRequest().authenticated()
+         );
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
