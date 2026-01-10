@@ -26,7 +26,10 @@ public class WebConfig implements WebMvcConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns("https://vetra-sales-front-end.vercel.app/") // ← use this instead of allowedOrigins
+                        .allowedOriginPatterns( "https://vetra-sales-front-end-git-main-j-pradyumnas-projects.vercel.app/",
+                                "https://vetra-sales-front-i4v4eaoji-j-pradyumnas-projects.vercel.app/",
+                                "https://vetra-sales-front-end.vercel.app/",
+                                "http://localhost:3005/") // ← use this instead of allowedOrigins
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true);
