@@ -8,7 +8,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre
-WORKDIR /notification-service
+WORKDIR /savvy
 
 COPY --from=build /savvy/target/*.jar app.jar
 
