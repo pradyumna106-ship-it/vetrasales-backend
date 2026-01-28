@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ import com.sales.savvy.dto.JwtResponse;
 import com.sales.savvy.dto.JwtResponse.Builder;
 import com.sales.savvy.dto.LoginData;
 import com.sales.savvy.security.JwtHelper;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
