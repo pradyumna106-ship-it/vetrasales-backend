@@ -35,4 +35,19 @@ public class WebConfig implements WebMvcConfigurer {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
+	 @Bean
+	    public WebMvcConfigurer corsConfigurer() {
+	        return new WebMvcConfigurer() {
+	            @Override
+	            public void addCorsMappings(CorsRegistry registry) {
+	                registry.addMapping("/**")
+	                    .allowedOrigins(
+	                        "https://vetra-sales-front-end-m2hs.vercel.app"
+	                    )
+	                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+	                    .allowedHeaders("*")
+	                    .allowCredentials(true);
+	            }
+	        };
+	    }
 }
