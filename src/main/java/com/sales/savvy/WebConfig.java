@@ -27,9 +27,11 @@ public class WebConfig implements WebMvcConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOriginPatterns(List.of("http://localhost:3005","https://vetra-sales-front-end-m2hs.vercel.app","https://vetra-sales-front-end-m2hs-git-main-j-pradyumnas-projects.vercel.app","https://vetra-sales-front-end-m2hs-ndu33rh0g-j-pradyumnas-projects.vercel.app"));  // Your React port
-        config.setAllowedMethods(List.of("*"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(true);
+        config.setAllowedMethods(List.of(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS"
+            ));
+            config.setAllowedHeaders(List.of("*"));
+            config.setAllowCredentials(true);
         
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
@@ -42,7 +44,7 @@ public class WebConfig implements WebMvcConfigurer {
 	            public void addCorsMappings(CorsRegistry registry) {
 	                registry.addMapping("/**")
 	                    .allowedOrigins(
-	                        "https://vetra-sales-front-end-m2hs.vercel.app"
+	                    		"http://localhost:3005","https://vetra-sales-front-end-m2hs.vercel.app","https://vetra-sales-front-end-m2hs-git-main-j-pradyumnas-projects.vercel.app","https://vetra-sales-front-end-m2hs-ndu33rh0g-j-pradyumnas-projects.vercel.app"
 	                    )
 	                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 	                    .allowedHeaders("*")
