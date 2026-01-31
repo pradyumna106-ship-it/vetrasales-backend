@@ -46,9 +46,9 @@ public class UserController {
     private UserService service;
 
     @PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String signUp(@RequestBody UserDTO userDto) {
+    public ResponseEntity<?> signUp(@RequestBody UserDTO userDto) {
         String result = service.addUser(userDto);
-        return result;
+        return ResponseEntity.ok(result);
     }
     
     @PostMapping(value = "/updateUser", consumes = MediaType.APPLICATION_JSON_VALUE)
