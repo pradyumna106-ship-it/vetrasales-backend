@@ -26,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOriginPatterns(List.of("http://localhost:3005"));  // Your React port
+        config.setAllowedOriginPatterns(List.of("http://localhost:3005","https://vetra-sales-front-end-m2hs.vercel.app","https://vetra-sales-front-end-m2hs-git-main-j-pradyumnas-projects.vercel.app","https://vetra-sales-front-end-m2hs-ndu33rh0g-j-pradyumnas-projects.vercel.app"));  // Your React port
         config.setAllowedMethods(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
