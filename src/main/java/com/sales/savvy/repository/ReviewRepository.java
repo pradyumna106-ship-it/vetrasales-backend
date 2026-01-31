@@ -1,6 +1,7 @@
 package com.sales.savvy.repository;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,5 +19,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Modifying
     @Query("DELETE FROM Review r WHERE r.product.id = :productId")
     void deleteByProduct_Id(@Param("productId") Long productId);
-    List<Review> findByUser_Id(Long userId);
+    List<Review> findByUser_Id(UUID uuid);
 }

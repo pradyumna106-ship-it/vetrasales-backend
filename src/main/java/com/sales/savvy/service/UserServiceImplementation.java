@@ -5,10 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,10 +26,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.sales.savvy.SecurityConfig;
 import com.sales.savvy.dto.FetchContactDTO;
+import com.sales.savvy.dto.JwtResponse;
 import com.sales.savvy.dto.LoginData;
 import com.sales.savvy.dto.UserDTO;
 import com.sales.savvy.entity.User;
@@ -29,37 +39,56 @@ import com.sales.savvy.enums.Gender;
 import com.sales.savvy.enums.Role;
 import com.sales.savvy.enums.userStatus;
 import com.sales.savvy.repository.UserRepository;
+import com.sales.savvy.security.JwtUtils;
 
 @Service
+@Primary
 public class UserServiceImplementation implements UserService {
     @Autowired
     private UserRepository repo;
-
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+	private JwtUtils jwtUtils;
+    @Autowired
+	private AuthenticationManager authenticationManager;
     @Override
     public String addUser(UserDTO userDto) {
-    	// Check if username already exists
-        Optional<User> existing = repo.findByUsername(userDto.getUsername().toLowerCase());
-        Optional<User> existing2 = repo.findByEmail(userDto.getEmail().toLowerCase());
-        if (existing.isPresent() || existing2.isPresent()) {
-            return "fail";   // already taken
+        // Normalize & check duplicates
+        String username = userDto.getUsername().toLowerCase();
+        String email = userDto.getEmail().toLowerCase();
+        
+        if (repo.findByUsername(username).isPresent() || repo.findByEmail(email).isPresent()) {
+            return "fail";
         }
-        System.out.println("Email exists: " + repo.findByEmail(userDto.getEmail().toLowerCase()));
-        System.out.println("Username exists: " + repo.findByUsername(userDto.getUsername().toLowerCase()));
-        User user = new User();
-        user.setDob(userDto.getDob());
-        user.setEmail(userDto.getEmail().toLowerCase());
-        user.setPhone(userDto.getPhone());
-        user.setGender(Gender.valueOf(userDto.getGender().toUpperCase()));
-        user.setLocation(userDto.getLocation());
-        user.setPassword(userDto.getPassword());
-        user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
-        user.setUsername(userDto.getUsername().toLowerCase());
-        user.setJoinedDate(LocalDate.now());
-        user.setStatus(userStatus.ACTIVE);
-        // New username — save
+        
+        // ✅ Convert enums BEFORE builder
+        Role role = Role.valueOf(userDto.getRole().toUpperCase());
+        Gender gender = Gender.valueOf(userDto.getGender().toUpperCase());
+        
+        // ✅ Build ONCE with ALL fields
+        User user = User.builder()
+            .username(username)
+            .email(email)
+            .password(passwordEncoder.encode(userDto.getPassword()))  // ✅ Hash ONLY
+            .phone(userDto.getPhone())
+            .gender(gender)
+            .location(userDto.getLocation())
+            .dob(userDto.getDob())
+            .role(role)
+            .joinedDate(LocalDate.now())
+            .status(userStatus.ACTIVE)
+            .authorities(Set.of(role))  // ✅ role now exists
+            .enabled(true)
+            .accountNonExpired(true)
+            .accountNonLocked(true)
+            .credentialsNonExpired(true)
+            .build();
+        
         repo.save(user);
         return "success";
     }
+
 
     @Override
     public UserDTO getUser(String username) {
@@ -82,28 +111,44 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public String validateUser(LoginData data) {
-
-        Optional<User> optUser = repo.findByUsername(data.getUsername());
-
-        if (optUser.isEmpty()) {
-            return "invalid"; // username not found
+    public ResponseEntity<?> validateUser(LoginData data) {
+        try {
+            // 1. Authenticate (validates username + password)
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    data.getUsername().toLowerCase(),  // ✅ Normalize
+                    data.getPassword()
+                )
+            );
+            
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            
+            // 2. Get user details from authentication (SAFER)
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            User user = repo.findByUsername(userDetails.getUsername()).get();  // Now guaranteed to exist
+            
+            // 3. Generate JWT
+            String jwtToken = jwtUtils.generateTokenFromUsername(userDetails);
+            
+            // 4. Response
+            JwtResponse response = JwtResponse.builder()
+                .username(user.getUsername())
+                .role(user.getRole() == Role.ADMIN ? "admin" : "customer")
+                .jwtToken(jwtToken)
+                .build();
+                
+            return ResponseEntity.ok(response);
+            
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Map.of("message", "Invalid credentials"));
         }
-
-        User u = optUser.get();
-
-        // ✅ ONLY check password
-        if (!u.getPassword().equals(data.getPassword())) {
-            return "invalid"; // wrong password
-        }
-
-        // ✅ role check
-        return u.getRole().name().toString().equals("ADMIN") ? "admin" : "customer";
     }
 
 
+
 	@Override
-	public void deleteUser(Long id) {
+	public void deleteUser(UUID id) {
 		// TODO Auto-generated method stub
 		repo.deleteById(id);
 	}
@@ -165,18 +210,28 @@ public class UserServiceImplementation implements UserService {
         if (existing.isPresent()) {
             return "fail";   // already taken
         }
-        User user = new User();
-        user.setId(userDto.getId());
-        user.setDob(userDto.getDob());
-        user.setEmail(userDto.getEmail());
-        user.setPhone(userDto.getPhone());
-        user.setGender(Gender.valueOf(userDto.getGender().toUpperCase()));
-        user.setLocation(userDto.getLocation());
-        user.setPassword(userDto.getPassword());
-        user.setRole(Role.valueOf(userDto.getRole().toUpperCase()));
-        user.setUsername(userDto.getUsername());
-        user.setJoinedDate(userDto.getJoinedDate());
-        user.setStatus(userStatus.valueOf(userDto.getStatus()));
+        String username = userDto.getUsername().toLowerCase();
+        String email = userDto.getEmail().toLowerCase();
+        Role role = Role.valueOf(userDto.getRole().toUpperCase());
+        Gender gender = Gender.valueOf(userDto.getGender().toUpperCase());
+        User user = User.builder()
+        		.id(userDto.getId())
+                .username(username)
+                .email(email)
+                .password(passwordEncoder.encode(userDto.getPassword()))  // ✅ Hash ONLY
+                .phone(userDto.getPhone())
+                .gender(gender)
+                .location(userDto.getLocation())
+                .dob(userDto.getDob())
+                .role(role)
+                .joinedDate(LocalDate.now())
+                .status(userStatus.ACTIVE)
+                .authorities(Set.of(role))  // ✅ role now exists
+                .enabled(true)
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .build();
         // New username — save
         repo.save(user);
         return "success";
@@ -253,7 +308,7 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public String userStatus(Long id) {
+	public String userStatus(UUID id){
 		// TODO Auto-generated method stub
 		Optional<User> userOpt = repo.findById(id);
 		User user = userOpt.get();
@@ -272,6 +327,25 @@ public class UserServiceImplementation implements UserService {
 		Optional<User> userOpt = repo.findByUsername(username);
 		FetchContactDTO contact = new FetchContactDTO(userOpt.get().getPhone(),userOpt.get().getEmail());
 		return contact;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		User user = repo.findByUsername(username)
+ 	            .orElseThrow(() ->
+ 	                    new UsernameNotFoundException("User not found: " + username));
+ 	    return User.builder()
+ 	    		.id(user.getId())
+ 	            .username(user.getUsername())
+ 	            .email(user.getEmail())
+ 	            .password(user.getPassword())
+ 	            .authorities(user.getAuthorities().stream().map(role -> Role.valueOf(role.getAuthority())).collect(Collectors.toSet()))   // ✅ PASS Set<Role> DIRECTLY
+ 	            .enabled(user.isEnabled())
+ 	            .accountNonExpired(user.isAccountNonExpired())
+ 	            .accountNonLocked(user.isAccountNonLocked())
+ 	            .credentialsNonExpired(user.isCredentialsNonExpired())
+ 	            .build();
 	}
 
 }

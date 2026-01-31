@@ -23,6 +23,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
+	@Autowired
+    private JwtUtils jwtUtils; // your JWT utility
     private Logger logger = LoggerFactory.getLogger(OncePerRequestFilter.class);
     @Autowired
     private JwtHelper jwtHelper;
@@ -30,67 +32,31 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     private UserDetailsService userDetailsService;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //Authorization
-        String requestHeader = request.getHeader("Authorization");
-        
-        //Bearer 2352345235sdfrsfgsdfsdf
-        logger.info(" Header :  {}", requestHeader);
-        String username = null;
-        String token = null;
-        
-        String path = request.getRequestURI();
-        if (isPublicEndpoint(path)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-        
-        // Your existing JWT logic...
-        final String authHeader = request.getHeader("Authorization");
-        
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            // JWT validation logic...
-        } else {
-            // Set anonymous authentication for unauthenticated requests
-            filterChain.doFilter(request, response);
-        }
-        
-        if (requestHeader != null && requestHeader.startsWith("Bearer")) {
-            //looking good
-            token = requestHeader.substring(7);
-            try {
-                username = this.jwtHelper.getUsernameFromToken(token);
-            } catch (IllegalArgumentException e) {
-                logger.info("Illegal Argument while fetching the username !!");
-                e.printStackTrace();
-            } catch (ExpiredJwtException e) {
-                logger.info("Given jwt token is expired !!");
-                e.printStackTrace();
-            } catch (MalformedJwtException e) {
-                logger.info("Some changed has done in token !! Invalid Token");
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            logger.info("Invalid Header Value !! ");
-        }
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            //fetch user detail from username
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-            Boolean validateToken = this.jwtHelper.validateToken(token, userDetails);
-            if (validateToken) {
-                //set the authentication
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            } else {
-                logger.info("Validation fails !!");
-            }
-        }
-        filterChain.doFilter(request, response);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		logger.debug("AuthTokenFilter called for URI: {}", request.getRequestURI());
+		try {
+			String jwt = parseJwt(request);
+			if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
+				String username = jwtUtils.getUserNameFromJwtToken(jwt);
+				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+				UsernamePasswordAuthenticationToken authentication =
+						new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+				logger.debug("Roles from JWT: {}", userDetails.getAuthorities());
+				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+			}
+		} catch(Exception e) {
+			logger.error("Cannot set user authentication", e);
+		}
+		filterChain.doFilter(request, response);
+	}
+    private String parseJwt(HttpServletRequest request) {
+    	String jwt = jwtUtils.getJwtFromHeader(request);
+    	logger.debug("JwtAuthFilter.java: {}",jwt);
+    	return jwt;
     }
-    
     private boolean isPublicEndpoint(String path) {
         return path.startsWith("/api/user/signUp") || 
                path.startsWith("/api/user/signIn") ||

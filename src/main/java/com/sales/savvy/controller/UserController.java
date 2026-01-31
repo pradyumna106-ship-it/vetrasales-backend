@@ -2,6 +2,7 @@ package com.sales.savvy.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,6 @@ public class UserController {
     @PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE)
     public String signUp(@RequestBody UserDTO userDto) {
         String result = service.addUser(userDto);
-        
         return result;
     }
     
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/signIn", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String signIn(@RequestBody LoginData data) {
+    public ResponseEntity<?> signIn(@RequestBody LoginData data) {
         return service.validateUser(data);
     }
 
@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @GetMapping("/delete")
-    public void deleteUser(@RequestParam Long id) {
+    public void deleteUser(@RequestParam UUID id) {
         service.deleteUser(id);
     }
 
@@ -110,7 +110,7 @@ public class UserController {
     }
     
     @GetMapping("/userStatus")
-    public String userStatus(@RequestParam Long id) {
+    public String userStatus(@RequestParam UUID id) {
         return service.userStatus(id);
     }
     @GetMapping("/getEmail")

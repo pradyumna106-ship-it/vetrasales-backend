@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -144,7 +145,7 @@ public class ProductServiceImplementation implements ProductService {
 
 
 	@Override
-	public List<ProductDTO> getByAdmin(Long id) {
+	public List<ProductDTO> getByAdmin(UUID id) {
 		// TODO Auto-generated method stub
 		List<Product> products = repo.findByAdminId(id);
 		List<ProductDTO> productsDto = new ArrayList<>();

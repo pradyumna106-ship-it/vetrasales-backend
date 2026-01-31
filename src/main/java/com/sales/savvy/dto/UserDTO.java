@@ -1,11 +1,12 @@
 package com.sales.savvy.dto;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class UserDTO {
-	private Long id;
+	private UUID id;
     private String username;
     private String email;
     private String phone;
@@ -23,7 +24,7 @@ public class UserDTO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public UserDTO(Long id, String username, String email, String phone, String password, String location,
+	public UserDTO(UUID id, String username, String email, String phone, String password, String location,
 			String gender, LocalDate dob, String role, LocalDate joinedDate, String status) {
 		super();
 		this.id = id;
@@ -39,10 +40,10 @@ public class UserDTO {
 		this.status = status;
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 	public String getUsername() {

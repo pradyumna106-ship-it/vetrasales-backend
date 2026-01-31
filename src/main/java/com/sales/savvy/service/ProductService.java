@@ -1,6 +1,7 @@
 package com.sales.savvy.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.sales.savvy.dto.AddReviewDTO;
 import com.sales.savvy.dto.ProductDTO;
@@ -12,7 +13,7 @@ public interface ProductService {
 	ProductDTO searchProduct(Long id);
 	List<ProductDTO> searchProduct(String keyword);
 	List<ProductDTO> getAllProducts();
-	List<ProductDTO> getByAdmin(Long id);
+	List<ProductDTO> getByAdmin(UUID id);
 	String updateProduct(ProductDTO prod);
 	Review addReview(AddReviewDTO review);
 	void deleteProduct(Long id);

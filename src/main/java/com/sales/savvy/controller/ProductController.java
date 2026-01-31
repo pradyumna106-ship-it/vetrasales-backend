@@ -1,6 +1,7 @@
 package com.sales.savvy.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/getByAdmin")
-	public List<ProductDTO> getByAdmin(@RequestParam Long id) {
+	public List<ProductDTO> getByAdmin(@RequestParam UUID id) {
 		return service.getByAdmin(id);
 	}
 	
