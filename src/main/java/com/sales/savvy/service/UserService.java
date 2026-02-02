@@ -19,7 +19,7 @@ public interface UserService extends UserDetailsService{
     String addUser(UserDTO userDto);
     UserDTO getUser(String username);
 
-    // void validateUser(LoginData data); // Removed to break circular dependency
+    JwtResponse validateUser(LoginData data); // Removed to break circular dependency
     void deleteUser(UUID id);
 
     void deleteAllUser();

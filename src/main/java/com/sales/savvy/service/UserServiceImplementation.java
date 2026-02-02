@@ -52,8 +52,8 @@ public class UserServiceImplementation implements UserService {
     private PasswordEncoder passwordEncoder;
     
     // Dependencies removed to break circular reference with AuthenticationManager
-    // @Autowired private JwtUtils jwtUtils;
-    // @Autowired private AuthenticationManager authenticationManager;
+    @Autowired private JwtUtils jwtUtils;
+    @Autowired private AuthenticationManager authenticationManager;
     @Override
     public String addUser(UserDTO userDto) {
         // Normalize & check duplicates
@@ -301,24 +301,48 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		// TODO Auto-generated method stub
 		User user = repo.findByUsername(username)
- 	            .orElseThrow(() ->
- 	                    new UsernameNotFoundException("User not found: " + username));
- 	    return User.builder()
- 	    		.id(user.getId())
- 	            .username(user.getUsername())
- 	            .email(user.getEmail())
- 	            .password(user.getPassword())
- 	            // Fallback: If authorities (user_roles) is empty, use the main Role field
- 	            .authorities(user.getAuthorities().isEmpty() && user.getRole() != null 
+ 	            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+ 	            
+ 	    Set<Role> roles = user.getAuthorities().isEmpty() && user.getRole() != null 
  	            		? Set.of(user.getRole()) 
- 	            		: user.getAuthorities().stream().map(role -> Role.valueOf(role.getAuthority())).collect(Collectors.toSet()))
- 	            .enabled(user.isEnabled())
- 	            .accountNonExpired(user.isAccountNonExpired())
- 	            .accountNonLocked(user.isAccountNonLocked())
- 	            .credentialsNonExpired(user.isCredentialsNonExpired())
- 	            .build();
+ 	            		: user.getAuthorities();
+ 	    
+ 	    // Convert to Spring Security Authorities
+ 	    Set<org.springframework.security.core.authority.SimpleGrantedAuthority> authorities = roles.stream()
+ 	        .map(role -> new org.springframework.security.core.authority.SimpleGrantedAuthority(role.name()))
+ 	        .collect(Collectors.toSet());
+
+ 	    return new org.springframework.security.core.userdetails.User(
+ 	            user.getUsername(),
+ 	            user.getPassword(),
+ 	            user.isEnabled(),
+ 	            user.isAccountNonExpired(),
+ 	            user.isCredentialsNonExpired(),
+ 	            user.isAccountNonLocked(),
+ 	            authorities);
+	}
+
+
+	@Override
+	public JwtResponse validateUser(LoginData data) {
+		// TODO Auto-generated method stub
+		JwtResponse response = null;
+		try {
+            Optional<User> userOpt = repo.findByUsername(data.getUsername()); 
+            User user = userOpt.get();
+            String jwtToken = jwtUtils.generateTokenFromUsername(user);
+            if (passwordEncoder.encode(data.getPassword()).equals(user.getPassword())) {
+            	response = JwtResponse.builder()
+            			.username(user.getUsername())
+            			.role(user.getRole() == Role.ADMIN ? "admin" : "customer")
+            			.jwtToken(jwtToken)
+            			.build();
+            }
+        } catch (AuthenticationException e) {
+             return null;
+        }
+		return response;
 	}
 
 }

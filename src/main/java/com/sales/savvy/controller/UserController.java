@@ -71,25 +71,11 @@ public class UserController {
 
     @PostMapping(value = "/signIn", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signIn(@RequestBody LoginData data) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(data.getUsername().toLowerCase(), data.getPassword()));
-            
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            User user = (User) authentication.getPrincipal(); 
-             
-            String jwtToken = jwtUtils.generateTokenFromUsername(user);
-             
-            JwtResponse response = JwtResponse.builder()
-                .username(user.getUsername())
-                .role(user.getRole() == Role.ADMIN ? "admin" : "customer")
-                .jwtToken(jwtToken)
-                .build();
-                
-            return ResponseEntity.ok(response);
-        } catch (AuthenticationException e) {
-             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Invalid credentials"));
-        }
+    	JwtResponse status = service.validateUser(data);
+    	if (status == null) {
+    		return new ResponseEntity<String>("Unautherized Error", HttpStatus.valueOf(401));
+    	}
+    	return ResponseEntity.ok(status);
     }
 
     @GetMapping("/userData")
