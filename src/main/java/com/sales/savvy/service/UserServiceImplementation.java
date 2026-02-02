@@ -145,6 +145,10 @@ public class UserServiceImplementation implements UserService {
             logger.error("Authentication failed for user: " + data.getUsername(), e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("message", "Invalid credentials: " + e.getMessage()));
+        } catch (Exception e) {
+            logger.error("Internal Server Error during login for user: " + data.getUsername(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Map.of("message", "Internal Server Error", "error", e.getClass().getName() + ": " + e.getMessage()));
         }
     }
 
