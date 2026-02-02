@@ -45,7 +45,7 @@ public class UserController {
     @Autowired 
     private UserService service;
 
-    @PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = {"/signUp", "/SignUp"}, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signUp(@RequestBody UserDTO userDto) {
         String result = service.addUser(userDto);
         return ResponseEntity.ok(result);
@@ -59,7 +59,7 @@ public class UserController {
         return ResponseEntity.ok("User updated successfully");
     }
 
-    @PostMapping(value = "/signIn", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = {"/signIn", "/SignIn"}, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signIn(@RequestBody LoginData data) {
         return service.validateUser(data);
     }
