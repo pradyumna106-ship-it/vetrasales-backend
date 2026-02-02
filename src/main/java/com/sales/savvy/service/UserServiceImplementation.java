@@ -343,7 +343,7 @@ public class UserServiceImplementation implements UserService {
             Optional<User> userOpt = repo.findByUsername(data.getUsername()); 
             User user = userOpt.get();
             String jwtToken = jwtUtils.generateTokenFromUsername(user);
-            if (passwordEncoder.encode(data.getPassword()).equals(user.getPassword())) {
+            if (passwordEncoder.matches(data.getPassword(),user.getPassword())) {
             	response = JwtResponse.builder()
             			.username(user.getUsername())
             			.role(user.getRole() == Role.ADMIN ? "admin" : "customer")
