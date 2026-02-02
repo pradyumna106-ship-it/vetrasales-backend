@@ -57,11 +57,11 @@ public class SecurityConfig {
                 exception.authenticationEntryPoint(point))
             .authorizeHttpRequests(auth -> auth
             	.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .requestMatchers(
                     "/api/user/signUp",
                     "/api/user/SignUp",
                     "/api/user/signIn",
                     "/api/user/SignIn",
+                    "/api/user/**",
                     "/h2-console/**"
                 ).permitAll()
                 .anyRequest().authenticated()

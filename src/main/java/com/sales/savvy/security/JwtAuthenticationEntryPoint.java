@@ -24,11 +24,13 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		logger.error("Unauthorized error: {}", authException.getMessage());
+		logger.error("Unauthorized error: {} for path: {}", authException.getMessage(), request.getRequestURI());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		final Map<String, Object> body = new HashMap<>();
-		body.put("message", "Unauthorized");
+		body.put("message", "Unauthorized (Blocked by Security Filter)");
+        body.put("path", request.getRequestURI());
+        body.put("error", authException.getMessage());
 		
 		final ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(response.getOutputStream(), body);
