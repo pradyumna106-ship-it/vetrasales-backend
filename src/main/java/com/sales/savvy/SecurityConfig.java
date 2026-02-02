@@ -74,12 +74,14 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowedOrigins(List.of(
+        // Use allowedOriginPatterns instead of allowedOrigins to support credentials more robustly
+        config.setAllowedOriginPatterns(List.of(
             "http://localhost:3005",
-            "https://vetra-sales-front-end.vercel.app"
+            "https://vetra-sales-front-end.vercel.app",
+            "https://*.vercel.app"
         ));
 
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD", "PATCH"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
 
