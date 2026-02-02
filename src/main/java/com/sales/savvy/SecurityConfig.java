@@ -57,6 +57,7 @@ public class SecurityConfig {
                 exception.authenticationEntryPoint(point))
             .authorizeHttpRequests(auth -> auth
             	.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers(
                     "/api/user/signUp",
                     "/api/user/SignUp",
                     "/api/user/signIn",
