@@ -59,9 +59,7 @@ public class SecurityConfig {
             	.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(
                     "/api/user/signUp",
-                    "/api/user/SignUp",
                     "/api/user/signIn",
-                    "/api/user/SignIn",
                     "/h2-console/**",
                     "/error"
                 ).permitAll()
