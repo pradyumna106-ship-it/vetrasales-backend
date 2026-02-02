@@ -74,7 +74,6 @@ public class SecurityConfig {
 
         config.setAllowedOriginPatterns(List.of(
             "http://localhost:3005",
-            "https://vetra-sales-front-end-m2hs.vercel.app",
             "https://*.vercel.app"
         ));
 
