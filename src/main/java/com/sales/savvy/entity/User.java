@@ -145,7 +145,7 @@ public class User implements UserDetails  {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", email=" + email + ", phone=" + phone + ", password="
 				+ password + ", gender=" + gender + ", location=" + location + ", dob=" + dob + ", role=" + role
-				+ ", joinedDate=" + joinedDate + ", status=" + status + ", products=" + products + "]";
+				+ ", joinedDate=" + joinedDate + ", status=" + status + "]";
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
