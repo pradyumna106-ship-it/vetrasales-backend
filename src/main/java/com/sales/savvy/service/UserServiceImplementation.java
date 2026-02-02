@@ -44,6 +44,8 @@ import com.sales.savvy.security.JwtUtils;
 @Service
 @Primary
 public class UserServiceImplementation implements UserService {
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(UserServiceImplementation.class);
+
     @Autowired
     private UserRepository repo;
     @Autowired
@@ -140,8 +142,9 @@ public class UserServiceImplementation implements UserService {
             return ResponseEntity.ok(response);
             
         } catch (AuthenticationException e) {
+            logger.error("Authentication failed for user: " + data.getUsername(), e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("message", "Invalid credentials"));
+                .body(Map.of("message", "Invalid credentials: " + e.getMessage()));
         }
     }
 
@@ -340,7 +343,10 @@ public class UserServiceImplementation implements UserService {
  	            .username(user.getUsername())
  	            .email(user.getEmail())
  	            .password(user.getPassword())
- 	            .authorities(user.getAuthorities().stream().map(role -> Role.valueOf(role.getAuthority())).collect(Collectors.toSet()))   // ✅ PASS Set<Role> DIRECTLY
+ 	            // Fallback: If authorities (user_roles) is empty, use the main Role field
+ 	            .authorities(user.getAuthorities().isEmpty() && user.getRole() != null 
+ 	            		? Set.of(user.getRole()) 
+ 	            		: user.getAuthorities().stream().map(role -> Role.valueOf(role.getAuthority())).collect(Collectors.toSet()))
  	            .enabled(user.isEnabled())
  	            .accountNonExpired(user.isAccountNonExpired())
  	            .accountNonLocked(user.isAccountNonLocked())
