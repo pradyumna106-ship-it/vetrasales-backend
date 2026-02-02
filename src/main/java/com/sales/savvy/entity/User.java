@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -23,7 +23,7 @@ import jakarta.persistence.*;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails{
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO) // ✅ Tells JPA to auto-generate IDs
     private UUID id;

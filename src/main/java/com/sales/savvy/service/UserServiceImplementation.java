@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
@@ -306,54 +307,49 @@ public class UserServiceImplementation implements UserService {
  	            
  	    Set<Role> roles = user.getAuthorities().isEmpty() && user.getRole() != null 
  	            		? Set.of(user.getRole()) 
- 	            		: (Set<Role>) user.getAuthorities();
+ 	            		: user.getAuthorities();
  	    
  	    // Convert to Spring Security Authorities
- 	    Set<org.springframework.security.core.authority.SimpleGrantedAuthority> authorities = roles.stream()
- 	        .map(role -> new org.springframework.security.core.authority.SimpleGrantedAuthority(role.name()))
+ 	    Set<SimpleGrantedAuthority> authorities = roles.stream()
+ 	        .map(role -> new SimpleGrantedAuthority(role.name()))
  	        .collect(Collectors.toSet());
-
- 	    return new org.springframework.security.core.userdetails.User(
- 	            user.getUsername(),
- 	            user.getPassword(),
- 	            user.isEnabled(),
- 	            user.isAccountNonExpired(),
- 	            user.isCredentialsNonExpired(),
- 	            user.isAccountNonLocked(),
- 	            authorities);
+ 	    User load = User.builder()
+        		.id(user.getId())
+                .username(username)
+                .email(user.getEmail())
+                .password(passwordEncoder.encode(user.getPassword()))  // ✅ Hash ONLY
+                .phone(user.getPhone())
+                .gender(user.getGender())
+                .location(user.getLocation())
+                .dob(user.getDob())
+                .role(user.getRole())
+                .joinedDate(LocalDate.now())
+                .status(userStatus.ACTIVE)
+                .authorities(roles)  // ✅ role now exists
+                .enabled(true)
+                .accountNonExpired(true)
+                .accountNonLocked(true)
+                .credentialsNonExpired(true)
+                .build();
+ 	    return load;
 	}
 
 
 	@Override
 	public JwtResponse validateUser(LoginData data) {
+		// TODO Auto-generated method stub
 		JwtResponse response = null;
 		try {
-            String username = data.getUsername().toLowerCase();
-            Optional<User> userOpt = repo.findByUsername(username); 
-            if (userOpt.isEmpty()) return null;
-            
+            Optional<User> userOpt = repo.findByUsername(data.getUsername()); 
             User user = userOpt.get();
-            
-            // Fix: Use passwordEncoder.matches() instead of equals()
-            if (passwordEncoder.matches(data.getPassword(), user.getPassword())) {
-                
-                // Fix: Create UserDetails for JwtUtils
-                Set<org.springframework.security.core.authority.SimpleGrantedAuthority> authorities = user.getAuthorities().stream()
-                    .map(role -> new org.springframework.security.core.authority.SimpleGrantedAuthority(role.getAuthority()))
-                    .collect(Collectors.toSet());
-                    
-                UserDetails userDetails = new org.springframework.security.core.userdetails.User(
-                    user.getUsername(),
-                    user.getPassword(),
-                    authorities);
-                
-                String jwtToken = jwtUtils.generateTokenFromUsername(userDetails);
-                
+            String jwtToken = jwtUtils.generateTokenFromUsername(user);
+            if (passwordEncoder.encode(data.getPassword()).equals(user.getPassword())) {
             	response = JwtResponse.builder()
             			.username(user.getUsername())
             			.role(user.getRole() == Role.ADMIN ? "admin" : "customer")
             			.jwtToken(jwtToken)
             			.build();
+            	return response;
             }
         } catch (AuthenticationException e) {
              return null;
