@@ -34,66 +34,68 @@ import com.sales.savvy.service.UserService;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final UserRepository userRepository;
-
-    private final CorsConfigurationSource corsConfigurationSource;
-
-    WebConfig webConfig = new WebConfig();
     @Autowired
     private JwtAuthenticationEntryPoint point;
+
     @Autowired
     private JWTAuthenticationFilter filter;
+
     @Autowired
-	private UserService userService;
-    SecurityConfig(CorsConfigurationSource corsConfigurationSource, UserRepository userRepository) {
-        this.corsConfigurationSource = corsConfigurationSource;
-        this.userRepository = userRepository;
+    private UserService userService;
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session ->
+                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .exceptionHandling(exception ->
+                exception.authenticationEntryPoint(point))
+            .authorizeHttpRequests(auth -> auth
+            	.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers(
+                    "/api/user/signUp",
+                    "/api/user/signIn",
+                    "/h2-console/**"
+                ).permitAll()
+                .anyRequest().authenticated()
+            );
+
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
-	@Bean
-	public JWTAuthenticationFilter jwtAuthFilter() {
-		return new JWTAuthenticationFilter();
-	}
-    // Reduced whitelist for simplicity
-    private static final String[] WHITE_LIST_URL = {
-    		"/api/user/signUp", "/api/user/signIn"
-    };
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.setAllowedOriginPatterns(List.of(
+            "http://localhost:3005",
+            "https://vetra-sales-front-end-m2hs.vercel.app",
+            "https://*.vercel.app"
+        ));
+
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(false);
+
+        UrlBasedCorsConfigurationSource source =
+            new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return userService;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(autherizeRequests -> autherizeRequests
-        		.requestMatchers("/h2-console/**").permitAll()
-        		.requestMatchers(HttpMethod.GET, "/api/orders/test").permitAll()
-        		.requestMatchers(HttpMethod.POST, "/api/user/signUp").permitAll()
-        		.requestMatchers(HttpMethod.POST, "/api/user/signIn").permitAll()
-        		.anyRequest().authenticated());   
-        http.sessionManagement(
-        		session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.exceptionHandling(exception -> exception.authenticationEntryPoint(point));
-        http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
-        http
-        .cors(cors -> cors.configurationSource(webConfig.corsConfigurationSource()))
-        .csrf(csrf -> csrf.disable());
-        http.authenticationProvider(authenticationProvider(userDetailsService()));
-        http.addFilterBefore(jwtAuthFilter(),UsernamePasswordAuthenticationFilter.class);
-        return http.build();
-    }
-    @Bean
-    public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager();
-    }
-    @Bean
-    public UserDetailsService userDetailsService() {
-    	return userService;
-    }
-
-
 }
