@@ -18,8 +18,10 @@ import com.sales.savvy.entity.User;
 public interface UserService extends UserDetailsService{
     String addUser(UserDTO userDto);
     UserDTO getUser(String username);
-    ResponseEntity<?> validateUser(LoginData data);
+
+    // void validateUser(LoginData data); // Removed to break circular dependency
     void deleteUser(UUID id);
+
     void deleteAllUser();
     List<UserDTO> searchUser(String name);
     List<UserDTO> getAllUser();

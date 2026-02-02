@@ -26,7 +26,12 @@ import com.sales.savvy.dto.LoginData;
 import com.sales.savvy.dto.UserDTO;
 import com.sales.savvy.entity.User;
 import com.sales.savvy.security.JwtHelper;
+import com.sales.savvy.security.JwtUtils;
 import com.sales.savvy.service.UserService;
+import com.sales.savvy.enums.Role;
+import java.util.Map;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -44,6 +49,10 @@ public class UserController {
 
     @Autowired 
     private UserService service;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signUp(@RequestBody UserDTO userDto) {
@@ -61,7 +70,25 @@ public class UserController {
 
     @PostMapping(value = "/signIn", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> signIn(@RequestBody LoginData data) {
-        return service.validateUser(data);
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(data.getUsername().toLowerCase(), data.getPassword()));
+            
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            User user = (User) authentication.getPrincipal(); 
+             
+            String jwtToken = jwtUtils.generateTokenFromUsername(user);
+             
+            JwtResponse response = JwtResponse.builder()
+                .username(user.getUsername())
+                .role(user.getRole() == Role.ADMIN ? "admin" : "customer")
+                .jwtToken(jwtToken)
+                .build();
+                
+            return ResponseEntity.ok(response);
+        } catch (AuthenticationException e) {
+             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", "Invalid credentials"));
+        }
     }
 
     @GetMapping("/userData")

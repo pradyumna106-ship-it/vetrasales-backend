@@ -50,10 +50,10 @@ public class UserServiceImplementation implements UserService {
     private UserRepository repo;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-	private JwtUtils jwtUtils;
-    @Autowired
-	private AuthenticationManager authenticationManager;
+    
+    // Dependencies removed to break circular reference with AuthenticationManager
+    // @Autowired private JwtUtils jwtUtils;
+    // @Autowired private AuthenticationManager authenticationManager;
     @Override
     public String addUser(UserDTO userDto) {
         // Normalize & check duplicates
@@ -112,45 +112,8 @@ public class UserServiceImplementation implements UserService {
         return dto;
     }
 
-    @Override
-    public ResponseEntity<?> validateUser(LoginData data) {
-        try {
-            // 1. Authenticate (validates username + password)
-            Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                    data.getUsername().toLowerCase(),  // ✅ Normalize
-                    data.getPassword()
-                )
-            );
-            
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            
-            // 2. Get user details from authentication (SAFER)
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            User user = repo.findByUsername(userDetails.getUsername()).get();  // Now guaranteed to exist
-            
-            // 3. Generate JWT
-            String jwtToken = jwtUtils.generateTokenFromUsername(userDetails);
-            
-            // 4. Response
-            JwtResponse response = JwtResponse.builder()
-                .username(user.getUsername())
-                .role(user.getRole() == Role.ADMIN ? "admin" : "customer")
-                .jwtToken(jwtToken)
-                .build();
-                
-            return ResponseEntity.ok(response);
-            
-        } catch (AuthenticationException e) {
-            logger.error("Authentication failed for user: " + data.getUsername(), e);
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("message", "Invalid credentials: " + e.getMessage()));
-        } catch (Exception e) {
-            logger.error("Internal Server Error during login for user: " + data.getUsername(), e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(Map.of("message", "Internal Server Error", "error", e.getClass().getName() + ": " + e.getMessage()));
-        }
-    }
+
+    // validateUser functionality moved to UserController to avoid circular dependency
 
 
 
