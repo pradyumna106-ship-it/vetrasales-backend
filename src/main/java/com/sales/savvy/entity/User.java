@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -23,7 +23,7 @@ import jakarta.persistence.*;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "user")
-public class User implements UserDetails  {
+public class User {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO) // ✅ Tells JPA to auto-generate IDs
     private UUID id;
@@ -147,13 +147,11 @@ public class User implements UserDetails  {
 				+ password + ", gender=" + gender + ", location=" + location + ", dob=" + dob + ", role=" + role
 				+ ", joinedDate=" + joinedDate + ", status=" + status + "]";
 	}
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Set<Role> getAuthorities() {
     	if (authorities == null) {
             return Set.of();
         }
-
-        return authorities.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toSet());
+        return authorities;
     }
 
 	public boolean isAccountNonExpired() {
