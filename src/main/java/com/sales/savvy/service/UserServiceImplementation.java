@@ -339,7 +339,7 @@ public class UserServiceImplementation implements UserService {
                 
                 // Fix: Create UserDetails for JwtUtils
                 Set<org.springframework.security.core.authority.SimpleGrantedAuthority> authorities = user.getAuthorities().stream()
-                    .map(role -> new org.springframework.security.core.authority.SimpleGrantedAuthority(role.name()))
+                    .map(role -> new org.springframework.security.core.authority.SimpleGrantedAuthority(role.getAuthority()))
                     .collect(Collectors.toSet());
                     
                 UserDetails userDetails = new org.springframework.security.core.userdetails.User(
