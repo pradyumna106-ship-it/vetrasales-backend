@@ -306,7 +306,7 @@ public class UserServiceImplementation implements UserService {
  	            
  	    Set<Role> roles = user.getAuthorities().isEmpty() && user.getRole() != null 
  	            		? Set.of(user.getRole()) 
- 	            		: user.getAuthorities();
+ 	            		: (Set<Role>) user.getAuthorities();
  	    
  	    // Convert to Spring Security Authorities
  	    Set<org.springframework.security.core.authority.SimpleGrantedAuthority> authorities = roles.stream()
