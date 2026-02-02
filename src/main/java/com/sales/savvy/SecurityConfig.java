@@ -62,7 +62,8 @@ public class SecurityConfig {
                     "/api/user/SignUp",
                     "/api/user/signIn",
                     "/api/user/SignIn",
-                    "/h2-console/**"
+                    "/h2-console/**",
+                    "/error"
                 ).permitAll()
                 .anyRequest().authenticated()
             );
