@@ -326,13 +326,29 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public JwtResponse validateUser(LoginData data) {
-		// TODO Auto-generated method stub
 		JwtResponse response = null;
 		try {
-            Optional<User> userOpt = repo.findByUsername(data.getUsername()); 
+            String username = data.getUsername().toLowerCase();
+            Optional<User> userOpt = repo.findByUsername(username); 
+            if (userOpt.isEmpty()) return null;
+            
             User user = userOpt.get();
-            String jwtToken = jwtUtils.generateTokenFromUsername(user);
-            if (passwordEncoder.encode(data.getPassword()).equals(user.getPassword())) {
+            
+            // Fix: Use passwordEncoder.matches() instead of equals()
+            if (passwordEncoder.matches(data.getPassword(), user.getPassword())) {
+                
+                // Fix: Create UserDetails for JwtUtils
+                Set<org.springframework.security.core.authority.SimpleGrantedAuthority> authorities = user.getAuthorities().stream()
+                    .map(role -> new org.springframework.security.core.authority.SimpleGrantedAuthority(role.name()))
+                    .collect(Collectors.toSet());
+                    
+                UserDetails userDetails = new org.springframework.security.core.userdetails.User(
+                    user.getUsername(),
+                    user.getPassword(),
+                    authorities);
+                
+                String jwtToken = jwtUtils.generateTokenFromUsername(userDetails);
+                
             	response = JwtResponse.builder()
             			.username(user.getUsername())
             			.role(user.getRole() == Role.ADMIN ? "admin" : "customer")
