@@ -50,18 +50,19 @@ public class OrderController {
     }
 
     @PutMapping("/{id}/status")
-    public ResponseEntity<Order> updateOrderStatus(
+    public ResponseEntity<?> updateOrderStatus(
             @PathVariable Long id,
             @RequestParam String status) {
 
-        Order order = service.updateOrderStatus(id, status);
-        return ResponseEntity.ok(order);
+        String st = service.updateOrderStatus(id, status);
+        return ResponseEntity.ok(st);
     }
 
     @GetMapping("/test")
     public String test() {
         return "hello";
     }
+    
     @GetMapping("/getSummary")
     public CustomerSummaryDTO getSummary(@RequestParam String username) {
         return service.getSummary(username);

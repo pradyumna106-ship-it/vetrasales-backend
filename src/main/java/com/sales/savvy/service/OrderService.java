@@ -17,7 +17,7 @@ public interface OrderService {
 
 	Optional<OrderDTO> getOrderById(Long orderId);
 
-	Order updateOrderStatus(Long id, String status);
+	String updateOrderStatus(Long id, String status);
 	
 	CustomerSummaryDTO getSummary(String username);
 }
