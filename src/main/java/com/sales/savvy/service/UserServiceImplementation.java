@@ -348,6 +348,7 @@ public class UserServiceImplementation implements UserService {
             			.username(user.getUsername())
             			.role(user.getRole() == Role.ADMIN ? "admin" : "customer")
             			.jwtToken(jwtToken)
+            			.loaction(user.getLocation())
             			.build();
             	return response;
             }

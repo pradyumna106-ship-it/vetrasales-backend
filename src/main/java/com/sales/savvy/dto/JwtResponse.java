@@ -4,7 +4,7 @@ public class JwtResponse {
     private String jwtToken;
     private String username;
     private String role;
-    
+    private String location;
     // Private constructor for Builder only
     private JwtResponse() {}
     
@@ -12,7 +12,16 @@ public class JwtResponse {
         return jwtToken; 
     }
     
-    public String getUsername() { 
+    
+    public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public String getUsername() { 
         return username; 
     }
     
@@ -33,12 +42,17 @@ public class JwtResponse {
     // ✅ FIX 1: Make Builder STATIC (public static class)
     public static class Builder {
         private String jwtToken;
+        private String location;
         private String username;
         private String role;
         // ✅ FIX 2: Complete the static builder() method
         
         public Builder role(String role) {
         	this.role = role;
+        	return this;
+        }
+        public Builder loaction(String location) {
+        	this.location = location;
         	return this;
         }
         public Builder jwtToken(String jwtToken) {
@@ -55,6 +69,7 @@ public class JwtResponse {
             JwtResponse response = new JwtResponse();
             response.jwtToken = this.jwtToken;
             response.username = this.username;
+            response.location = this.location;
             response.role = this.role;
             return response;
         }
